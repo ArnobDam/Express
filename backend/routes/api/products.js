@@ -41,6 +41,7 @@ router.post("/", validateProductInput, async (req, res, next) => {
   try {
     const newProduct = new Product({
       name: req.body.name,
+      category: req.body.category,
       price: req.body.price,
       description: req.body.description,
       imageUrl: req.body.imageUrl,

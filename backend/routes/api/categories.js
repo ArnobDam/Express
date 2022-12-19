@@ -3,8 +3,11 @@ const router = express.Router();
 
 const mongoose = require("mongoose");
 const Category = mongoose.model("Category");
+const Product = mongoose.model("Product");
 
 const validateCategoryInput = require("../../validations/categories");
+
+
 
 // GET ALL CATEGORIES
 router.get("/", async (req, res, next) => {
@@ -23,16 +26,24 @@ router.get("/", async (req, res, next) => {
 // GET CATEGORY
 router.get("/:categoryId", async (req, res, next) => {
     // res.json({ message: "GET /category" });
-    let category;
     try {
-        category = await Category.findById(req.params.categoryId);
-        return res.json(category);
+        
+        // const category = await Category.findById(req.params.categoryId)
+        console.log(req.params.categoryId)
+        // const ObjectId = require('mongoose').Types.ObjectId;
+        const products = await Product.find({ category: req.params.categoryId })
+        .populate("category")
+        
+
+        // .populate("categoryId", )
+        return res.json(products);
     } catch (err) {
         const error = new Error("Category not found");
         error.statusCode = 404;
         error.errors = { message: "No category found with that id" };
         return next(error);
     }
+
 });
 
 // CREATE CATEGORY
@@ -40,10 +51,7 @@ router.post("/", validateCategoryInput, async (req, res, next) => {
     // res.json({ message: "POST /category" });
     try {
         const newCategory = new Category({
-            name: req.body.name,
-            price: req.body.price,
-            description: req.body.description,
-            imageUrl: req.body.imageUrl,
+            title: req.body.title
         });
 
         let category = await newCategory.save();
