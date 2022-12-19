@@ -1,9 +1,12 @@
+@import url("https://fonts.googleapis.com/css2?family=Lato:wght@100;300;400;700&display=swap");
+
 /* http://meyerweb.com/eric/tools/css/reset/ 
    v2.0 | 20110126
    License: none (public domain)
 */
-
-@import url("https://fonts.googleapis.com/css2?family=Lato:wght@100;300;400;700&display=swap");
+* {
+  box-sizing: border-box;
+}
 
 html,
 body,
@@ -92,7 +95,6 @@ video {
   font-size: 100%;
   font: inherit;
   vertical-align: baseline;
-  box-sizing: border-box;
 }
 
 html,
@@ -100,7 +102,7 @@ body,
 #root {
   height: 100%;
   background-color: rgb(61, 61, 61);
-  font-family: "Loto", sans-serif;
+  font-family: "Lato", sans-serif;
 }
 
 a {
@@ -108,7 +110,7 @@ a {
 }
 
 a:visited {
-  color: black;
+  color: initial;
 }
 
 li {
@@ -117,6 +119,12 @@ li {
 
 button {
   cursor: pointer;
+}
+
+/* TODO: */
+button:disabled {
+  background: gray;
+  cursor: not-allowed;
 }
 
 #root {
@@ -138,7 +146,6 @@ menu,
 nav,
 section {
   display: block;
-  box-sizing: border-box;
 }
 body {
   line-height: 1;
@@ -165,4 +172,5 @@ table {
 
 :root {
   --bg-primary: rgb(0, 153, 153);
+  --error-red: red;
 }

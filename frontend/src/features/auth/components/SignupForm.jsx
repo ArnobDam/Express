@@ -3,6 +3,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { NavLink } from "react-router-dom";
 import { signup, clearSessionErrors } from "../../../store/session";
 import { AuthForm } from "./AuthForm";
+import "./AuthForm.css";
 
 export function SignupForm() {
   const [email, setEmail] = useState("");
@@ -55,58 +56,68 @@ export function SignupForm() {
   return (
     <AuthForm>
       <form className="session-form" onSubmit={usernameSubmit}>
-        <h2 className="auth-title">WELCOME BACK</h2>
+        <h2 className="auth-title">WELCOME</h2>
         <div className="auth-tabs">
-          <NavLink to="/login">Login</NavLink>
-          <NavLink to="/signup">Register</NavLink>
+          <NavLink className="tab" to="/login">
+            Login
+          </NavLink>
+          <NavLink className="tab" to="/signup">
+            Register
+          </NavLink>
         </div>
+
         <div className="errors">{errors?.email}</div>
-        <label>
-          <span>Email</span>
+        <div className="form-control">
           <input
             type="text"
             value={email}
             onChange={update("email")}
             placeholder="Email"
           />
-        </label>
+        </div>
+
         <div className="errors">{errors?.username}</div>
-        <label>
-          <span>Username</span>
+        <div className="form-control">
           <input
             type="text"
             value={username}
             onChange={update("username")}
             placeholder="Username"
           />
-        </label>
+        </div>
+
         <div className="errors">{errors?.password}</div>
-        <label>
-          <span>Password</span>
+        <div className="form-control">
           <input
             type="password"
             value={password}
             onChange={update("password")}
             placeholder="Password"
           />
-        </label>
+        </div>
+
         <div className="errors">
           {password !== password2 && "Confirm Password field must match"}
         </div>
-        <label>
-          <span>Confirm Password</span>
+        <div className="form-control">
           <input
             type="password"
             value={password2}
             onChange={update("password2")}
             placeholder="Confirm Password"
           />
-        </label>
-        <input
-          type="submit"
-          value="Sign Up"
-          disabled={!email || !username || !password || password !== password2}
-        />
+        </div>
+        <div className="btn-group">
+          <button
+            className="btn"
+            type="submit"
+            disabled={
+              !email || !username || !password || password !== password2
+            }
+          >
+            Sign up
+          </button>
+        </div>
       </form>
     </AuthForm>
   );

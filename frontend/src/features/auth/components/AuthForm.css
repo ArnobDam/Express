@@ -10,6 +10,7 @@
   width: 70%;
   height: 70%;
   background-position: center center;
+  /* transform: skew(-4deg); */
 }
 
 .left-column {
@@ -24,17 +25,18 @@
   display: flex;
   width: 100%;
   flex-direction: column;
-  justify-content: center;
+  justify-content: flex-start;
   align-items: center;
-  padding: 0 60px;
+  padding: 100px 60px 0;
 }
 
 .auth-logo {
   height: 100px;
   width: 100px;
   border-radius: 50%;
-  background-color: black;
-  margin-bottom: 30px;
+  background-color: rgb(58, 58, 58);
+  background: center / contain no-repeat url("./user-lock.png");
+  margin-bottom: 20px;
 }
 
 .auth-title {
@@ -50,9 +52,9 @@
 }
 
 .auth-tabs {
-  margin-bottom: 20px;
   display: flex;
   justify-content: space-between;
+  margin-bottom: 32px;
 }
 
 .tab {
@@ -61,20 +63,20 @@
   width: 160px;
   line-height: 46px;
   text-align: center;
-  letter-spacing: 3px;
+  letter-spacing: 2px;
 }
 
 .tab.active {
-  /* TODO */
   color: var(--bg-primary);
   border-color: var(--bg-primary);
   font-weight: 700;
 }
 
 .form-control {
-  margin-bottom: 20px;
-
+  margin-bottom: 24px;
   width: 100%;
+  /* box-shadow: 1px 0px 29px 4px rgba(27, 36, 31, 0.18); */
+  box-shadow: 0px 4px 20px rgba(34, 34, 34, 15%);
 }
 
 .form-control > input {
@@ -82,13 +84,16 @@
   height: 40px;
   border-radius: 4px;
   font-size: 16px;
-  letter-spacing: 2px;
+  letter-spacing: 1.6px;
   display: block;
-  outline: none;
+  /* border: 0.5px solid rgb(109, 109, 109); */
+  border: none;
+  padding: 0 6px;
 }
 
 input:focus {
-  outline: 1px solid yellow;
+  outline: 1px solid var(--bg-primary);
+  border: 1px solid var(--bg-primary);
 }
 
 .btn {
@@ -97,13 +102,24 @@ input:focus {
   background-color: var(--bg-primary);
   border: none;
   color: white;
-  letter-spacing: 2px;
+  letter-spacing: 1.6px;
   border-radius: 25px;
-  font-size: 16px;
+  font-size: 1rem;
 }
 
 .btn-group {
   display: flex;
   align-items: center;
   justify-content: center;
+  padding-top: 8px;
+}
+
+.errors {
+  color: var(--error-red);
+  font-size: 14px;
+}
+
+.errors.auth {
+  text-align: center;
+  padding-bottom: 12px;
 }

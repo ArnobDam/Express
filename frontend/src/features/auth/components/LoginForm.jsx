@@ -1,13 +1,17 @@
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { login, clearSessionErrors } from "../../../store/session";
 import "./AuthForm.css";
 import { NavLink } from "react-router-dom";
 import { AuthForm } from "./AuthForm";
 
+const initialFormState = {
+  email: "",
+  password: "",
+};
+
 export function LoginForm() {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const [loginFormData, setLoginFormData] = useState(initialFormState);
   const errors = useSelector((state) => state.errors.session);
   const dispatch = useDispatch();
 
@@ -17,14 +21,24 @@ export function LoginForm() {
     };
   }, [dispatch]);
 
-  const update = (field) => {
-    const setState = field === "email" ? setEmail : setPassword;
-    return (e) => setState(e.currentTarget.value);
+  /**
+   *
+   * @param {React.ChangeEvent<HTMLInputElement>} event
+   */
+  const handleChange = (event) => {
+    setLoginFormData((prev) => ({
+      ...prev,
+      [event.target.name]: event.target.value,
+    }));
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    dispatch(login({ email, password }));
+    const credentials = {
+      email: loginFormData.email,
+      password: loginFormData.password,
+    };
+    dispatch(login(credentials));
   };
 
   return (
@@ -40,29 +54,34 @@ export function LoginForm() {
           </NavLink>
         </div>
 
-        <div className="errors">{errors?.email}</div>
         <div className="form-control">
           <input
-            type="text"
-            value={email}
-            onChange={update("email")}
+            type="email"
+            name="email"
+            value={loginFormData.email}
+            onChange={handleChange}
             placeholder="Email"
           />
         </div>
-        <div className="errors">{errors?.password}</div>
+
         <div className="form-control">
           <input
             type="password"
-            value={password}
-            onChange={update("password")}
+            name="password"
+            value={loginFormData.password}
+            onChange={handleChange}
             placeholder="Password"
           />
         </div>
-        {/* <button className="btn" type="submit" disabled={!email || !password}> */}
+        <div className="errors auth">{errors?.email}</div>
         <div className="btn-group">
-          <button className="btn" type="submit">
-          Log in
-        </button>
+          <button
+            className="btn"
+            type="submit"
+            disabled={!loginFormData.email || !loginFormData.password}
+          >
+            Log in
+          </button>
         </div>
       </form>
     </AuthForm>
