@@ -97,6 +97,13 @@ html,
 body,
 #root {
   height: 100%;
+  background-color: rgb(61, 61, 61);
+}
+
+#root {
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 /* HTML5 display-role reset for older browsers */
