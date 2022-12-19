@@ -61,22 +61,6 @@ router.post('/', async (req, res, next) => {
 // UPDATE PRODUCT
 router.patch('/:productId', async (req, res, next) => {
 
-  // Product.updateOne({_id: req.params.productId}, {
-  //   name: req.body.name,
-  //   price: req.body.price,
-  //   description: req.body.description,
-  //   imageUrl: req.body.imageUrl
-  // }, async (err, docs) => {
-  //   if (err) {
-  //     const error = new Error("Product can't be updated.")
-  //     error.statusCode = 422;
-  //     error.errors = { message: "Invalid product input values." }
-  //     return next(error);
-  //   } else {
-  //     return res.json(docs);
-  //   }
-  // })
-
   Product.findByIdAndUpdate(req.params.productId, {
     name: req.body.name,
     price: req.body.price,
@@ -95,12 +79,48 @@ router.patch('/:productId', async (req, res, next) => {
 
 // UPDATE PRODUCT
 router.put('/:productId', async (req, res, next) => {
-  res.json({ message: "PUT /product" });
+
+  Product.findByIdAndUpdate(req.params.productId, {
+    name: req.body.name,
+    price: req.body.price,
+    description: req.body.description,
+    imageUrl: req.body.imageUrl
+  }, { new: true }).then((product) => {
+    return res.json(product);
+  }).catch((err) => {
+    const error = new Error("Product can't be updated.")
+    error.statusCode = 422;
+    error.errors = { message: "Invalid product input values." }
+    return next(error);
+  })
+  
 });
 
 // DELETE PRODUCT
 router.delete('/:productId', async (req, res, next) => {
-  res.json({ message: "DELETE /product" });
+  // res.json({ message: "DELETE /product" });
+
+  Product.findByIdAndDelete(req.params.productId).then((product) => {
+    return res.json(product)
+  }).catch((err) => {
+    const error = new Error("Product can't be deleted.")
+    error.statusCode = 422;
+    error.errors = { message: "Product can't be found." }
+    return next(error);
+  })
 });
+
+// DELETE ALL PRODUCTS
+router.delete('/', async (req, res, next) => {
+
+  Product.deleteMany({}).then(() => {
+    return res.json("Goodbye food.")
+  }).catch((err) => {
+    const error = new Error("Products cannot all be deleted.")
+    error.statusCode = 422;
+    error.errors = { message: "Products are not found." }
+    return next(error);
+  })
+})
 
 module.exports = router;
