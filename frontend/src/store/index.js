@@ -9,13 +9,14 @@ const rootReducer = combineReducers({
 });
 
 let enhancer;
+const middlewares = [thunk];
 
 if (process.env.NODE_ENV === "production") {
-  enhancer = applyMiddleware(thunk);
+  enhancer = applyMiddleware(...middlewares);
 } else {
   const composeEnhancers =
     window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
-  enhancer = composeEnhancers(applyMiddleware(thunk));
+  enhancer = composeEnhancers(applyMiddleware(...middlewares));
 }
 
 export const configureStore = (preloadedState) => {
