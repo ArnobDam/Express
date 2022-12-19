@@ -9,12 +9,12 @@ router.get('/', async (req, res, next) => {
   // res.json({ message: "GET /products" });
   try {
     const products = await Product.find()
-    .populate("_id, name", "price", "description", "image")
-    .sort({ name: 1 });
+      .populate("_id, name", "price", "description", "image")
+      .sort({ name: 1 });
 
     return res.json(products);
   }
-  catch(err) {
+  catch (err) {
     return res.json([]);
   }
 });
@@ -26,18 +26,36 @@ router.get('/:productId', async (req, res, next) => {
   try {
     product = await Product.findById(req.params.productId)
     return res.json(product)
-  } catch(err) {
+  } catch (err) {
     const error = new Error('Product not found');
     error.statusCode = 404;
-    error.errors = { message: "No product found with that id "};
+    error.errors = { message: "No product found with that id " };
     return next(error);
   }
-  
+
 });
 
-// MAKE PRODUCT
-router.post('/new', async (req, res, next) => {
-  res.json({ message: "POST /product" });
+// CREATE PRODUCT
+router.post('/', async (req, res, next) => {
+  // res.json({ message: "POST /product" });
+  try {
+    const newProduct = new Product({
+      name: req.body.name,
+      price: req.body.price,
+      description: req.body.description,
+      imageUrl: req.body.imageUrl
+    });
+
+    let product = await newProduct.save();
+    product = await product.populate('_id, name', 'price', 'description', 'imageUrl');
+    return res.json(product);
+  }
+  catch (err) {
+    const error = new Error("Product can't be created.")
+    error.statusCode = 422;
+    error.errors = { message: "Invalid product input values."}
+    return next(error);
+  }
 });
 
 // UPDATE PRODUCT
