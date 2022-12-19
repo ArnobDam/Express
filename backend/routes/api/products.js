@@ -9,8 +9,8 @@ router.get('/', async (req, res, next) => {
   // res.json({ message: "GET /products" });
   try {
     const products = await Product.find()
-      .populate("_id, name", "price", "description", "image")
-      .sort({ name: 1 });
+    // .populate("name", "price", "description")
+    // .sort({ createdAt: 1 });
 
     return res.json(products);
   }
@@ -47,29 +47,59 @@ router.post('/', async (req, res, next) => {
     });
 
     let product = await newProduct.save();
-    product = await product.populate('_id, name', 'price', 'description', 'imageUrl');
+    // product = await product.populate('_id, name', 'price', 'description', 'imageUrl');
     return res.json(product);
   }
   catch (err) {
     const error = new Error("Product can't be created.")
     error.statusCode = 422;
-    error.errors = { message: "Invalid product input values."}
+    error.errors = { message: "Invalid product input values." }
     return next(error);
   }
 });
 
 // UPDATE PRODUCT
-router.patch('/:product_id', async (req, res, next) => {
-  res.json({ message: "PATCH /product" });
+router.patch('/:productId', async (req, res, next) => {
+
+  // Product.updateOne({_id: req.params.productId}, {
+  //   name: req.body.name,
+  //   price: req.body.price,
+  //   description: req.body.description,
+  //   imageUrl: req.body.imageUrl
+  // }, async (err, docs) => {
+  //   if (err) {
+  //     const error = new Error("Product can't be updated.")
+  //     error.statusCode = 422;
+  //     error.errors = { message: "Invalid product input values." }
+  //     return next(error);
+  //   } else {
+  //     return res.json(docs);
+  //   }
+  // })
+
+  Product.findByIdAndUpdate(req.params.productId, {
+    name: req.body.name,
+    price: req.body.price,
+    description: req.body.description,
+    imageUrl: req.body.imageUrl
+  }, { new: true }).then((docs) => {
+    return res.json(docs);
+  }).catch((err) => {
+    const error = new Error("Product can't be updated.")
+    error.statusCode = 422;
+    error.errors = { message: "Invalid product input values." }
+    return next(error);
+  })
+
 });
 
 // UPDATE PRODUCT
-router.put('/:product_id', async (req, res, next) => {
+router.put('/:productId', async (req, res, next) => {
   res.json({ message: "PUT /product" });
 });
 
 // DELETE PRODUCT
-router.delete('/:product_id', async (req, res, next) => {
+router.delete('/:productId', async (req, res, next) => {
   res.json({ message: "DELETE /product" });
 });
 
