@@ -1,0 +1,109 @@
+.AuthForm {
+  display: grid;
+  /* grid-template-columns: repeat(2, minmax(0, 1fr)); */
+  grid-template-columns: 60% 40%;
+  height: 100%;
+  width: 100%;
+}
+
+.auth-background-image {
+  width: 70%;
+  height: 70%;
+  background-position: center center;
+}
+
+.left-column {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--bg-primary);
+}
+
+.right-column {
+  display: flex;
+  width: 100%;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 0 60px;
+}
+
+.auth-logo {
+  height: 100px;
+  width: 100px;
+  border-radius: 50%;
+  background-color: black;
+  margin-bottom: 30px;
+}
+
+.auth-title {
+  margin-bottom: 20px;
+  font-size: 30px;
+  text-align: center;
+  letter-spacing: 2px;
+}
+
+.session-form {
+  /* width: 350px; */
+  width: 100%;
+}
+
+.auth-tabs {
+  margin-bottom: 20px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.tab {
+  font-size: 20px;
+  border-bottom: 2px solid black;
+  width: 160px;
+  line-height: 46px;
+  text-align: center;
+  letter-spacing: 3px;
+}
+
+.tab.active {
+  /* TODO */
+  color: var(--bg-primary);
+  border-color: var(--bg-primary);
+  font-weight: 700;
+}
+
+.form-control {
+  margin-bottom: 20px;
+
+  width: 100%;
+}
+
+.form-control > input {
+  width: 100%;
+  height: 40px;
+  border-radius: 4px;
+  font-size: 16px;
+  letter-spacing: 2px;
+  display: block;
+  outline: none;
+}
+
+input:focus {
+  outline: 1px solid yellow;
+}
+
+.btn {
+  width: 120px;
+  height: 40px;
+  background-color: var(--bg-primary);
+  border: none;
+  color: white;
+  letter-spacing: 2px;
+  border-radius: 25px;
+  font-size: 16px;
+}
+
+.btn-group {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}

@@ -3,6 +3,8 @@
    License: none (public domain)
 */
 
+@import url("https://fonts.googleapis.com/css2?family=Lato:wght@100;300;400;700&display=swap");
+
 html,
 body,
 div,
@@ -98,6 +100,23 @@ body,
 #root {
   height: 100%;
   background-color: rgb(61, 61, 61);
+  font-family: "Loto", sans-serif;
+}
+
+a {
+  text-decoration: none;
+}
+
+a:visited {
+  color: black;
+}
+
+li {
+  list-style: none;
+}
+
+button {
+  cursor: pointer;
 }
 
 #root {
@@ -142,4 +161,8 @@ q:after {
 table {
   border-collapse: collapse;
   border-spacing: 0;
+}
+
+:root {
+  --bg-primary: rgb(0, 153, 153);
 }

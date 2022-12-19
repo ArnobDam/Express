@@ -1,6 +1,8 @@
 import { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
+import { NavLink } from "react-router-dom";
 import { signup, clearSessionErrors } from "../../../store/session";
+import { AuthForm } from "./AuthForm";
 
 export function SignupForm() {
   const [email, setEmail] = useState("");
@@ -51,55 +53,61 @@ export function SignupForm() {
   };
 
   return (
-    <form className="session-form" onSubmit={usernameSubmit}>
-      <h2>Sign Up Form</h2>
-      <div className="errors">{errors?.email}</div>
-      <label>
-        <span>Email</span>
+    <AuthForm>
+      <form className="session-form" onSubmit={usernameSubmit}>
+        <h2 className="auth-title">WELCOME BACK</h2>
+        <div className="auth-tabs">
+          <NavLink to="/login">Login</NavLink>
+          <NavLink to="/signup">Register</NavLink>
+        </div>
+        <div className="errors">{errors?.email}</div>
+        <label>
+          <span>Email</span>
+          <input
+            type="text"
+            value={email}
+            onChange={update("email")}
+            placeholder="Email"
+          />
+        </label>
+        <div className="errors">{errors?.username}</div>
+        <label>
+          <span>Username</span>
+          <input
+            type="text"
+            value={username}
+            onChange={update("username")}
+            placeholder="Username"
+          />
+        </label>
+        <div className="errors">{errors?.password}</div>
+        <label>
+          <span>Password</span>
+          <input
+            type="password"
+            value={password}
+            onChange={update("password")}
+            placeholder="Password"
+          />
+        </label>
+        <div className="errors">
+          {password !== password2 && "Confirm Password field must match"}
+        </div>
+        <label>
+          <span>Confirm Password</span>
+          <input
+            type="password"
+            value={password2}
+            onChange={update("password2")}
+            placeholder="Confirm Password"
+          />
+        </label>
         <input
-          type="text"
-          value={email}
-          onChange={update("email")}
-          placeholder="Email"
+          type="submit"
+          value="Sign Up"
+          disabled={!email || !username || !password || password !== password2}
         />
-      </label>
-      <div className="errors">{errors?.username}</div>
-      <label>
-        <span>Username</span>
-        <input
-          type="text"
-          value={username}
-          onChange={update("username")}
-          placeholder="Username"
-        />
-      </label>
-      <div className="errors">{errors?.password}</div>
-      <label>
-        <span>Password</span>
-        <input
-          type="password"
-          value={password}
-          onChange={update("password")}
-          placeholder="Password"
-        />
-      </label>
-      <div className="errors">
-        {password !== password2 && "Confirm Password field must match"}
-      </div>
-      <label>
-        <span>Confirm Password</span>
-        <input
-          type="password"
-          value={password2}
-          onChange={update("password2")}
-          placeholder="Confirm Password"
-        />
-      </label>
-      <input
-        type="submit"
-        value="Sign Up"
-        disabled={!email || !username || !password || password !== password2}
-      />
-    </form>
+      </form>
+    </AuthForm>
   );
 }

@@ -1,6 +1,9 @@
 import { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { login, clearSessionErrors } from "../../../store/session";
+import "./AuthForm.css";
+import { NavLink } from "react-router-dom";
+import { AuthForm } from "./AuthForm";
 
 export function LoginForm() {
   const [email, setEmail] = useState("");
@@ -25,29 +28,43 @@ export function LoginForm() {
   };
 
   return (
-    <form className="session-form" onSubmit={handleSubmit}>
-      <h2>Log In Form</h2>
-      <div className="errors">{errors?.email}</div>
-      <label>
-        <span>Email</span>
-        <input
-          type="text"
-          value={email}
-          onChange={update("email")}
-          placeholder="Email"
-        />
-      </label>
-      <div className="errors">{errors?.password}</div>
-      <label>
-        <span>Password</span>
-        <input
-          type="password"
-          value={password}
-          onChange={update("password")}
-          placeholder="Password"
-        />
-      </label>
-      <input type="submit" value="Log In" disabled={!email || !password} />
-    </form>
+    <AuthForm>
+      <form className="session-form" onSubmit={handleSubmit}>
+        <h2 className="auth-title">WELCOME BACK</h2>
+        <div className="auth-tabs">
+          <NavLink className="tab" to="/login">
+            Login
+          </NavLink>
+          <NavLink className="tab" to="/signup">
+            Register
+          </NavLink>
+        </div>
+
+        <div className="errors">{errors?.email}</div>
+        <div className="form-control">
+          <input
+            type="text"
+            value={email}
+            onChange={update("email")}
+            placeholder="Email"
+          />
+        </div>
+        <div className="errors">{errors?.password}</div>
+        <div className="form-control">
+          <input
+            type="password"
+            value={password}
+            onChange={update("password")}
+            placeholder="Password"
+          />
+        </div>
+        {/* <button className="btn" type="submit" disabled={!email || !password}> */}
+        <div className="btn-group">
+          <button className="btn" type="submit">
+          Log in
+        </button>
+        </div>
+      </form>
+    </AuthForm>
   );
 }
