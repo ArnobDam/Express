@@ -10,6 +10,7 @@ require("./config/passport");
 const passport = require("passport");
 
 const usersRouter = require("./routes/api/users");
+const productsRouter = require("./routes/api/products")
 const csrfRouter = require("./routes/csrf");
 
 const app = express();
@@ -33,6 +34,7 @@ app.use(
 );
 
 app.use("/api/users", usersRouter);
+app.use("/api/products", productsRouter);
 app.use("/api/csrf", csrfRouter);
 
 if (isProduction) {
