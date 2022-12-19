@@ -8,6 +8,7 @@ const { isProduction } = require("./config/keys");
 
 require("./models/User");
 require("./models/Product")
+require("./models/Category")
 
 require("./config/passport");
 const passport = require("passport");
@@ -15,6 +16,7 @@ const passport = require("passport");
 
 const usersRouter = require("./routes/api/users");
 const productsRouter = require("./routes/api/products")
+const categoriesRouter = require("./routes/api/categories")
 const csrfRouter = require("./routes/csrf");
 
 const app = express();
@@ -39,6 +41,7 @@ app.use(
 
 app.use("/api/users", usersRouter);
 app.use("/api/products", productsRouter);
+app.use("/api/categories", categoriesRouter);
 app.use("/api/csrf", csrfRouter);
 
 if (isProduction) {
