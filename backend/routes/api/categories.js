@@ -30,8 +30,8 @@ router.get("/:categoryId", async (req, res, next) => {
         
         // const category = await Category.findById(req.params.categoryId)
         console.log(req.params.categoryId)
-        // const ObjectId = require('mongoose').Types.ObjectId;
-        const products = await Product.find({ category: req.params.categoryId })
+        const ObjectId = require('mongoose').Types.ObjectId;
+        const products = await Product.find({ category: new ObjectId(req.params.categoryId) })
         .populate("category")
         
 

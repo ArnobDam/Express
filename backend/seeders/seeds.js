@@ -87,7 +87,6 @@ const insertSeeds = () => {
     .then(() => User.insertMany(users))
     .then(() => {
       console.log("Done!");
-      mongoose.disconnect();
     })
     .catch((err) => {
       console.error(err.stack);
