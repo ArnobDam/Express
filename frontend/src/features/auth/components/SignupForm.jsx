@@ -5,6 +5,7 @@ import { signup, clearSessionErrors } from "../../../store/session";
 import { AuthForm } from "./AuthForm";
 import "./AuthForm.css";
 
+
 export function SignupForm() {
   const [email, setEmail] = useState("");
   const [username, setUsername] = useState("");
@@ -55,7 +56,7 @@ export function SignupForm() {
 
   return (
     <AuthForm>
-      <form className="session-form" onSubmit={usernameSubmit}>
+      <form className="session-form" onSubmit={usernameSubmit} noValidate>
         <h2 className="auth-title">WELCOME</h2>
         <div className="auth-tabs">
           <NavLink className="tab" to="/login">
@@ -66,7 +67,7 @@ export function SignupForm() {
           </NavLink>
         </div>
 
-        <div className="errors">{errors?.email}</div>
+       
         <div className="form-control">
           <input
             type="text"
@@ -75,8 +76,8 @@ export function SignupForm() {
             placeholder="Email"
           />
         </div>
+        <div className="errors">{errors?.email}</div>
 
-        <div className="errors">{errors?.username}</div>
         <div className="form-control">
           <input
             type="text"
@@ -85,8 +86,8 @@ export function SignupForm() {
             placeholder="Username"
           />
         </div>
+        <div className="errors">{errors?.username}</div>
 
-        <div className="errors">{errors?.password}</div>
         <div className="form-control">
           <input
             type="password"
@@ -95,10 +96,8 @@ export function SignupForm() {
             placeholder="Password"
           />
         </div>
+        <div className="errors">{errors?.password}</div>
 
-        <div className="errors">
-          {password !== password2 && "Confirm Password field must match"}
-        </div>
         <div className="form-control">
           <input
             type="password"
@@ -107,14 +106,21 @@ export function SignupForm() {
             placeholder="Confirm Password"
           />
         </div>
+        <div className="errors">
+          {password !== password2 && "Confirm Password field must match"}
+        </div>
+
         <div className="btn-group">
-          <button
+          {/* <button
             className="btn"
             type="submit"
             disabled={
               !email || !username || !password || password !== password2
             }
           >
+            Sign up
+          </button>          */}
+          <button className="btn" type="submit">
             Sign up
           </button>
         </div>

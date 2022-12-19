@@ -18,7 +18,11 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  background-color: var(--bg-primary);
+  /* background-color: var(--bg-primary); */
+  /* background-color: rgb(1, 53,52); */
+  /* background-color: rgb(83, 151,144);  */
+  background-color:rgb(125,178,172);
+  /* background-color:rgb(245, 139, 78); */
 }
 
 .right-column {
@@ -27,7 +31,7 @@
   flex-direction: column;
   justify-content: flex-start;
   align-items: center;
-  padding: 100px 60px 0;
+  padding: 40px 60px 10px 60px;
 }
 
 .auth-logo {
@@ -76,19 +80,27 @@
   margin-bottom: 24px;
   width: 100%;
   /* box-shadow: 1px 0px 29px 4px rgba(27, 36, 31, 0.18); */
-  box-shadow: 0px 4px 20px rgba(34, 34, 34, 15%);
+  box-shadow: 0px 4px 20px rgba(34, 34, 34, 9%);
+  position: relative;
+  display: flex;
 }
+
+.icon-prepend{
+padding-top: 16px;
+padding-left: 10px;
+}
+
 
 .form-control > input {
   width: 100%;
-  height: 40px;
+  height: 50px;
   border-radius: 4px;
   font-size: 16px;
   letter-spacing: 1.6px;
   display: block;
   /* border: 0.5px solid rgb(109, 109, 109); */
   border: none;
-  padding: 0 6px;
+  padding: 0 14px;
 }
 
 input:focus {
@@ -117,6 +129,9 @@ input:focus {
 .errors {
   color: var(--error-red);
   font-size: 14px;
+  margin-bottom: 15px;
+  padding-left: 10px;
+
 }
 
 .errors.auth {

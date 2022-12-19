@@ -123,7 +123,7 @@ button {
 
 /* TODO: */
 button:disabled {
-  background: gray;
+  /* background-color: var(--light-grey); */
   cursor: not-allowed;
 }
 
@@ -173,4 +173,5 @@ table {
 :root {
   --bg-primary: rgb(0, 153, 153);
   --error-red: red;
+  --light-grey: rgb(206, 205, 205);
 }

@@ -4,6 +4,8 @@ import { login, clearSessionErrors } from "../../../store/session";
 import "./AuthForm.css";
 import { NavLink } from "react-router-dom";
 import { AuthForm } from "./AuthForm";
+import {SlLock} from "react-icons/sl"
+import {HiOutlineUser} from "react-icons/hi"
 
 const initialFormState = {
   email: "",
@@ -55,6 +57,9 @@ export function LoginForm() {
         </div>
 
         <div className="form-control">
+          <div className="icon-prepend">
+         <HiOutlineUser/>
+         </div>
           <input
             type="email"
             name="email"
@@ -65,6 +70,9 @@ export function LoginForm() {
         </div>
 
         <div className="form-control">
+        <div className="icon-prepend">
+        <SlLock/>
+        </div>
           <input
             type="password"
             name="password"
