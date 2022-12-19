@@ -1,21 +1,21 @@
 const mongoose = require("mongoose");
 const { mongoURI: db } = require("../config/keys");
 const User = require("../models/User");
-const Tweet = require("../models/Tweet");
 const bcrypt = require("bcryptjs");
 const { faker } = require("@faker-js/faker");
+const Product = require("../models/Product");
 
 const NUM_SEED_USERS = 10;
-const NUM_SEED_TWEETS = 30;
+const NUM_SEED_PRODUCT = 30;
 
 // Create users
 const users = [];
 
 users.push(
   new User({
-    username: "demo-user",
-    email: "demo-user@appacademy.io",
-    hashedPassword: bcrypt.hashSync("starwars", 10),
+    username: "admin",
+    email: "admin@express.com",
+    hashedPassword: bcrypt.hashSync("ExpressPOS", 10),
   })
 );
 
@@ -32,25 +32,38 @@ for (let i = 1; i < NUM_SEED_USERS; i++) {
 }
 
 // Create tweets
-const tweets = [];
+const products = [];
 
-for (let i = 0; i < NUM_SEED_TWEETS; i++) {
-  tweets.push(
-    new Tweet({
-      text: faker.hacker.phrase(),
-      author: users[Math.floor(Math.random() * NUM_SEED_USERS)]._id,
+for (let i = 0; i < NUM_SEED_PRODUCT; i++) {
+  products.push(
+    new Product({
+      name: faker.commerce.product(),
+      price: (Math.random() * (20 - 1) + 1) * 100 + 99,
+      description: faker.commerce.productDescription(),
+      imageUrl: faker.image.food()
+      // imageUrl: "https://spirit.scene7.com/is/image/Spirit/01406669-a?$Detail$",
     })
   );
 }
 
 const insertSeeds = () => {
-  console.log("Resetting db and seeding users and tweets...");
+  console.log("Resetting db and seeding users and products...");
 
   User.collection
     .drop()
-    .then(() => Tweet.collection.drop())
     .then(() => User.insertMany(users))
-    .then(() => Tweet.insertMany(tweets))
+    .then(() => {
+      console.log("Done!");
+      mongoose.disconnect();
+    })
+    .catch((err) => {
+      console.error(err.stack);
+      process.exit(1);
+    });
+
+  Product.collection
+    .drop()
+    .then(() => Product.insertMany(products))
     .then(() => {
       console.log("Done!");
       mongoose.disconnect();
@@ -61,13 +74,13 @@ const insertSeeds = () => {
     });
 };
 
-// mongoose
-//   .connect(db, { useNewUrlParser: true })
-//   .then(() => {
-//     console.log("Connected to MongoDB successfully");
-//     insertSeeds();
-//   })
-//   .catch((err) => {
-//     console.error(err.stack);
-//     process.exit(1);
-//   });
+mongoose
+  .connect(db, { useNewUrlParser: true })
+  .then(() => {
+    console.log("Connected to MongoDB successfully");
+    insertSeeds();
+  })
+  .catch((err) => {
+    console.error(err.stack);
+    process.exit(1);
+  });
