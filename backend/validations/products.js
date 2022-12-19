@@ -11,6 +11,13 @@ const validateProductInput = [
     .withMessage("Name must be between 2 and 20 characters")
     .matches(/[a-zA-Z]/)
     .withMessage("Product name contains invalid values"),
+  check("price")
+    .exists({ checkFalsy: true })
+    .withMessage("Product price is required")
+    .isNumeric()
+    .withMessage("Product price must be a number")
+    .matches(/[0-9]/)
+    .withMessage("Product name contains non numeric values"),
   handleValidationErrors,
 ];
 
