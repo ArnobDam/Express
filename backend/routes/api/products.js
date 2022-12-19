@@ -20,27 +20,38 @@ router.get('/', async (req, res, next) => {
 });
 
 // GET PRODUCT
-router.get('/:product_id', function(req, res, next) {
-  res.json({ message: "GET /product" });
+router.get('/:productId', async (req, res, next) => {
+  // res.json({ message: "GET /product" });
+  let product;
+  try {
+    product = await Product.findById(req.params.productId)
+    return res.json(product)
+  } catch(err) {
+    const error = new Error('Product not found');
+    error.statusCode = 404;
+    error.errors = { message: "No product found with that id "};
+    return next(error);
+  }
+  
 });
 
 // MAKE PRODUCT
-router.post('/new', function(req, res, next) {
+router.post('/new', async (req, res, next) => {
   res.json({ message: "POST /product" });
 });
 
 // UPDATE PRODUCT
-router.patch('/:product_id', function(req, res, next) {
+router.patch('/:product_id', async (req, res, next) => {
   res.json({ message: "PATCH /product" });
 });
 
 // UPDATE PRODUCT
-router.put('/:product_id', function(req, res, next) {
+router.put('/:product_id', async (req, res, next) => {
   res.json({ message: "PUT /product" });
 });
 
 // DELETE PRODUCT
-router.delete('/:product_id', function(req, res, next) {
+router.delete('/:product_id', async (req, res, next) => {
   res.json({ message: "DELETE /product" });
 });
 
