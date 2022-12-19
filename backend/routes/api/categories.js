@@ -7,7 +7,7 @@ const Product = mongoose.model("Product");
 
 const validateCategoryInput = require("../../validations/categories");
 
-
+const ObjectId = require('mongoose').Types.ObjectId;
 
 // GET ALL CATEGORIES
 router.get("/", async (req, res, next) => {
@@ -27,13 +27,13 @@ router.get("/", async (req, res, next) => {
 router.get("/:categoryId", async (req, res, next) => {
     // res.json({ message: "GET /category" });
     try {
-        
+
         // const category = await Category.findById(req.params.categoryId)
         console.log(req.params.categoryId)
-        const ObjectId = require('mongoose').Types.ObjectId;
+
         const products = await Product.find({ category: new ObjectId(req.params.categoryId) })
-        .populate("category")
-        
+            .populate("category", "_id, title")
+
 
         // .populate("categoryId", )
         return res.json(products);
@@ -69,16 +69,13 @@ router.post("/", validateCategoryInput, async (req, res, next) => {
 router.patch("/:categoryId", validateCategoryInput, async (req, res, next) => {
     Category.findByIdAndUpdate(
         req.params.categoryId,
-        // {
-        //   name: req.body.name,
-        //   price: req.body.price,
-        //   description: req.body.description,
-        //   imageUrl: req.body.imageUrl,
-        // },
+        {
+            title: req.body.title
+        },
         { new: true }
     )
-        .then((docs) => {
-            return res.json(docs);
+        .then((category) => {
+            return res.json(category);
         })
         .catch((err) => {
             const error = new Error("Category can't be updated.");
@@ -92,16 +89,13 @@ router.patch("/:categoryId", validateCategoryInput, async (req, res, next) => {
 router.put("/:categoryId", validateCategoryInput, async (req, res, next) => {
     Category.findByIdAndUpdate(
         req.params.categoryId,
-        // {
-        //   name: req.body.name,
-        //   price: req.body.price,
-        //   description: req.body.description,
-        //   imageUrl: req.body.imageUrl,
-        // },
+        {
+            title: req.body.title
+        },
         { new: true }
     )
-        .then((docs) => {
-            return res.json(docs);
+        .then((category) => {
+            return res.json(category);
         })
         .catch((err) => {
             const error = new Error("Category can't be updated.");
@@ -129,7 +123,7 @@ router.delete("/:categoryId", async (req, res, next) => {
 
 // DELETE ALL CATEGORIES
 router.delete("/", async (req, res, next) => {
-    Croduct.deleteMany({})
+    Category.deleteMany({})
         .then(() => {
             return res.json("Goodbye categories.");
         })

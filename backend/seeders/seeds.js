@@ -70,7 +70,7 @@ for (let i = 0; i < NUM_SEED_PRODUCT; i++) {
   products.push(
     new Product({
       name: faker.commerce.product(),
-      category: categories[0]._id,
+      category: categories[Math.floor(Math.random() * (categories.length))]._id,
       price: (Math.random() * (20 - 1) + 1) * 100 + 99,
       description: faker.commerce.productDescription(),
       imageUrl: faker.image.food()
