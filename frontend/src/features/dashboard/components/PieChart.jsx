@@ -4,6 +4,7 @@ export function PieChart({ data }) {
   return (
     <ResponsivePie
       data={data}
+      colors={{scheme: 'orange_red'}}
       margin={{ top: 10, right: 30, bottom: 10, left: 10 }}
       innerRadius={0.8}
       padAngle={0.7}
@@ -28,9 +29,9 @@ export function PieChart({ data }) {
       defs={[
         {
           id: "dots",
-          type: "patternDots",
+          // type: "patternDots",
           background: "inherit",
-          color: "rgba(255, 255, 255, 0.3)",
+          // color: "",
           size: 4,
           padding: 1,
           stagger: true,
@@ -39,7 +40,7 @@ export function PieChart({ data }) {
           id: "lines",
           type: "patternLines",
           background: "inherit",
-          color: "rgba(255, 255, 255, 0.3)",
+          color: "blue",
           rotation: -45,
           lineWidth: 6,
           spacing: 10,
