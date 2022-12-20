@@ -106,6 +106,9 @@
   /* margin-top:3px */
 }
 
+
+/* -----------Product Listing--------- */
+
 .category-list {
   display: flex;
   justify-content: space-between;
@@ -131,13 +134,10 @@
   height: 30px;
   padding: 7px 10px 10px 7px;
   border-radius: 25px;
-  border: 1px solid var(--bg-primary);
+  border: 1px var(--bg-primary);
   outline-style: dashed;
 }
 
-.category-container {
-  margin: 40px 20px 20px;
-}
 
 .category-title {
   display: flex;
@@ -146,6 +146,7 @@
 
 .explore-more {
   color: var(--bg-primary);
+  cursor: pointer;
 }
 
 .category-name {
@@ -154,13 +155,42 @@
 
 .item {
   margin-top: 15px;
-  width: 150px;
+  width: 140px;
   height: 170px;
-  background-color: red;
+  background-color:white;
   border-radius: 10px;
+  display: flex;
+  justify-content: space-around;
+  padding: 10px 0 10px 0px;
+  flex-direction: column;
+  text-align: center;
 }
 
 .item-container {
   display: flex;
   justify-content: space-between;
+  padding-bottom: 40px;
+}
+
+.food-image{
+  border-radius: 50%;
+  height:90px;
+  width:90px;
+  margin:0px 25px 0px 25px;
+}
+
+.category-container{
+  background-color: var(--lightest-grey);
+  border-radius: 20px;
+  padding:20px 20px 20px 20px;
+  margin:20px 20px 20px 
+}
+
+.menu-name{
+  font-size: 14px;
+}
+
+.item-price{
+  font-size: 14px;
+  color:var(--bg-primary)
 }
