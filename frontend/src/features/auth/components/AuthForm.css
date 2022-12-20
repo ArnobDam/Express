@@ -1,0 +1,140 @@
+.AuthForm {
+  display: grid;
+  /* grid-template-columns: repeat(2, minmax(0, 1fr)); */
+  grid-template-columns: 60% 40%;
+  height: 100%;
+  width: 100%;
+}
+
+.auth-background-image {
+  width: 70%;
+  height: 70%;
+  background-position: center center;
+  /* transform: skew(-4deg); */
+}
+
+.left-column {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  /* background-color: var(--bg-primary); */
+  /* background-color: rgb(1, 53,52); */
+  /* background-color: rgb(83, 151,144);  */
+  background-color:rgb(125,178,172);
+  /* background-color:rgb(245, 139, 78); */
+}
+
+.right-column {
+  display: flex;
+  width: 100%;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  padding: 40px 60px 10px 60px;
+}
+
+.auth-logo {
+  height: 100px;
+  width: 100px;
+  border-radius: 50%;
+  background-color: rgb(58, 58, 58);
+  background: center / contain no-repeat url("./user-lock.png");
+  margin-bottom: 20px;
+}
+
+.auth-title {
+  margin-bottom: 20px;
+  font-size: 30px;
+  text-align: center;
+  letter-spacing: 2px;
+}
+
+.session-form {
+  /* width: 350px; */
+  width: 100%;
+}
+
+.auth-tabs {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 32px;
+}
+
+.tab {
+  font-size: 20px;
+  border-bottom: 2px solid black;
+  width: 160px;
+  line-height: 46px;
+  text-align: center;
+  letter-spacing: 2px;
+}
+
+.tab.active {
+  color: var(--bg-primary);
+  border-color: var(--bg-primary);
+  font-weight: 700;
+}
+
+.form-control {
+  margin-bottom: 24px;
+  width: 100%;
+  /* box-shadow: 1px 0px 29px 4px rgba(27, 36, 31, 0.18); */
+  box-shadow: 0px 4px 20px rgba(34, 34, 34, 9%);
+  position: relative;
+  display: flex;
+}
+
+.icon-prepend{
+padding-top: 16px;
+padding-left: 10px;
+}
+
+
+.form-control > input {
+  width: 100%;
+  height: 50px;
+  border-radius: 4px;
+  font-size: 16px;
+  letter-spacing: 1.6px;
+  display: block;
+  /* border: 0.5px solid rgb(109, 109, 109); */
+  border: none;
+  padding: 0 14px;
+}
+
+input:focus {
+  outline: 1px solid var(--bg-primary);
+  border: 1px solid var(--bg-primary);
+}
+
+.btn {
+  width: 120px;
+  height: 40px;
+  background-color: var(--bg-primary);
+  border: none;
+  color: white;
+  letter-spacing: 1.6px;
+  border-radius: 25px;
+  font-size: 1rem;
+}
+
+.btn-group {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding-top: 8px;
+}
+
+.errors {
+  color: var(--error-red);
+  font-size: 14px;
+  margin-bottom: 15px;
+  padding-left: 10px;
+
+}
+
+.errors.auth {
+  text-align: center;
+  padding-bottom: 12px;
+}
