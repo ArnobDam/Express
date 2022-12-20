@@ -1,13 +1,12 @@
-import { TbLogout } from "react-icons/tb";
 import { AiFillHome, AiFillSetting } from "react-icons/ai";
 import { FaClipboardList } from "react-icons/fa";
 import { MdFastfood } from "react-icons/md";
 import { RiChatHistoryFill } from "react-icons/ri";
 import { GoGraph } from "react-icons/go";
 import { BiSearch } from "react-icons/bi";
-import { useDispatch } from "react-redux";
-import { logout } from "../../../store/session";
 import { SidebarLink } from "./SidebarLink";
+import { PieChart } from "./PieChart";
+import { LogoutButton } from "./LogoutButton";
 
 const links = [
   {
@@ -48,11 +47,42 @@ const links = [
   },
 ];
 
-export function Sidebar() {
-  const dispatch = useDispatch();
+const samplePieData = [
+  {
+    id: "java",
+    label: "java",
+    value: 78,
+    color: "hsl(151, 70%, 50%)",
+  },
+  {
+    id: "erlang",
+    label: "erlang",
+    value: 163,
+    color: "hsl(50, 70%, 50%)",
+  },
+  {
+    id: "c",
+    label: "c",
+    value: 562,
+    color: "hsl(106, 70%, 50%)",
+  },
+  {
+    id: "css",
+    label: "css",
+    value: 450,
+    color: "hsl(30, 70%, 50%)",
+  },
+  {
+    id: "sass",
+    label: "sass",
+    value: 577,
+    color: "hsl(206, 70%, 50%)",
+  },
+];
 
+export function Sidebar() {
   return (
-    <>
+    <div>
       <div className="brand-logo" style={{ width: "120px", height: "100px" }} />
       <div className="searchbar-container">
         <input
@@ -72,11 +102,11 @@ export function Sidebar() {
             icon={link.icon}
           />
         ))}
-        <div className="logout-button" onClick={() => dispatch(logout())}>
-          <TbLogout className="logout-icon" />
-          <div className="logout">Logout</div>
+        <div style={{ height: "240px" }}>
+          <PieChart data={samplePieData} />
         </div>
+        <LogoutButton />
       </div>
-    </>
+    </div>
   );
 }

@@ -1,0 +1,95 @@
+.sidebar-links-container {
+  display: flex;
+  flex-direction: column;
+  margin-left: 20px;
+}
+
+.sidebar-dashboard {
+  font-size: 23px;
+  margin-left: 20px;
+  margin-bottom: 15px;
+  margin-right: 20px;
+  padding-bottom: 15px;
+  padding-left: 10px;
+  letter-spacing: 2px;
+  border-bottom: 1px solid var(--light-grey);
+}
+.sidebar-link {
+  letter-spacing: 1px;
+  font-size: 15px;
+  margin-bottom: 5px;
+  margin-right: 20px;
+  border-radius: 8px;
+  padding-top: 9px;
+  padding-left: 10px;
+  color: var(--dark-grey);
+  height: 36px;
+  display: flex;
+  cursor: pointer;
+}
+
+.sidebar-link:hover {
+  background-color: var(--sub-color);
+
+  color: var(--bg-primary);
+}
+
+.searchbar {
+  height: 30px;
+  width: 200px;
+  background-color: rgb(246, 247, 249);
+  border-radius: 5px;
+  border: none;
+  letter-spacing: 1px;
+  margin-bottom: 20px;
+  margin-left: 20px;
+  margin-right: 20px;
+  padding-left: 13px;
+}
+
+.searchbar-container {
+  display: flex;
+  position: relative;
+}
+
+.search-icon {
+  position: absolute;
+  right: 23px;
+  top: 7px;
+  color: var(--dark-grey);
+  /* left:10px */
+}
+
+.logout-button {
+  /* background-color: rgb(246, 247, 249); */
+  border: none;
+  height: 50px;
+  width: 150px;
+  letter-spacing: 2px;
+  color: var(--dark-grey);
+  display: flex;
+  align-items: center;
+  margin-left: 10px;
+  cursor: pointer;
+}
+
+.brand-logo {
+  height: 150px;
+  width: 200px;
+  background-color: rgb(58, 58, 58);
+  margin-left: 62px;
+  background: center / contain no-repeat
+    url("../../auth/components/user-lock.png");
+}
+
+.logout-icon {
+  width: 20px;
+  height: 40px;
+  margin-right: 10px;
+  /* padding-top: 10px; */
+}
+
+.link-icon {
+  margin-right: 10px;
+  /* margin-top:3px */
+}
