@@ -34,7 +34,10 @@ export const createProductAsync = (newProduct) => async (dispatch) => {
   try {
     const res = await jwtFetch("/api/products", {
       method: "POST",
-      body: JSON.stringify(newProduct),
+      headers: {
+        "Content-Type": "multipart/form-data",
+      },
+      body: newProduct,
     });
     const data = await res.json();
     return dispatch(receiveProduct(data));
@@ -87,7 +90,7 @@ const nullErrors = null;
 export const productsErrorsReducer = (state = nullErrors, action) => {
   switch (action.type) {
     case RECEIVE_PRODUCTS_ERRORS: {
-      return action.errors;
+      return { ...state, ...action.payload };
     }
     case CLEAR_PRODUCTS_ERRORS: {
       return nullErrors;
@@ -96,5 +99,3 @@ export const productsErrorsReducer = (state = nullErrors, action) => {
       return state;
   }
 };
-
-const selectProductsByCategory = (state) => {};

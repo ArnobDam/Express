@@ -1,23 +1,30 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useCallback } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
   fetchCategoriesAsync,
   selectCategoriesList,
 } from "../../../store/categories";
 import { createProductAsync } from "../../../store/products";
+import { useDropzone } from "react-dropzone";
 
 const initialProductData = {
   name: "",
   category: "",
   price: "",
   description: "",
-  imageUrl: "",
+  imageUrl: "http://asdsdafsadf",
 };
 
 export function MenuManager() {
   const [productFormData, setProductFormData] = useState(initialProductData);
   const categoryLoaded = useSelector((state) => state.categories.loaded);
   const dispatch = useDispatch();
+
+  const onDrop = useCallback((acceptedFiles) => {
+    setProductFormData((prev) => ({ ...prev, imageUrl: acceptedFiles[0] }));
+  }, []);
+
+  const { getRootProps, getInputProps, isDragActive } = useDropzone({ onDrop });
 
   /**
    * @param {React.ChangeEvent<HTMLInputElement>} event
@@ -34,11 +41,22 @@ export function MenuManager() {
    */
   const handleProductSubmit = (event) => {
     event.preventDefault();
-    const newProduct = {
-      ...productFormData,
-    };
-    console.log(newProduct);
-    dispatch(createProductAsync(newProduct));
+
+    const formData = new FormData();
+    formData.set("name", productFormData.name);
+    formData.set("description", productFormData.description);
+    formData.set("price", productFormData.price);
+    formData.set("category", productFormData.category);
+    // if (productFormData.imageUrl) {
+    //   formData.set(
+    //     "imageUrl",
+    //     productFormData.imageUrl,
+    //     productFormData.imageUrl.name
+    //   );
+    // }
+    formData.set("imageUrl", productFormData.imageUrl);
+
+    dispatch(createProductAsync(formData));
   };
 
   const categories = useSelector(selectCategoriesList);
@@ -53,7 +71,7 @@ export function MenuManager() {
     <div className="Menu">
       <h1>Menu</h1>
       <div>
-        <form onSubmit={handleProductSubmit}>
+        <form onSubmit={handleProductSubmit} encType="multipart/form-data">
           <h2>Add new product</h2>
           <div>
             <label htmlFor="name">Name</label>
@@ -102,6 +120,15 @@ export function MenuManager() {
               onChange={handleChange}
             />
           </div>
+          <div {...getRootProps()}>
+            <input {...getInputProps()} />
+            {isDragActive ? (
+              <p>Drop the files here ...</p>
+            ) : (
+              <p>Drag 'n' drop some files here, or click to select files</p>
+            )}
+          </div>
+
           <div>
             <button type="submit">Save</button>
           </div>

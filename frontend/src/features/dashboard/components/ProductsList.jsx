@@ -53,7 +53,6 @@ export function ProductsList() {
             <div className="item"></div>
             <div className="item"></div>
           </div>
-          
         </div>
         <div className="item-by-name">
           <div className="category-title">
@@ -70,7 +69,6 @@ export function ProductsList() {
             <div className="item"></div>
             <div className="item"></div>
           </div>
-          
         </div>
         <div className="item-by-name">
           <div className="category-title">
@@ -87,7 +85,6 @@ export function ProductsList() {
             <div className="item"></div>
             <div className="item"></div>
           </div>
-          
         </div>
       </div>
     </>
