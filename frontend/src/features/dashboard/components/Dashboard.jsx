@@ -16,10 +16,10 @@ export function Dashboard() {
         <Sidebar/>
       </div>
       <div className="center">
-        <h2>Choose category</h2>
-        <div>
-          <p>cat1</p>
-          <p>cat2</p>
+       
+        <div className="category">
+          <div>cat1</div>
+          <div>cat2</div>
         </div>
       </div>
       <div className="right">
