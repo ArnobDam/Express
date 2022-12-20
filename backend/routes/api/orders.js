@@ -79,6 +79,8 @@ router.post("/", validateOrderInput, async (req, res, next) => {
     
     // console.log(productNameArray);
     
+    req.body.discountPercentage ? priceSubTotal -= priceSubTotal * (req.body.discountPercentage / 100) : priceSubTotal;
+    console.log(priceSubTotal)
 
     const newOrder = new Order({
       number: Date.now(),
