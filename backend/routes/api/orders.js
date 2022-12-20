@@ -93,7 +93,7 @@ router.post("/", validateOrderInput, async (req, res, next) => {
 
 
     let order = await newOrder.save();
-    return res.json(order);
+    return res.status(201).json(order);
   }
   catch (err) {
     const error = new Error("Order can't be created.");
