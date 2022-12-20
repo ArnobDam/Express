@@ -62,23 +62,24 @@ router.post("/", validateOrderInput, async (req, res, next) => {
         productsCount[id] = (productsCount[id] || 0) + 1;
     });
 
-    console.log(productsCount)
+    // console.log(productsCount)
 
     await Product.find({
       _id: { $in: productIdArray },
     }).then((products) => {
       for (const product of products) {
-        let a = {}
-        a["name"] = product.name;
-        a["quantity"] = productsCount[product._id];
+        let productObject = {}
+        productObject["_id"] = product._id;
+        productObject["name"] = product.name;
+        productObject["quantity"] = productsCount[product._id];
         // a[product.name] = productsCount[product._id]
-        productNameArray.push(a);
+        productNameArray.push(productObject);
         // productNameArray.push(productsCount[product._id]);
         priceSubTotal += product.price;
       }
     });
     
-    console.log(productNameArray);
+    // console.log(productNameArray);
     
 
     const newOrder = new Order({
@@ -87,7 +88,7 @@ router.post("/", validateOrderInput, async (req, res, next) => {
       totalPrice: priceSubTotal * (1 + (TAX_AMOUNT/100)),
       subTotal: priceSubTotal,
       tax: TAX_AMOUNT,
-      products: [],
+      products: productNameArray,
     });
 
     // const newOrder = new Order({

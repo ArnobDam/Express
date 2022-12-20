@@ -1,7 +1,13 @@
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
-const ProductIdSchema = new Schema({ id: Schema.Types.ObjectId });
+// const ProductIdSchema = new Schema(
+//   { 
+//     name: String,
+//     quantity: Number 
+//   }
+// );
+
 const orderSchema = Schema(
   {
     number: {
@@ -25,7 +31,7 @@ const orderSchema = Schema(
       required: true,
     },
     products: {
-      type: [ProductIdSchema],
+      type: Array,
       required: true,
     },
   },
