@@ -1,5 +1,6 @@
 import { useSelector } from "react-redux";
 import "./Dashboard.css";
+import { ProductsList } from "./ProductsList";
 import { Sidebar } from "./Sidebar";
 {
   /* <h1>Dashboard</h1>
@@ -24,7 +25,8 @@ export function Dashboard() {
         <Sidebar />
       </div>
       <div className="center">
-        <div className="category-list">
+        <ProductsList />
+        {/* <div className="category-list">
           {categories.map((category) => (
             <div className="category-item" key={category.id}>
               {category.title}
@@ -44,7 +46,7 @@ export function Dashboard() {
             <div className="item"></div>
             </div>
           </div>
-        </div>
+        </div> */}
       </div>
       <div className="right">
         <h2>current Order</h2>
