@@ -249,12 +249,12 @@ router.delete("/:orderId", async (req, res, next) => {
 router.delete("/", async (req, res, next) => {
   Order.deleteMany({})
     .then(() => {
-      return res.json("Goodbye order.");
+      return res.json("Goodbye orders.");
     })
     .catch((err) => {
-      const error = new Error("Order cannot all be deleted.");
+      const error = new Error("Orders cannot all be deleted.");
       error.statusCode = 422;
-      error.errors = { message: "Order are not found." };
+      error.errors = { message: "Orders are not found." };
       return next(error);
     });
 });
