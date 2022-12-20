@@ -5,26 +5,16 @@ import { App } from "./App";
 import reportWebVitals from "./reportWebVitals";
 import { Provider } from "react-redux";
 import { configureStore } from "./store";
-import { createBrowserRouter, RouterProvider } from "react-router-dom";
-import { SignupForm } from "./features/auth/components/SignupForm";
-import { LoginForm } from "./features/auth/components/LoginForm";
+import { BrowserRouter } from "react-router-dom";
 
-const router = createBrowserRouter([
-  {
-    path: "/",
-    element: <App />,
-    children: [
-      { path: "signup", element: <SignupForm /> },
-      { path: "login", element: <LoginForm /> },
-    ],
-  },
-]);
 const store = configureStore();
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <React.StrictMode>
     <Provider store={store}>
-      <RouterProvider router={router} />
+      <BrowserRouter>
+        <App />
+      </BrowserRouter>
     </Provider>
   </React.StrictMode>
 );

@@ -4,8 +4,8 @@ import { login, clearSessionErrors } from "../../../store/session";
 import "./AuthForm.css";
 import { NavLink } from "react-router-dom";
 import { AuthForm } from "./AuthForm";
-import {SlLock} from "react-icons/sl"
-import {HiOutlineUser} from "react-icons/hi"
+import { SlLock } from "react-icons/sl";
+import { HiOutlineUser } from "react-icons/hi";
 
 const initialFormState = {
   email: "",
@@ -34,8 +34,11 @@ export function LoginForm() {
     }));
   };
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
+  /**
+   * @param {React.FormEvent<HTMLFormElement>} event
+   */
+  const handleSubmit = (event) => {
+    event.preventDefault();
     const credentials = {
       email: loginFormData.email,
       password: loginFormData.password,
@@ -58,8 +61,8 @@ export function LoginForm() {
 
         <div className="form-control">
           <div className="icon-prepend">
-         <HiOutlineUser/>
-         </div>
+            <HiOutlineUser />
+          </div>
           <input
             type="email"
             name="email"
@@ -70,9 +73,9 @@ export function LoginForm() {
         </div>
 
         <div className="form-control">
-        <div className="icon-prepend">
-        <SlLock/>
-        </div>
+          <div className="icon-prepend">
+            <SlLock />
+          </div>
           <input
             type="password"
             name="password"

@@ -5,12 +5,15 @@ import { signup, clearSessionErrors } from "../../../store/session";
 import { AuthForm } from "./AuthForm";
 import "./AuthForm.css";
 
+const initialFormState = {
+  email: "",
+  username: "",
+  password: "",
+  password2: "",
+};
 
 export function SignupForm() {
-  const [email, setEmail] = useState("");
-  const [username, setUsername] = useState("");
-  const [password, setPassword] = useState("");
-  const [password2, setPassword2] = useState("");
+  const [signupFormData, setSignupFormData] = useState(initialFormState);
   const errors = useSelector((state) => state.errors.session);
   const dispatch = useDispatch();
 
@@ -20,45 +23,40 @@ export function SignupForm() {
     };
   }, [dispatch]);
 
-  const update = (field) => {
-    let setState;
-
-    switch (field) {
-      case "email":
-        setState = setEmail;
-        break;
-      case "username":
-        setState = setUsername;
-        break;
-      case "password":
-        setState = setPassword;
-        break;
-      case "password2":
-        setState = setPassword2;
-        break;
-      default:
-        throw Error("Unknown field in Signup Form");
-    }
-
-    return (e) => setState(e.currentTarget.value);
+  /**
+   * @param {React.ChangeEvent<HTMLInputElement>} event
+   */
+  const handleChange = (event) => {
+    setSignupFormData((prev) => ({
+      ...prev,
+      [event.target.name]: event.target.value,
+    }));
   };
 
-  const usernameSubmit = (e) => {
-    e.preventDefault();
+  /**
+   * @param {React.FormEvent<HTMLFormElement>} event
+   */
+  const handleSubmit = (event) => {
+    event.preventDefault();
     const user = {
-      email,
-      username,
-      password,
+      email: signupFormData.email,
+      username: signupFormData.username,
+      password: signupFormData.password,
     };
 
     dispatch(signup(user));
   };
 
+  const isEmpty = (values) => {
+    return Object.values(values).some((value) => !value);
+  };
+
   return (
     <AuthForm>
-      <form className="session-form" onSubmit={usernameSubmit} noValidate>
+      <form className="session-form" onSubmit={handleSubmit} noValidate>
         <h2 className="auth-title">WELCOME</h2>
         <div className="auth-tabs">
+          {/* TODO: */}
           <NavLink className="tab" to="/login">
             Login
           </NavLink>
@@ -66,13 +64,12 @@ export function SignupForm() {
             Register
           </NavLink>
         </div>
-
-       
         <div className="form-control">
           <input
-            type="text"
-            value={email}
-            onChange={update("email")}
+            type="email"
+            name="email"
+            value={signupFormData.email}
+            onChange={handleChange}
             placeholder="Email"
           />
         </div>
@@ -81,8 +78,9 @@ export function SignupForm() {
         <div className="form-control">
           <input
             type="text"
-            value={username}
-            onChange={update("username")}
+            name="username"
+            value={signupFormData.username}
+            onChange={handleChange}
             placeholder="Username"
           />
         </div>
@@ -91,8 +89,9 @@ export function SignupForm() {
         <div className="form-control">
           <input
             type="password"
-            value={password}
-            onChange={update("password")}
+            name="password"
+            value={signupFormData.password}
+            onChange={handleChange}
             placeholder="Password"
           />
         </div>
@@ -101,26 +100,23 @@ export function SignupForm() {
         <div className="form-control">
           <input
             type="password"
-            value={password2}
-            onChange={update("password2")}
+            name="password2"
+            value={signupFormData.password2}
+            onChange={handleChange}
             placeholder="Confirm Password"
           />
         </div>
         <div className="errors">
-          {password !== password2 && "Confirm Password field must match"}
+          {signupFormData.password !== signupFormData.password2 &&
+            "Confirm Password field must match"}
         </div>
 
         <div className="btn-group">
-          {/* <button
+          <button
             className="btn"
             type="submit"
-            disabled={
-              !email || !username || !password || password !== password2
-            }
+            disabled={isEmpty(signupFormData)}
           >
-            Sign up
-          </button>          */}
-          <button className="btn" type="submit">
             Sign up
           </button>
         </div>
