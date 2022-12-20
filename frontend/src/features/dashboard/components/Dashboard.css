@@ -5,11 +5,14 @@
   grid-template-columns: 1fr 3fr 1fr;
 }
 
-
 .center {
   overflow-y: scroll;
 }
 
+.center::-webkit-scrollbar-thumb {
+  background-color: red;
+  border-radius: 3px;
+}
 
 .sidebar-links-container {
   display: flex;
