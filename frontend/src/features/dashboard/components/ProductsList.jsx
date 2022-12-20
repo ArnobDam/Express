@@ -53,8 +53,42 @@ export function ProductsList() {
             <div className="item"></div>
             <div className="item"></div>
           </div>
+          
         </div>
-        
+        <div className="item-by-name">
+          <div className="category-title">
+            <span className="category-name">Drinks</span>
+            <span className="explore-more"> Explore more</span>
+          </div>
+          <div className="item-container">
+            <div className="item">
+              <img className="food-image" src={coke} />
+              <div className="menu-name">Coke</div>
+              <div className="item-price">$ 5.00</div>
+            </div>
+            <div className="item"></div>
+            <div className="item"></div>
+            <div className="item"></div>
+          </div>
+          
+        </div>
+        <div className="item-by-name">
+          <div className="category-title">
+            <span className="category-name">Drinks</span>
+            <span className="explore-more"> Explore more</span>
+          </div>
+          <div className="item-container">
+            <div className="item">
+              <img className="food-image" src={coke} />
+              <div className="menu-name">Coke</div>
+              <div className="item-price">$ 5.00</div>
+            </div>
+            <div className="item"></div>
+            <div className="item"></div>
+            <div className="item"></div>
+          </div>
+          
+        </div>
       </div>
     </>
   );
