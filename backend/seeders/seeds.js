@@ -37,7 +37,7 @@ const categories = [];
 
 const categoryTitles = ["Sandwiches", "Salads", "Soups", "Drinks", "Bakery"];
 
-for (let i = 0; i < categoryTitles.length - 1; i++) {
+for (let i = 0; i < categoryTitles.length; i++) {
   categories.push(
     new Category({
       title: categoryTitles[i],
@@ -106,7 +106,7 @@ const salads = [
 
 const saladPrices = [1079, 1229, 869, 1079, 1079, 1229, 1079, 869];
 
-const saladsImgUrl = [
+const saladImgUrl = [
   "https://tb-static.uber.com/prod/image-proc/processed_images/71be995854fe740308caa6ece4a7d82e/5954bcb006b10dbfd0bc160f6370faf3.jpeg",
   "https://tb-static.uber.com/prod/image-proc/processed_images/a4ead3db1faf8a9ef5beae0f78b38904/5954bcb006b10dbfd0bc160f6370faf3.jpeg",
   "https://tb-static.uber.com/prod/image-proc/processed_images/be21e7087f959cad74cffedee1397051/5954bcb006b10dbfd0bc160f6370faf3.jpeg",
