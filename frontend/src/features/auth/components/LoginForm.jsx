@@ -8,8 +8,8 @@ import { SlLock } from "react-icons/sl";
 import { HiOutlineUser } from "react-icons/hi";
 
 const initialFormState = {
-  email: "",
-  password: "",
+  email: "newuser1@test.com",
+  password: "password",
 };
 
 export function LoginForm() {

@@ -2,15 +2,16 @@
   display: grid;
   /* grid-template-columns: repeat(2, minmax(0, 1fr)); */
   grid-template-columns: 60% 40%;
+  border-radius: 20px;
   height: 100%;
   width: 100%;
 }
 
 .auth-background-image {
-  width: 70%;
+  width: 80%;
   height: 70%;
   background-position: center center;
-  filter: brightness(50%);
+  /* filter: brightness(90%); */
 }
 
 
@@ -19,9 +20,12 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  border-top-left-radius: var(--border-radius-container);
+  border-bottom-left-radius: var(--border-radius-container);
   /* background-color: var(--bg-primary); */
   /* background-color:rgb(125,178,172); */
-  background-color: rgb(205, 216, 218);
+  /* background-color: rgb(205, 216, 218); */
+  /* background-color: rgb(236,121,5); */
    /* background-color: rgb(216, 231, 249); */
     /* background-color: rgb(249, 168, 75); */
 }
@@ -32,7 +36,10 @@
   flex-direction: column;
   justify-content: flex-start;
   align-items: center;
-  padding: 40px 60px 10px 60px;
+  padding: 150px 60px 10px 60px;
+  background-color: var(--sub-color) ;
+  border-top-right-radius: var(--border-radius-container);
+  border-bottom-right-radius: var(--border-radius-container);
 }
 
 .auth-logo {
