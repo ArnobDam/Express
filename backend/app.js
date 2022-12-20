@@ -11,6 +11,7 @@ require("./models/Product");
 require("./models/Category");
 require("./models/Order");
 
+
 require("./config/passport");
 const passport = require("passport");
 
@@ -18,6 +19,7 @@ const usersRouter = require("./routes/api/users");
 const productsRouter = require("./routes/api/products");
 const categoriesRouter = require("./routes/api/categories");
 const ordersRouter = require("./routes/api/orders");
+const statsRouter = require("./routes/api/stats")
 const csrfRouter = require("./routes/csrf");
 
 const app = express();
@@ -44,6 +46,7 @@ app.use("/api/users", usersRouter);
 app.use("/api/products", productsRouter);
 app.use("/api/categories", categoriesRouter);
 app.use("/api/orders", ordersRouter);
+app.use("/api/stats", statsRouter);
 app.use("/api/csrf", csrfRouter);
 
 if (isProduction) {
