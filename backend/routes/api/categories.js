@@ -54,7 +54,7 @@ router.post("/", validateCategoryInput, async (req, res, next) => {
 
     let category = await newCategory.save();
     // product = await product.populate('_id, name', 'price', 'description', 'imageUrl');
-    return res.json(category);
+    return res.status(201).json(category);
   } catch (err) {
     const error = new Error("Category can't be created.");
     error.statusCode = 422;

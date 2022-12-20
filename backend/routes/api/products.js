@@ -49,7 +49,7 @@ router.post("/", validateProductInput, async (req, res, next) => {
 
     let product = await newProduct.save();
     // product = await product.populate('_id, name', 'price', 'description', 'imageUrl');
-    return res.json(product);
+    return res.status(201).json(product);
   } catch (err) {
     const error = new Error("Product can't be created.");
     error.statusCode = 422;
