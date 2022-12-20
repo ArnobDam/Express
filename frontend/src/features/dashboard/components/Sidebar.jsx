@@ -7,58 +7,76 @@ import { GoGraph } from "react-icons/go";
 import { BiSearch } from "react-icons/bi";
 import { useDispatch } from "react-redux";
 import { logout } from "../../../store/session";
-import { NavLink } from "react-router-dom";
+import { SidebarLink } from "./SidebarLink";
 
-export function Sidebar(){
+const links = [
+  {
+    id: 1,
+    path: "/",
+    icon: <AiFillHome className="link-icon" />,
+    label: "Home",
+  },
+  {
+    id: 2,
+    path: "/menu",
+    icon: <MdFastfood className="link-icon" />,
+    label: "Menu",
+  },
+  {
+    id: 3,
+    path: "/order",
+    icon: <FaClipboardList className="link-icon" />,
+    label: "Order",
+  },
+  {
+    id: 4,
+    path: "/history",
+    icon: <RiChatHistoryFill className="link-icon" />,
+    label: "History",
+  },
+  {
+    id: 5,
+    path: "/report",
+    icon: <GoGraph className="link-icon" />,
+    label: "Report",
+  },
+  {
+    id: 6,
+    path: "/settings",
+    icon: <AiFillSetting className="link-icon" />,
+    label: "Settings",
+  },
+];
+
+export function Sidebar() {
   const dispatch = useDispatch();
 
-  return(
-
-
+  return (
     <>
-       <div
-          className="brand-logo"
-          style={{ width: "120px", height: "100px" }}
-        />
-        <div className="searchbar-container">
+      <div className="brand-logo" style={{ width: "120px", height: "100px" }} />
+      <div className="searchbar-container">
         <input
           className="searchbar"
           type="search"
           placeholder="What you want?"
         />
         <BiSearch className="search-icon" />
+      </div>
+      <h2 className="sidebar-dashboard">Dashboard</h2>
+      <div className="sidebar-links-container">
+        {links.map((link) => (
+          <SidebarLink
+            key={link.id}
+            path={link.path}
+            label={link.label}
+            icon={link.icon}
+          />
+        ))}
+        <div className="logout-button" onClick={() => dispatch(logout())}>
+          <TbLogout className="logout-icon" />
+          <div className="logout">Logout</div>
         </div>
-        <h2 className="sidebar-dashboard">Dashboard</h2>
-        <div className="sidebar-links-container">
-          <div className="sidebar-link">
-            <AiFillHome className="link-icon" />
-            Home
-          </div>
-          <div className="sidebar-link">
-            <MdFastfood className="link-icon" />
-            Menu
-          </div>
-          <div className="sidebar-link">
-            <FaClipboardList className="link-icon" />
-            Order
-          </div>
-          <div className="sidebar-link">
-            <RiChatHistoryFill className="link-icon" />
-            History
-          </div>
-          <div className="sidebar-link">
-            <GoGraph className="link-icon" />
-            Report
-          </div>
-          <div className="sidebar-link">
-            <AiFillSetting className="link-icon" />
-            Settings
-          </div>
-          <div className="logout-button" onClick={() => dispatch(logout())}>
-            <TbLogout className="logout-icon" />
-            <div className="logout">Logout</div>
-          </div>
-        </div>
+      </div>
     </>
-  )
+  );
 }
