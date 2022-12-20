@@ -30,12 +30,10 @@ router.get("/:orderId", async (req, res, next) => {
     // const order = await Order.findById(req.params.orderId)
     console.log(req.params.orderId);
 
-    const products = await Product.find({
-      order: new ObjectId(req.params.orderId),
-    }).populate("order", "_id, title");
+    const order = await Order.findById(req.params.orderId)
 
     // .populate("orderId", )
-    return res.json(products);
+    return res.json(order);
   } catch (err) {
     const error = new Error("Order not found");
     error.statusCode = 404;
