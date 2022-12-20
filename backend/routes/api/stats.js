@@ -70,6 +70,38 @@ router.get("/number-of-products-sold", async (req, res, next) => {
     }
 });
 
+//GET MOST POPULAR ITEMS (ALL ITEMS ORDERED)
+router.get("/popular", async (req, res, next) => {
+
+    try {
+        const orders = await Order.find();
+
+        let allItems = [];
+        let allItemsHash = {};
+
+
+
+        for (const order of orders) {
+            for (const product of order.products) {
+                if (allItemsHash[product.name]) {
+                    allItemsHash[product.name].count += product.quantity;
+                    allItemsHash[product.name].revenue += product.totalPrice;
+                } else {
+                    allItemsHash[product.name] = {"count": product.quantity, "revenue": product.totalPrice};
+                }
+            }
+        }
+        
+        return res.json(allItemsHash);
+    } catch (err) {
+        const error = new Error("No records found");
+        error.statusCode = 404;
+        error.errors = { message: "You have no avaialble orders at this time." };
+        return next(error);
+    }
+});
+
+
 
 
 
