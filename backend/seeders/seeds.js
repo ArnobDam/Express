@@ -173,16 +173,28 @@ const drinks = [
 
 const drinkPrices = [379, 859, 269, 379, 269, 509, 369, 419, 369];
 
+// const drinkImgUrl = [
+//   "https://tb-static.uber.com/prod/image-proc/processed_images/ec65244a126cc29ebef7afce1f686726/5954bcb006b10dbfd0bc160f6370faf3.jpeg",
+//   "https://tb-static.uber.com/prod/image-proc/processed_images/45720ac75f43550505e1d43441c4b3e1/5954bcb006b10dbfd0bc160f6370faf3.jpeg",
+//   "https://tb-static.uber.com/prod/image-proc/processed_images/205b132d6cde1a2b7ff563d0591ba42e/5954bcb006b10dbfd0bc160f6370faf3.jpeg",
+//   "https://tb-static.uber.com/prod/image-proc/processed_images/d7805cf320f4c450c6c5dbe092f45bef/5954bcb006b10dbfd0bc160f6370faf3.jpeg",
+//   "https://tb-static.uber.com/prod/image-proc/processed_images/0ce72ece078ffc67a349f52615e36bbf/5954bcb006b10dbfd0bc160f6370faf3.jpeg",
+//   "https://tb-static.uber.com/prod/image-proc/processed_images/25fd40ee01d2ff02cbc5d0cf2fccef3e/5954bcb006b10dbfd0bc160f6370faf3.jpeg",
+//   "https://tb-static.uber.com/prod/image-proc/processed_images/5bd773c2cc2af98febb0ad83c8ec02e9/5954bcb006b10dbfd0bc160f6370faf3.jpeg",
+//   "https://tb-static.uber.com/prod/image-proc/processed_images/66700e2953699e834540b4313e9aeaea/5954bcb006b10dbfd0bc160f6370faf3.jpeg",
+//   "https://tb-static.uber.com/prod/image-proc/processed_images/3d8ca669b613b1a1f0910c8729b42448/5954bcb006b10dbfd0bc160f6370faf3.jpeg",
+// ];
+
 const drinkImgUrl = [
-  "https://tb-static.uber.com/prod/image-proc/processed_images/ec65244a126cc29ebef7afce1f686726/5954bcb006b10dbfd0bc160f6370faf3.jpeg",
-  "https://tb-static.uber.com/prod/image-proc/processed_images/45720ac75f43550505e1d43441c4b3e1/5954bcb006b10dbfd0bc160f6370faf3.jpeg",
-  "https://tb-static.uber.com/prod/image-proc/processed_images/205b132d6cde1a2b7ff563d0591ba42e/5954bcb006b10dbfd0bc160f6370faf3.jpeg",
-  "https://tb-static.uber.com/prod/image-proc/processed_images/d7805cf320f4c450c6c5dbe092f45bef/5954bcb006b10dbfd0bc160f6370faf3.jpeg",
-  "https://tb-static.uber.com/prod/image-proc/processed_images/0ce72ece078ffc67a349f52615e36bbf/5954bcb006b10dbfd0bc160f6370faf3.jpeg",
-  "https://tb-static.uber.com/prod/image-proc/processed_images/25fd40ee01d2ff02cbc5d0cf2fccef3e/5954bcb006b10dbfd0bc160f6370faf3.jpeg",
-  "https://tb-static.uber.com/prod/image-proc/processed_images/5bd773c2cc2af98febb0ad83c8ec02e9/5954bcb006b10dbfd0bc160f6370faf3.jpeg",
-  "https://tb-static.uber.com/prod/image-proc/processed_images/66700e2953699e834540b4313e9aeaea/5954bcb006b10dbfd0bc160f6370faf3.jpeg",
-  "https://tb-static.uber.com/prod/image-proc/processed_images/3d8ca669b613b1a1f0910c8729b42448/5954bcb006b10dbfd0bc160f6370faf3.jpeg",
+  "https://en.cocktail.fabbri1905.com/imgpub/2036247/400/0/passion_fruit_iced_tea.png",
+  "https://www.dynamicgreens.com/app/uploads/2015/09/low-fat-smoothies.png",
+  "https://www.pepsico.com/images/default-source/products-brands/pepsi_12oz.png?sfvrsn=46c9ae09_0",
+  "https://cdn.shopify.com/s/files/1/2654/7682/products/Lemonade3_1445x.png?v=1594394437",
+  "https://cdn.sanity.io/images/vrmk0jny/production/287f504d28e6ecba831327f69be337a2c9396382-404x404.png?q=20&auto=format",
+  "https://popmenucloud.com/cdn-cgi/image/width=1920,height=1920,format=auto,fit=scale-down/tfxzsylp/6074068f-3526-4f2f-b545-82430a7bc400.png",
+  "https://vivavillamexicangrill.com/wp-content/uploads/2021/01/16-1.png",
+  "https://www.pepsicoproductfacts.com/content/image/products-thumbs/Sierra_12_thumb.png?r=20221017",
+  "https://cdn.shopify.com/s/files/1/0051/7262/5477/products/FW_2021_1500ml_900x900_3d63739b-efa0-4905-ab0d-28ffdf6d23f7_grande.png?v=1622553333",
 ];
 
 for (let i = 0; i < drinks.length; i++) {
