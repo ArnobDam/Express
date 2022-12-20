@@ -8,6 +8,11 @@ const receiveProducts = (products) => ({
   payload: products,
 });
 
+const receiveProduct = (product) => ({
+  type: RECEIVE_PRODUCT,
+  payload: product,
+});
+
 export const fetchProductsAsync = () => async (dispatch) => {
   try {
     const res = await jwtFetch("/api/products");
@@ -39,6 +44,16 @@ export const productsReducer = (state = initialState, action) => {
         ids: Object.keys(action.payload),
       };
     }
+
+    case RECEIVE_PRODUCT: {
+      return {
+        ...state,
+        entities: {
+          ...state.entities,
+          [action.payload._id]: action.payload,
+        },
+      };
+    }
     default:
       return state;
   }
@@ -56,7 +71,7 @@ const nullErrors = null;
 export const productsErrorsReducer = (state = nullErrors, action) => {
   switch (action.type) {
     case RECEIVE_PRODUCTS_ERRORS: {
-      return action.errors;
+      return { ...state, ...action.payload };
     }
     case CLEAR_PRODUCTS_ERRORS: {
       return nullErrors;
@@ -65,5 +80,3 @@ export const productsErrorsReducer = (state = nullErrors, action) => {
       return state;
   }
 };
-
-const selectProductsByCategory = (state) => {};

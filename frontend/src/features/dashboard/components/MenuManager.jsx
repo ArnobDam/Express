@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useCallback } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
   fetchCategoriesAsync,
@@ -10,13 +10,19 @@ const initialProductData = {
   category: "",
   price: "",
   description: "",
-  imageUrl: "",
+  imageUrl: "http://asdsdafsadf",
 };
 
 export function MenuManager() {
   const [productFormData, setProductFormData] = useState(initialProductData);
   const categoryLoaded = useSelector((state) => state.categories.loaded);
   const dispatch = useDispatch();
+
+  const onDrop = useCallback((acceptedFiles) => {
+    setProductFormData((prev) => ({ ...prev, imageUrl: acceptedFiles[0] }));
+  }, []);
+
+  const { getRootProps, getInputProps, isDragActive } = useDropzone({ onDrop });
 
   /**
    * @param {React.ChangeEvent<HTMLInputElement>} event
@@ -51,7 +57,7 @@ export function MenuManager() {
     <div className="Menu">
       <h1>Menu</h1>
       <div>
-        <form onSubmit={handleProductSubmit}>
+        <form onSubmit={handleProductSubmit} encType="multipart/form-data">
           <h2>Add new product</h2>
           <div>
             <label htmlFor="name">Name</label>
@@ -68,10 +74,13 @@ export function MenuManager() {
               name="category"
               id="category"
               value={productFormData.category}
+              onChange={handleChange}
             >
-              <option value="">Select category</option>
+              <option value="" key="">
+                Select category
+              </option>
               {categories.map((category) => (
-                <option key={category.id} value={category.id}>
+                <option key={category._id} value={category._id}>
                   {category.title}
                 </option>
               ))}
@@ -97,6 +106,15 @@ export function MenuManager() {
               onChange={handleChange}
             />
           </div>
+          <div {...getRootProps()}>
+            <input {...getInputProps()} />
+            {isDragActive ? (
+              <p>Drop the files here ...</p>
+            ) : (
+              <p>Drag 'n' drop some files here, or click to select files</p>
+            )}
+          </div>
+
           <div>
             <button type="submit">Save</button>
           </div>

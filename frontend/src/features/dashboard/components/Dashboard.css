@@ -116,6 +116,7 @@
   display: flex;
   justify-content: space-between;
   padding: 40px 20px 0 20px;
+  cursor: pointer;
 }
 
 .category-item:hover {
