@@ -35,14 +35,7 @@ for (let i = 1; i < NUM_SEED_USERS; i++) {
 // Create categories
 const categories = [];
 
-const categoryTitles = [
-  "Burgers",
-  "Salads",
-  "Soups",
-  "Sides",
-  "Drinks",
-  "Dessert",
-];
+const categoryTitles = ["Sandwiches", "Salads", "Soups", "Drinks", "Bakery"];
 
 for (let i = 0; i < categoryTitles.length - 1; i++) {
   categories.push(
@@ -55,9 +48,63 @@ for (let i = 0; i < categoryTitles.length - 1; i++) {
 // Create products
 const products = [];
 
-console.log(categories[0]._id);
+const sandwiches = [
+  "Chipotle Chicken Avocado Melt",
+  "Signature Take Chicken",
+  "Toasted Frontega Chicken",
+  "Toasted Steak & White Cheddar",
+  "Smokehouse BBQ Chicken",
+  "Spicy Take Chicken",
+  "Tuna Salad",
+  "Classic Grilled Cheese",
+  "Bacon Turkey Bravo",
+  "Napa Almond Chicken",
+  "Roasted Turkey & Avocado BLT",
+  "Smokehouse BBQ Chicken",
+];
 
-//categories[Math.random() * (categories.length - 1)]._id
+const salads = [
+  "Chicken Caesar Salad",
+  "Green Goddess Cobb Salad",
+  "Greek Salad",
+  "Fuji Apple Salad",
+  "Asian Sesame Salad",
+  "Citrus Asian Crunch Salad",
+  "BBQ Chicken Salad",
+  "Caesar Salad",
+];
+
+const soups = [
+  "Broccoli Cheddar",
+  "Homestyle Chicken Noodle",
+  "Creamy Tomato",
+  "Cream of Chicken & Wild Rice",
+  "Vegetarian Autumn Squash",
+  "Bistro French Onion",
+];
+
+const drinks = [
+  "Passion Papaya Iced Green Tea",
+  "Strawberry Banana Smoothie",
+  "Pepsi",
+  "Agave Lemonade",
+  "Strawberry Lemon Mint",
+  "Diet Pepsi",
+  "Orange Juice",
+  "Bottled Water",
+  "Sierra Mist",
+];
+
+const bakery = [
+  "Chocolate Cookie",
+  "Brownie",
+  "Mitten Cookie",
+  "Candy Cookie",
+  "Lemon Drop Cookie",
+  "Blueberry Bagel",
+  "Plain Bagel",
+  "Everything Bagel",
+];
 
 for (let i = 0; i < NUM_SEED_PRODUCT; i++) {
   products.push(
