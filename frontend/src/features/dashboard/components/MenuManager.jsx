@@ -4,8 +4,6 @@ import {
   fetchCategoriesAsync,
   selectCategoriesList,
 } from "../../../store/categories";
-import { createProductAsync } from "../../../store/products";
-import { useDropzone } from "react-dropzone";
 
 const initialProductData = {
   name: "",
@@ -41,22 +39,10 @@ export function MenuManager() {
    */
   const handleProductSubmit = (event) => {
     event.preventDefault();
-
-    const formData = new FormData();
-    formData.set("name", productFormData.name);
-    formData.set("description", productFormData.description);
-    formData.set("price", productFormData.price);
-    formData.set("category", productFormData.category);
-    // if (productFormData.imageUrl) {
-    //   formData.set(
-    //     "imageUrl",
-    //     productFormData.imageUrl,
-    //     productFormData.imageUrl.name
-    //   );
-    // }
-    formData.set("imageUrl", productFormData.imageUrl);
-
-    dispatch(createProductAsync(formData));
+    const newProduct = {
+      ...productFormData,
+    };
+    console.log(newProduct);
   };
 
   const categories = useSelector(selectCategoriesList);
