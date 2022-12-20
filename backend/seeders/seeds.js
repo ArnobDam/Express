@@ -63,6 +63,21 @@ const sandwiches = [
   "Smokehouse BBQ Chicken",
 ];
 
+const sandwichPrices = [
+  1079,
+  1639, 
+  1079,
+  1209,
+  969,
+  1639,
+  969,
+  839,
+  1079,
+  1209,
+  989,
+  969
+]
+
 const salads = [
   "Chicken Caesar Salad",
   "Green Goddess Cobb Salad",
@@ -74,6 +89,17 @@ const salads = [
   "Caesar Salad",
 ];
 
+const saladPrices = [
+  1079,
+  1229,
+  869,
+  1079,
+  1079,
+  1229,
+  1079,
+  869
+]
+
 const soups = [
   "Broccoli Cheddar",
   "Homestyle Chicken Noodle",
@@ -82,6 +108,15 @@ const soups = [
   "Vegetarian Autumn Squash",
   "Bistro French Onion",
 ];
+
+const soupPrices = [
+  859,
+  859,
+  969,
+  859,
+  859,
+  859
+]
 
 const drinks = [
   "Passion Papaya Iced Green Tea",
@@ -95,6 +130,18 @@ const drinks = [
   "Sierra Mist",
 ];
 
+const drinkPrices = [
+  379,
+  859,
+  269,
+  379,
+  269,
+  509,
+  369,
+  419,
+  369
+]
+
 const bakery = [
   "Chocolate Cookie",
   "Brownie",
@@ -105,6 +152,17 @@ const bakery = [
   "Plain Bagel",
   "Everything Bagel",
 ];
+
+const bakeryPrices = [
+  369,
+  459,
+  409,
+  369,
+  369,
+  229,
+  229,
+  229
+]
 
 for (let i = 0; i < NUM_SEED_PRODUCT; i++) {
   products.push(
