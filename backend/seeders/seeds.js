@@ -35,34 +35,27 @@ for (let i = 1; i < NUM_SEED_USERS; i++) {
 // Create categories
 const categories = [];
 
-categories.push(new Category({
-  title: "Sanwiches"
-}))
+const categoryTitles = [
+  "Burgers",
+  "Salads",
+  "Soups",
+  "Sides",
+  "Drinks",
+  "Dessert",
+];
 
-categories.push(new Category({
-  title: "Salads"
-}))
-
-categories.push(new Category({
-  title: "Soups"
-}))
-
-categories.push(new Category({
-  title: "Drinks"
-}))
-
-categories.push(new Category({
-  title: "Sides"
-}))
-
-categories.push(new Category({
-  title: "Dessert"
-}))
+for (let i = 0; i < categoryTitles.length - 1; i++) {
+  categories.push(
+    new Category({
+      title: categoryTitles[i],
+    })
+  );
+}
 
 // Create products
 const products = [];
 
-console.log(categories[0]._id)
+console.log(categories[0]._id);
 
 //categories[Math.random() * (categories.length - 1)]._id
 
@@ -70,10 +63,10 @@ for (let i = 0; i < NUM_SEED_PRODUCT; i++) {
   products.push(
     new Product({
       name: faker.commerce.product(),
-      category: categories[Math.floor(Math.random() * (categories.length))]._id,
+      category: categories[Math.floor(Math.random() * categories.length)]._id,
       price: (Math.random() * (20 - 1) + 1) * 100 + 99,
       description: faker.commerce.productDescription(),
-      imageUrl: faker.image.food()
+      imageUrl: faker.image.food(),
       // imageUrl: "https://spirit.scene7.com/is/image/Spirit/01406669-a?$Detail$",
     })
   );
@@ -92,7 +85,7 @@ const insertSeeds = () => {
       console.error(err.stack);
       process.exit(1);
     });
-  
+
   Category.collection
     .drop()
     .then(() => Product.collection.drop())
@@ -106,10 +99,9 @@ const insertSeeds = () => {
       console.error(err.stack);
       process.exit(1);
     });
-
 };
 
-console.log("test")
+console.log("test");
 
 mongoose
   .connect(db, { useNewUrlParser: true })
