@@ -2,6 +2,7 @@ import { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { clearSessionErrors } from "../../../store/session";
 import backgroundImage from "./login.svg";
+// import backgroundImage from "./1.jpeg";
 import "./AuthForm.css";
 
 export function AuthForm({ children }) {

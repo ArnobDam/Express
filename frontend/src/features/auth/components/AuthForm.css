@@ -10,8 +10,9 @@
   width: 70%;
   height: 70%;
   background-position: center center;
-  /* transform: skew(-4deg); */
+  filter: brightness(50%);
 }
+
 
 .left-column {
   width: 100%;
@@ -19,10 +20,10 @@
   align-items: center;
   justify-content: center;
   /* background-color: var(--bg-primary); */
-  /* background-color: rgb(1, 53,52); */
-  /* background-color: rgb(83, 151,144);  */
-  background-color:rgb(125,178,172);
-  /* background-color:rgb(245, 139, 78); */
+  /* background-color:rgb(125,178,172); */
+  background-color: rgb(205, 216, 218);
+   /* background-color: rgb(216, 231, 249); */
+    /* background-color: rgb(249, 168, 75); */
 }
 
 .right-column {
@@ -35,12 +36,12 @@
 }
 
 .auth-logo {
-  height: 100px;
-  width: 100px;
-  border-radius: 50%;
+  height: 150px;
+  width: 200px;
+  /* border-radius: 50%; */
   background-color: rgb(58, 58, 58);
   background: center / contain no-repeat url("./user-lock.png");
-  margin-bottom: 20px;
+  margin-bottom: 40px;
 }
 
 .auth-title {
