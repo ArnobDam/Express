@@ -1,8 +1,8 @@
 import { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { clearSessionErrors } from "../../../store/session";
-import backgroundImage from "./login.svg";
-// import backgroundImage from "./1.jpeg";
+// import backgroundImage from "./login.svg";
+import backgroundImage from "./user-lock.png";
 import "./AuthForm.css";
 
 export function AuthForm({ children }) {
@@ -24,7 +24,7 @@ export function AuthForm({ children }) {
         />
       </div>
       <div className="right-column">
-        <div className="auth-logo" />
+        {/* <div className="auth-logo" /> */}
         {children}
       </div>
     </div>
