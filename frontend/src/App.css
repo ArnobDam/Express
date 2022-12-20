@@ -1,5 +1,10 @@
+:root {
+  --border-radius-container: 20px;
+}
+
 .App {
   height: 750px;
   width: 1200px;
   background-color: white;
+  border-radius: var(--border-radius-container);
 }

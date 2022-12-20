@@ -1,0 +1,11 @@
+.Dashboard {
+  height: 100%;
+  width: 100%;
+  display: grid;
+  grid-template-columns: 1fr 3fr 1fr;
+}
+
+.Dashboard > div {
+  border-radius: var(--border-radius-container);
+  border: 1px solid black;
+}

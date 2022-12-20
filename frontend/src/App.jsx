@@ -8,6 +8,7 @@ import { SignupForm } from "./features/auth/components/SignupForm";
 import { LoginForm } from "./features/auth/components/LoginForm";
 
 import { logout } from "./store/session";
+import { Dashboard } from "./features/dashboard/components/Dashboard";
 
 export function App() {
   const [loaded, setLoaded] = useState(false);
@@ -18,7 +19,6 @@ export function App() {
   }, [dispatch]);
 
   //TODO: remove later
-  const currentUser = useSelector((state) => state.session);
 
   return (
     loaded && (
@@ -30,12 +30,8 @@ export function App() {
           <AuthRoute path="/signup">
             <SignupForm />
           </AuthRoute>
-          <ProtectedRoute>
-            <div>
-              <h1>Dashboard</h1>
-              <h3>Welcome back {currentUser?.user?.username}</h3>
-              <button onClick={() => dispatch(logout())}>Logout</button>
-            </div>
+          <ProtectedRoute path="/">
+            <Dashboard />
           </ProtectedRoute>
         </Switch>
       </div>
