@@ -47,34 +47,47 @@ router.get("/:orderId", async (req, res, next) => {
 // CREATE ORDER
 router.post("/", validateOrderInput, async (req, res, next) => {
   // res.json({ message: "POST /order" });
+  const TAX_AMOUNT = 8.875;
   try {
     const productIdArray = [];
     const productNameArray = [];
+    const productsCount = {};
     let priceSubTotal = 0;
 
     for (const product of req.body.products) {
       productIdArray.push(product._id);
     }
 
+    productIdArray.forEach(id => {
+        productsCount[id] = (productsCount[id] || 0) + 1;
+    });
+
+    console.log(productsCount)
+
     await Product.find({
       _id: { $in: productIdArray },
     }).then((products) => {
       for (const product of products) {
-        productNameArray.push(product.name);
+        let a = {}
+        a["name"] = product.name;
+        a["quantity"] = productsCount[product._id];
+        // a[product.name] = productsCount[product._id]
+        productNameArray.push(a);
+        // productNameArray.push(productsCount[product._id]);
         priceSubTotal += product.price;
       }
     });
-
+    
     console.log(productNameArray);
-    console.log(priceSubTotal);
+    
 
     const newOrder = new Order({
       number: Date.now(),
       discountPercentage: req.body.discountPercentage,
-      totalPrice: req.body.totalPrice,
-      subTotal: req.body.subTotal,
-      tax: req.body.tax,
-      products: req.body.products,
+      totalPrice: priceSubTotal * (1 + (TAX_AMOUNT/100)),
+      subTotal: priceSubTotal,
+      tax: TAX_AMOUNT,
+      products: [],
     });
 
     // const newOrder = new Order({
