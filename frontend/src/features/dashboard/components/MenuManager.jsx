@@ -4,6 +4,7 @@ import {
   fetchCategoriesAsync,
   selectCategoriesList,
 } from "../../../store/categories";
+import { createProductAsync } from "../../../store/products";
 
 const initialProductData = {
   name: "",
@@ -37,6 +38,7 @@ export function MenuManager() {
       ...productFormData,
     };
     console.log(newProduct);
+    dispatch(createProductAsync(newProduct));
   };
 
   const categories = useSelector(selectCategoriesList);
@@ -68,10 +70,13 @@ export function MenuManager() {
               name="category"
               id="category"
               value={productFormData.category}
+              onChange={handleChange}
             >
-              <option value="">Select category</option>
+              <option value="" key="">
+                Select category
+              </option>
               {categories.map((category) => (
-                <option key={category.id} value={category.id}>
+                <option key={category._id} value={category._id}>
                   {category.title}
                 </option>
               ))}

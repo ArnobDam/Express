@@ -8,6 +8,11 @@ const receiveProducts = (products) => ({
   payload: products,
 });
 
+const receiveProduct = (product) => ({
+  type: RECEIVE_PRODUCT,
+  payload: product,
+});
+
 export const fetchProductsAsync = () => async (dispatch) => {
   try {
     const res = await jwtFetch("/api/products");
@@ -17,6 +22,22 @@ export const fetchProductsAsync = () => async (dispatch) => {
       return prev;
     }, {});
     return dispatch(receiveProducts(products));
+  } catch (err) {
+    const res = await err.json();
+    if (res.statusCode === 400) {
+      return dispatch(receiveErrors(res.errors));
+    }
+  }
+};
+
+export const createProductAsync = (newProduct) => async (dispatch) => {
+  try {
+    const res = await jwtFetch("/api/products", {
+      method: "POST",
+      body: JSON.stringify(newProduct),
+    });
+    const data = await res.json();
+    return dispatch(receiveProduct(data));
   } catch (err) {
     const res = await err.json();
     if (res.statusCode === 400) {
@@ -37,6 +58,16 @@ export const productsReducer = (state = initialState, action) => {
         loaded: true,
         entities: action.payload,
         ids: Object.keys(action.payload),
+      };
+    }
+
+    case RECEIVE_PRODUCT: {
+      return {
+        ...state,
+        entities: {
+          ...state.entities,
+          [action.payload._id]: action.payload,
+        },
       };
     }
     default:
