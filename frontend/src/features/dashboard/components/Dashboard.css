@@ -5,9 +5,13 @@
   grid-template-columns: 1fr 3fr 1fr;
 }
 
-.Dashboard > div {
-  border-radius: var(--border-radius-container);
-  border: 1px solid black;
+.center {
+  overflow-y: scroll;
+}
+
+.center::-webkit-scrollbar-thumb {
+  background-color: red;
+  border-radius: 3px;
 }
 
 .sidebar-links-container {
@@ -106,7 +110,6 @@
   /* margin-top:3px */
 }
 
-
 /* -----------Product Listing--------- */
 
 .category-list {
@@ -138,7 +141,6 @@
   outline-style: dashed;
 }
 
-
 .category-title {
   display: flex;
   justify-content: space-between;
@@ -157,7 +159,7 @@
   margin-top: 15px;
   width: 140px;
   height: 170px;
-  background-color:white;
+  background-color: white;
   border-radius: 10px;
   display: flex;
   justify-content: space-around;
@@ -172,25 +174,25 @@
   padding-bottom: 40px;
 }
 
-.food-image{
+.food-image {
   border-radius: 50%;
-  height:90px;
-  width:90px;
-  margin:0px 25px 0px 25px;
+  height: 90px;
+  width: 90px;
+  margin: 0px 25px 0px 25px;
 }
 
-.category-container{
+.category-container {
   background-color: var(--lightest-grey);
   border-radius: 20px;
-  padding:20px 20px 20px 20px;
-  margin:20px 20px 20px 
+  padding: 20px 20px 20px 20px;
+  margin: 20px 20px 20px;
 }
 
-.menu-name{
+.menu-name {
   font-size: 14px;
 }
 
-.item-price{
+.item-price {
   font-size: 14px;
-  color:var(--bg-primary)
+  color: var(--bg-primary);
 }
