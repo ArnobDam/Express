@@ -48,13 +48,43 @@ router.get("/:orderId", async (req, res, next) => {
 router.post("/", validateOrderInput, async (req, res, next) => {
   // res.json({ message: "POST /order" });
   try {
+    const productIdArray = [];
+    const productNameArray = [];
+    let priceSubTotal = 0;
+
+    for (const product of req.body.products) {
+      productIdArray.push(product._id);
+    }
+
+    await Product.find({
+      _id: { $in: productIdArray },
+    }).then((products) => {
+      for (const product of products) {
+        productNameArray.push(product.name);
+        priceSubTotal += product.price;
+      }
+    });
+
+    console.log(productNameArray);
+    console.log(priceSubTotal);
+
     const newOrder = new Order({
-      number: req.body.number,
+      number: Date.now(),
+      discountPercentage: req.body.discountPercentage,
       totalPrice: req.body.totalPrice,
       subTotal: req.body.subTotal,
       tax: req.body.tax,
       products: req.body.products,
     });
+
+    // const newOrder = new Order({
+    //   number: req.body.number,
+    //   discountPercentage: req.body.discountPercentage,
+    //   totalPrice: req.body.totalPrice,
+    //   subTotal: req.body.subTotal,
+    //   tax: req.body.tax,
+    //   products: req.body.products,
+    // });
 
     let order = await newOrder.save();
     // product = await product.populate('_id, name', 'price', 'description', 'imageUrl');
