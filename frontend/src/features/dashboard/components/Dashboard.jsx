@@ -1,5 +1,9 @@
 import { useSelector } from "react-redux";
+import { Route, Switch } from "react-router-dom";
+import { ProtectedRoute } from "../../shared/components/Routes";
 import "./Dashboard.css";
+import { Home } from "./Home";
+import { MenuManager } from "./MenuManager";
 import { ProductsList } from "./ProductsList";
 import { Sidebar } from "./Sidebar";
 {
@@ -25,28 +29,18 @@ export function Dashboard() {
         <Sidebar />
       </div>
       <div className="center">
-        <ProductsList />
-        {/* <div className="category-list">
-          {categories.map((category) => (
-            <div className="category-item" key={category.id}>
-              {category.title}
-            </div>
-          ))}
-          <div className="new-category">Category + </div>
-        </div>
-        <div className="category-container">
-          <div className="item-by-name">
-            <div className="category-title">
-              <span className="category-name">Food</span><span className="explore-more"> Explore more</span>
-            </div>
-            <div className="item-container">
-            <div className="item"></div>
-            <div className="item"></div>
-            <div className="item"></div>
-            <div className="item"></div>
-            </div>
-          </div>
-        </div> */}
+        {/* <ProductsList /> */}
+        <Switch>
+          <Route exact path={"/"}>
+            <Home />
+          </Route>
+          <Route exact path={"/order"}>
+            <ProductsList />
+          </Route>
+          <Route exact path={"/menu"}>
+            <MenuManager />
+          </Route>
+        </Switch>
       </div>
       <div className="right">
         <h2>current Order</h2>

@@ -64,3 +64,6 @@ export const categoriesErrorsReducer = (state = nullErrors, action) => {
       return state;
   }
 };
+
+export const selectCategoriesList = (state) =>
+  Object.values(state.categories.entities);
