@@ -36,18 +36,32 @@ router.get("/revenue", async (req, res, next) => {
               year: { $year: "$createdAt" },
               month: { $month: "$createdAt" },
             },
-            s: 1,
-            count: { $sum: "$totalPrice" },
+            yearlyRevenue: { $sum: "$totalPrice" },
           },
         },
-        {
-          $group: {
-            _id: { year: "$_id.year" },
-            months: {
-              $push: { month: "$_id.month", monthlyRevenue: "$count" },
-            },
-          },
-        },
+
+        // {
+        //   $group: {
+        //     _id: {
+        //       year: { $month: "$_id.year" },
+        //     },
+        //   },
+        // },
+        // {
+        //   $group: {
+        //     _id: {
+        //       year: "$_id.year",
+        //     },
+        //   },
+        // },
+        // {
+        //   $group: {
+        //     _id: { year: "$_id.month" },
+        //     months: {
+        //       $push: { month: "$_id.month", monthlyRevenue: "$monthlyRevenue" },
+        //     },
+        //   },
+        // },
       ]);
 
       // orders = await Order.find().sort({createdAt: 1});
