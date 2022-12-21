@@ -1,20 +1,21 @@
-import { CategoryRow } from "./CategoryRow";
+import { createRef } from "react";
+import { Link } from "react-router-dom";
 import { ProductRow } from "./ProductRow";
-
-const categories = [
-  { id: 1, title: "🥪 Sandwiches" },
-  { id: 2, title: "🥗 Salads" },
-  { id: 3, title: "🥣 Soups" },
-  { id: 4, title: "🍹 Drinks" },
-  // { id: 5, title: "🍟 Sides" },
-  { id: 6, title: "🍰 Bakery" },
-];
 
 const SANDWICH_ID = "63a224e864d88295284214c8";
 const SALAD_ID = "63a224e864d88295284214c9";
 const SOUP_ID = "63a224e864d88295284214ca";
 const DRINK_ID = "63a224e864d88295284214cb";
 const BAKERY_ID = "63a224e864d88295284214cc";
+
+const categories = [
+  { id: SANDWICH_ID, title: "🥪 Sandwiches" },
+  { id: SALAD_ID, title: "🥗 Salads" },
+  { id: SOUP_ID, title: "🥣 Soups" },
+  { id: DRINK_ID, title: "🍹 Drinks" },
+  { id: BAKERY_ID, title: "🍰 Bakery" },
+  // { id: 6, title: "🍟 Sides" },
+];
 
 const CATEGORY_IDS = [
   { id: SANDWICH_ID, title: "Sandwiches" },
@@ -25,18 +26,49 @@ const CATEGORY_IDS = [
 ];
 
 export function ProductsList() {
+  const scrollRefs = CATEGORY_IDS.reduce((prev, curr) => {
+    prev[curr.id] = createRef();
+    return prev;
+  }, {});
+
+  const handleScrollIntoView = (id) => {
+    scrollRefs[id]?.current.scrollIntoView({
+      behavior: "smooth",
+      block: "center",
+    });
+  };
+
   return (
-    <div className="ProductsList">
-      <CategoryRow categories={categories} />
-      <div className="category-container">
-        {CATEGORY_IDS.map((category) => (
-          <ProductRow
+    <>
+      <div className="category-list">
+        {categories.map((category) => (
+          <div
+            className="category-item"
             key={category.id}
-            title={category.title}
-            categoryId={category.id}
-          />
+            role="button"
+            onClick={() => handleScrollIntoView(category.id)}
+          >
+            {category.title}
+          </div>
         ))}
+        <Link to={"/menu"}>
+          <div role="button" className="new-category">
+            Category +
+          </div>
+        </Link>
       </div>
-    </div>
+      <div className="ProductsList">
+        <div className="category-container">
+          {CATEGORY_IDS.map((category) => (
+            <ProductRow
+              key={category.id}
+              ref={scrollRefs[category.id]}
+              title={category.title}
+              categoryId={category.id}
+            />
+          ))}
+        </div>
+      </div>
+    </>
   );
 }

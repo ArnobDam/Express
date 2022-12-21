@@ -2,8 +2,8 @@ import { NavLink } from "react-router-dom";
 
 export function SidebarLink({ path, label, icon }) {
   return (
-    <NavLink to={path}>
-      <div className="sidebar-link">
+    <NavLink to={path} className="sidebar-link">
+      <div>
         {icon}
         {label}
       </div>

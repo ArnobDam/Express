@@ -11,7 +11,7 @@ import { LogoutButton } from "./LogoutButton";
 const links = [
   {
     id: 1,
-    path: "/",
+    path: "/dashboard",
     icon: <AiFillHome className="link-icon" />,
     label: "Home",
   },

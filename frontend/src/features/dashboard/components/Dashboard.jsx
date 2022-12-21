@@ -1,27 +1,20 @@
-import { useSelector } from "react-redux";
-import { Route, Switch } from "react-router-dom";
-import { ProtectedRoute } from "../../shared/components/Routes";
+import { useEffect } from "react";
+import { Route, Switch, useHistory, useLocation } from "react-router-dom";
 import "./Dashboard.css";
 import { Home } from "./Home";
 import { MenuManager } from "./MenuManager";
 import { ProductsList } from "./ProductsList";
 import { Sidebar } from "./Sidebar";
-{
-  /* <h1>Dashboard</h1>
-      <h3>Welcome back {currentUser?.user?.username}</h3>
-      <button onClick={() => dispatch(logout())}>Logout</button> */
-}
-const categories = [
-  { id: 1, title: "🥪 Sandwhiches" },
-  { id: 2, title: "🥗 Salads" },
-  { id: 3, title: "🥣 Soups" },
-  { id: 4, title: "🍹 Drinks" },
-  { id: 5, title: "🍟 Sides" },
-  // { id: 6, title: "🍰 Dessert" },
-];
 
 export function Dashboard() {
-  const currentUser = useSelector((state) => state.session);
+  const location = useLocation();
+  const history = useHistory();
+
+  useEffect(() => {
+    if (location.pathname === "/") {
+      history.replace("/order");
+    }
+  }, [location.pathname, history]);
 
   return (
     <div className="Dashboard">
@@ -29,9 +22,8 @@ export function Dashboard() {
         <Sidebar />
       </div>
       <div className="center">
-        {/* <ProductsList /> */}
         <Switch>
-          <Route exact path={"/"}>
+          <Route exact path={"/dashboard"}>
             <Home />
           </Route>
           <Route exact path={"/order"}>

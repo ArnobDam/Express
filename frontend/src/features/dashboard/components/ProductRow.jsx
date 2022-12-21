@@ -1,14 +1,15 @@
+import { forwardRef } from "react";
 import { useSelector } from "react-redux";
 import { selectProductsByCategory } from "../../../store/products";
 import { formatPrice } from "../../../utils/formatPrice";
 
-export function ProductRow({ title, categoryId }) {
+export const ProductRow = forwardRef(({ title, categoryId }, ref) => {
   const products = useSelector((state) =>
     selectProductsByCategory(state, categoryId)
   );
 
   return (
-    <>
+    <div className="ProductRow" ref={ref}>
       <div className="item-by-name">
         <div className="category-title">
           <span className="category-name">{title}</span>
@@ -16,7 +17,11 @@ export function ProductRow({ title, categoryId }) {
         </div>
         <div className="item-container">
           {products.slice(0, 4).map((product) => (
-            <div className="item" key={product._id}>
+            <div
+              className="item"
+              key={product._id}
+              onClick={() => console.log(`adding ${product._id}`)}
+            >
               <img
                 className="food-image"
                 src={product.imageUrl}
@@ -28,6 +33,6 @@ export function ProductRow({ title, categoryId }) {
           ))}
         </div>
       </div>
-    </>
+    </div>
   );
-}
+});

@@ -46,7 +46,11 @@
 
 .sidebar-link:hover {
   background-color: var(--sub-color);
+  color: var(--bg-primary);
+}
 
+.sidebar-link.active {
+  background-color: var(--sub-color);
   color: var(--bg-primary);
 }
 
@@ -113,23 +117,31 @@
 /* -----------Product Listing--------- */
 
 .ProductsList {
-  padding: 40px 20px;
+  padding: 0px 20px 40px 20px;
+  width: 100%;
 }
 
 .category-container {
   background-color: var(--lightest-grey);
   border-radius: 20px;
   padding: 20px;
-  margin-top: 20px;
+  margin-top: 14px;
+  width: 100%;
+
   /* padding: 20px 20px 20px 20px;
   margin: 20px 20px 20px; */
 }
 
 .category-list {
+  background-color: white;
+  padding: 30px 20px 24px 20px;
   display: flex;
   justify-content: space-between;
   align-items: center;
   cursor: pointer;
+  position: sticky;
+  top: 0;
+  z-index: 2;
 }
 
 .category-item:hover {
@@ -170,7 +182,14 @@
   letter-spacing: 1px;
 }
 
+.item-container {
+  display: flex;
+  justify-content: space-between;
+  padding-bottom: 40px;
+}
+
 .item {
+  cursor: pointer;
   margin-top: 15px;
   width: 140px;
   height: 170px;
@@ -181,12 +200,11 @@
   padding: 10px 0 10px 0px;
   flex-direction: column;
   text-align: center;
+  transition: box-shadow ease-in 180ms;
 }
 
-.item-container {
-  display: flex;
-  justify-content: space-between;
-  padding-bottom: 40px;
+.item:hover {
+  box-shadow: 0px 0px 14px 1px rgba(17, 17, 26, 0.18);
 }
 
 .food-image {
