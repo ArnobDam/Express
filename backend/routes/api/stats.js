@@ -7,37 +7,38 @@ const Order = mongoose.model("Order");
 // GET TOTAL REVENUE
 router.get("/revenue", async (req, res, next) => {
   try {
-    let totalRevenue = 0;
     let orders;
-    let dividedRevenue = [];
 
     if (req.query.tf === "ATD") {
       // orders = await Order.find().sort({createdAt: 1});
       orders = await Order.aggregate([
         {
           $group: {
-            _id: { $month: "$createdAt" },
+            _id: { $year: "$createdAt" },
+            month: { $month: "$createdAt" },
+            totalYearlyRevenue: { $sum: "$totalPrice" },
+          },
+        },
+      ]);
+      return res.json(orders);
+    } else if (req.query.tf === "YTD") {
+      orders = await Order.aggregate([
+        {
+          $group: {
+            _id: { $year: "$createdAt" },
             totalMonthlyRevenue: { $sum: "$totalPrice" },
           },
         },
       ]);
-      totalRevenue = orders[0].totalMonthlyRevenue;
-      console.log(orders);
-      // orders.length / 10 (10 divisions of orders)
-      //loop through each of those divisions
-      //sum the revenue of those divisions
-      //plot those revenue sums
-    } else if (req.query.tf === "YTD") {
-      orders = await Order.find({ createdAt: {} });
+      return res.json(orders);
     } else {
+      let totalRevenue = 0;
       orders = await Order.find();
       for (const order of orders) {
         totalRevenue += order.totalPrice;
       }
+      return res.json(totalRevenue);
     }
-
-
-    return res.json(totalRevenue);
   } catch (err) {
     // console.log("test")
     const error = new Error("No records found");
