@@ -1,7 +1,7 @@
 import { forwardRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { selectProductsByCategory } from "../../../store/products";
-import { showModal } from "../../../store/ui";
+import { showAddNewItemModal, showAddItemToCartModal } from "../../../store/ui";
 import { formatPrice } from "../../../utils/formatPrice";
 
 export const ProductRow = forwardRef(
@@ -13,11 +13,11 @@ export const ProductRow = forwardRef(
     const dispatch = useDispatch();
 
     const handleShowAddProductModal = (product) => {
-      dispatch(showModal(product));
+      dispatch(showAddItemToCartModal(product));
     };
 
     const handleOpenAddNewModal = () => {
-      dispatch(showModal());
+      dispatch(showAddNewItemModal());
     };
 
     return (

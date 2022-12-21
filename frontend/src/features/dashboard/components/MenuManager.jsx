@@ -13,7 +13,12 @@ import {
 
 import { createRef } from "react";
 import { addOrderItem, createOrderAsync } from "../../../store/orders";
-import { closeModal, showModal } from "../../../store/ui";
+import {
+  closeModal,
+  showAddItemToCartModal,
+  showAddNewCategoryModal,
+  showAddNewItemModal,
+} from "../../../store/ui";
 import { formatPrice } from "../../../utils/formatPrice";
 import { Modal } from "../../shared/components/Modal";
 import { ProductRow } from "./ProductRow";
@@ -131,8 +136,16 @@ export function MenuManager() {
     });
   };
 
-  const isModalOpen = useSelector((state) => state.ui.modal);
-  const currentProductInModal = useSelector((state) => state.ui.current);
+  const isNewItemModalOpen = useSelector(
+    (state) => state.ui.modal === "add_new_item"
+  );
+  const isAddItemToCartModalOpen = useSelector(
+    (state) => state.ui.modal === "add_item_to_cart"
+  );
+  const isAddNewCategoryModalOpen = useSelector(
+    (state) => state.ui.modal === "add_new_category"
+  );
+  const currentProductInModal = useSelector((state) => state.products.current);
 
   const [quantity, setQuantity] = useState(1);
   const handleDecrement = () => {
@@ -148,7 +161,7 @@ export function MenuManager() {
   };
 
   const handleShowModal = () => {
-    dispatch(showModal());
+    dispatch(showAddNewItemModal());
   };
 
   const handleAddProductToCart = (product) => {
@@ -161,9 +174,13 @@ export function MenuManager() {
     handleCloseModal();
   };
 
+  const handleShowAddCategoryModal = () => {
+    dispatch(showAddNewCategoryModal());
+  };
+
   return (
     <div className="Menu" style={{ position: "relative" }}>
-      {/* {isModalOpen && (
+      {isNewItemModalOpen && (
         <Modal className="product-modal">
           <div className="NewProductForm">
             <form onSubmit={handleProductSubmit} encType="multipart/form-data">
@@ -237,30 +254,32 @@ export function MenuManager() {
             </form>
           </div>
         </Modal>
-      )} */}
+      )}
 
-      <Modal className="category-modal">
-        <div className="NewCategoryForm">
-          <form onSubmit={handleCategorySubmit}>
-            <h1 className="add-category-title">Add new Category</h1>
-            <div>
-              <input
-                className="title-input"
-                type="text"
-                name="title"
-                placeholder="Title"
-                value={categoryTitle}
-                onChange={(e) => setCategoryTitle(e.target.value)}
-              />
-            </div>
-            <div>
-              <button className="save-button" type="submit">
-                Save
-              </button>
-            </div>
-          </form>
-        </div>
-      </Modal>
+      {isAddNewCategoryModalOpen && (
+        <Modal className="category-modal">
+          <div className="NewCategoryForm">
+            <form onSubmit={handleCategorySubmit}>
+              <h1 className="add-category-title">Add new Category</h1>
+              <div>
+                <input
+                  className="title-input"
+                  type="text"
+                  name="title"
+                  placeholder="Title"
+                  value={categoryTitle}
+                  onChange={(e) => setCategoryTitle(e.target.value)}
+                />
+              </div>
+              <div>
+                <button className="save-button" type="submit">
+                  Save
+                </button>
+              </div>
+            </form>
+          </div>
+        </Modal>
+      )}
 
       <div className="category-list">
         {/* {categories.map((category) => (
@@ -274,7 +293,11 @@ export function MenuManager() {
           </div>
         ))} */}
 
-        <div role="button" className="new-category" onClick={handleShowModal}>
+        <div
+          role="button"
+          className="new-category"
+          onClick={handleShowAddCategoryModal}
+        >
           Category +
         </div>
 
