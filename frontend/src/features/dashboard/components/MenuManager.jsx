@@ -1,9 +1,11 @@
 import React, { useEffect, useState, useCallback } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { useDropzone } from "react-dropzone";
 import {
   fetchCategoriesAsync,
   selectCategoriesList,
 } from "../../../store/categories";
+import { createProductAsync } from "../../../store/products";
 
 const initialProductData = {
   name: "",
@@ -34,6 +36,10 @@ export function MenuManager() {
     }));
   };
 
+  const resetForm = () => {
+    setProductFormData(initialProductData);
+  };
+
   /**
    * @param {React.FormEvent<HTMLFormElement>} event
    */
@@ -43,6 +49,9 @@ export function MenuManager() {
       ...productFormData,
     };
     console.log(newProduct);
+    dispatch(createProductAsync(newProduct)).then(() => {
+      resetForm();
+    });
   };
 
   const categories = useSelector(selectCategoriesList);

@@ -30,6 +30,22 @@ export const fetchProductsAsync = () => async (dispatch) => {
   }
 };
 
+export const createProductAsync = (newProduct) => async (dispatch) => {
+  try {
+    const res = await jwtFetch("/api/products", {
+      method: "POST",
+      body: JSON.stringify(newProduct),
+    });
+    const data = await res.json();
+    return dispatch(receiveProduct(data));
+  } catch (err) {
+    const res = await err.json();
+    if (res.statusCode === 400) {
+      return dispatch(receiveErrors(res.errors));
+    }
+  }
+};
+
 const initialState = { entities: null, ids: [], loading: false, loaded: false };
 
 export const productsReducer = (state = initialState, action) => {

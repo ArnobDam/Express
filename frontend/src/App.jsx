@@ -1,12 +1,11 @@
 import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
-import { Route, Switch } from "react-router-dom";
+import { Switch } from "react-router-dom";
 import "./App.css";
 import { getCurrentUser } from "./store/session";
 import { AuthRoute, ProtectedRoute } from "./features/shared/components/Routes";
 import { SignupForm } from "./features/auth/components/SignupForm";
 import { LoginForm } from "./features/auth/components/LoginForm";
-
 import { Dashboard } from "./features/dashboard/components/Dashboard";
 import { fetchProductsAsync } from "./store/products";
 import { fetchCategoriesAsync } from "./store/categories";
@@ -39,11 +38,6 @@ export function App() {
           <ProtectedRoute path="/">
             <Dashboard />
           </ProtectedRoute>
-          <Route path="/products-test">
-            <div>
-              <h1>Testing products</h1>
-            </div>
-          </Route>
         </Switch>
       </div>
     )
