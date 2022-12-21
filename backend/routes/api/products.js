@@ -1,5 +1,7 @@
 const express = require("express");
 const router = express.Router();
+const Busboy = require("busboy");
+const fs = require("fs");
 
 const mongoose = require("mongoose");
 const Product = mongoose.model("Product");
@@ -37,7 +39,25 @@ router.get("/:productId", async (req, res, next) => {
 
 // CREATE PRODUCT
 router.post("/", validateProductInput, async (req, res, next) => {
-  // res.json({ message: "POST /product" });
+  let busboy = new Busboy({
+    headers: req.headers,
+    limits: {
+      fileSize: 6 * 1024 * 1024, //2MB limit
+    },
+  });
+
+  busboy.on("file", (fieldname, file, filename, encoding, mimetype) => {
+    const saveTo = path.join("../../images", filename);
+    console.log("this is uploading i think to" + saveTo);
+    file.pipe(fs.createWriteStream(saveTo));
+  });
+
+  busboy.on("finish", () => {
+    console.log("upload finished :)");
+    res.writeHead(200, { Connection: "close" });
+    res.end("Goodbye!");
+  });
+
   try {
     const newProduct = new Product({
       name: req.body.name,
@@ -48,7 +68,7 @@ router.post("/", validateProductInput, async (req, res, next) => {
     });
 
     let product = await newProduct.save();
-    // product = await product.populate('_id, name', 'price', 'description', 'imageUrl');
+    // return req.pipe(busboy);
     return res.status(201).json(product);
   } catch (err) {
     const error = new Error("Product can't be created.");
