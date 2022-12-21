@@ -111,3 +111,9 @@ export const selectProductsByCategory = createSelector(
   (products, categoryId) =>
     products.filter((product) => product.category === categoryId)
 );
+
+export const selectProductById = createSelector(
+  selectProductEntities,
+  (_state, productId) => productId,
+  (products, productId) => products[productId]
+);

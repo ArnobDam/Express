@@ -4,11 +4,15 @@ import { sessionReducer } from "./session";
 import { errorsReducer } from "./errors";
 import { productsReducer } from "./products";
 import { categoriesReducer } from "./categories";
+import { ordersReducer } from "./orders";
+import { uiReducer } from "./ui";
 
 const rootReducer = combineReducers({
+  ui: uiReducer,
   session: sessionReducer,
   products: productsReducer,
   categories: categoriesReducer,
+  orders: ordersReducer,
   errors: errorsReducer,
 });
 

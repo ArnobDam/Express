@@ -1,12 +1,20 @@
 import { forwardRef } from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { addOrderItem } from "../../../store/orders";
 import { selectProductsByCategory } from "../../../store/products";
+import { showModal } from "../../../store/ui";
 import { formatPrice } from "../../../utils/formatPrice";
 
 export const ProductRow = forwardRef(({ title, categoryId }, ref) => {
   const products = useSelector((state) =>
     selectProductsByCategory(state, categoryId)
   );
+
+  const dispatch = useDispatch();
+
+  const handleShowAddProductModal = (product) => {
+    dispatch(showModal(product));
+  };
 
   return (
     <div className="ProductRow" ref={ref}>
@@ -20,7 +28,7 @@ export const ProductRow = forwardRef(({ title, categoryId }, ref) => {
             <div
               className="item"
               key={product._id}
-              onClick={() => console.log(`adding ${product._id}`)}
+              onClick={() => handleShowAddProductModal(product)}
             >
               <img
                 className="food-image"

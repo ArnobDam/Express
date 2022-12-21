@@ -2,6 +2,7 @@ import React, { useEffect, useState, useCallback } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useDropzone } from "react-dropzone";
 import {
+  createCategoryAsync,
   fetchCategoriesAsync,
   selectCategoriesList,
 } from "../../../store/categories";
@@ -12,7 +13,8 @@ const initialProductData = {
   category: "",
   price: "",
   description: "",
-  imageUrl: "http://asdsdafsadf",
+  imageUrl:
+    "https://preview.redd.it/fseqknyvblex.jpg?auto=webp&s=ea4b90dab14cf0e779fd145e5b2ccf878e076d6f",
 };
 
 export function MenuManager() {
@@ -36,7 +38,7 @@ export function MenuManager() {
     }));
   };
 
-  const resetForm = () => {
+  const resetProductForm = () => {
     setProductFormData(initialProductData);
   };
 
@@ -50,7 +52,9 @@ export function MenuManager() {
     };
     console.log(newProduct);
     dispatch(createProductAsync(newProduct)).then(() => {
-      resetForm();
+      // TODO:
+      alert("Success, product created");
+      resetProductForm();
     });
   };
 
@@ -62,10 +66,25 @@ export function MenuManager() {
     }
   }, [dispatch, categoryLoaded]);
 
+  const [categoryTitle, setCategoryTitle] = useState("");
+
+  /**
+   * @param {React.FormEvent<HTMLFormElement>} event
+   */
+  const handleCategorySubmit = (event) => {
+    event.preventDefault();
+    const newCategory = { title: categoryTitle };
+    dispatch(createCategoryAsync(newCategory)).then((res) => {
+      //TODO:
+      alert("Success, category created");
+      setCategoryTitle("");
+    });
+  };
+
   return (
     <div className="Menu">
       <h1>Menu</h1>
-      <div>
+      <div className="NewProductForm">
         <form onSubmit={handleProductSubmit} encType="multipart/form-data">
           <h2>Add new product</h2>
           <div>
@@ -128,6 +147,35 @@ export function MenuManager() {
             <button type="submit">Save</button>
           </div>
         </form>
+      </div>
+
+      <br />
+      <br />
+      <br />
+      <div className="NewCategoryForm">
+        <form onSubmit={handleCategorySubmit}>
+          <h1>Add new Category</h1>
+          <div>
+            <label htmlFor="title">Title</label>
+            <input
+              type="text"
+              name="title"
+              value={categoryTitle}
+              onChange={(e) => setCategoryTitle(e.target.value)}
+            />
+          </div>
+          <div>
+            <button type="submit">Save</button>
+          </div>
+        </form>
+      </div>
+
+      <div>
+        <hr />
+        <h2>Categories</h2>
+        {categories.map((category) => (
+          <p key={category._id}>{category.title}</p>
+        ))}
       </div>
     </div>
   );
