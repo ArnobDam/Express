@@ -90,6 +90,7 @@ router.post("/", validateOrderInput, async (req, res, next) => {
       subTotal: priceSubTotal,
       tax: TAX_AMOUNT,
       products: productNameArray,
+      notes: req.body.notes,
     });
 
 
@@ -152,6 +153,7 @@ router.patch("/:orderId", validateOrderInput, async (req, res, next) => {
       subTotal: priceSubTotal,
       tax: TAX_AMOUNT,
       products: productNameArray,
+      notes: req.body.notes,
     },
     { new: true }
   )
@@ -215,6 +217,7 @@ router.put("/:orderId", validateOrderInput, async (req, res, next) => {
       subTotal: priceSubTotal,
       tax: TAX_AMOUNT,
       products: productNameArray,
+      notes: req.body.notes,
     },
     { new: true }
   )

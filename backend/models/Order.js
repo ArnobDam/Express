@@ -42,6 +42,9 @@ const orderSchema = Schema(
       type: Array,
       required: true
     },
+    notes: {
+      type: String
+    }
   },
   {
     timestamps: true,

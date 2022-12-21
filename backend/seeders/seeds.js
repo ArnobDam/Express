@@ -163,7 +163,7 @@ const drinks = [
   "Passion Papaya Iced Green Tea",
   "Strawberry Banana Smoothie",
   "Pepsi",
-  "Agave Lemonade",
+  "Celsius",
   "Strawberry Lemon Mint",
   "Diet Pepsi",
   "Orange Juice",
@@ -186,10 +186,10 @@ const drinkPrices = [379, 859, 269, 379, 269, 509, 369, 419, 369];
 // ];
 
 const drinkImgUrl = [
-  "https://en.cocktail.fabbri1905.com/imgpub/2036247/400/0/passion_fruit_iced_tea.png",
+  "https://cdn.shopify.com/s/files/1/0297/8132/7932/products/iced_TropicalGreenGlass.png?v=1598298624",
   "https://www.dynamicgreens.com/app/uploads/2015/09/low-fat-smoothies.png",
   "https://www.pepsico.com/images/default-source/products-brands/pepsi_12oz.png?sfvrsn=46c9ae09_0",
-  "https://cdn.shopify.com/s/files/1/2654/7682/products/Lemonade3_1445x.png?v=1594394437",
+  "https://www.kroger.com/product/images/large/front/0088939200362",
   "https://cdn.sanity.io/images/vrmk0jny/production/287f504d28e6ecba831327f69be337a2c9396382-404x404.png?q=20&auto=format",
   "https://popmenucloud.com/cdn-cgi/image/width=1920,height=1920,format=auto,fit=scale-down/tfxzsylp/6074068f-3526-4f2f-b545-82430a7bc400.png",
   "https://vivavillamexicangrill.com/wp-content/uploads/2021/01/16-1.png",
@@ -257,6 +257,7 @@ for (let i = 0; i < bakery.length; i++) {
 //   );
 // }
 
+
 const insertSeeds = () => {
   console.log("Resetting db and seeding users and products...");
 
@@ -271,7 +272,7 @@ const insertSeeds = () => {
       process.exit(1);
     });
 
-  Category.collection
+    Category.collection
     .drop()
     .then(() => Product.collection.drop())
     .then(() => Category.insertMany(categories))
@@ -284,6 +285,8 @@ const insertSeeds = () => {
       console.error(err.stack);
       process.exit(1);
     });
+
+
 };
 
 console.log("test");
