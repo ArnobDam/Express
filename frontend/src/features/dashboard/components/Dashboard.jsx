@@ -5,7 +5,7 @@ import { Home } from "./Home";
 import { MenuManager } from "./MenuManager";
 import { ProductsList } from "./ProductsList";
 import { Sidebar } from "./Sidebar";
-import {Cart} from "./Cart"
+import { Cart } from "./Cart";
 
 export function Dashboard() {
   const location = useLocation();
@@ -27,17 +27,31 @@ export function Dashboard() {
           <Route exact path={"/dashboard"}>
             <Home />
           </Route>
-          <Route exact path={"/order"}>
-            <ProductsList />
+          <Route exact path={"/settings"}>
+            <MenuManager />
           </Route>
           <Route exact path={"/menu"}>
-            <MenuManager />
+            <ProductsList />
+          </Route>
+          <Route exact path={"/history"}>
+            <div>
+              <h1>ALL ORDERS</h1>
+            </div>
+          </Route>
+          <Route exact path={"/report"}>
+            <div>
+              <h1>Report</h1>
+            </div>
+          </Route>
+          <Route exact path={"/order"}>
+            <div>
+              <h1>Recent Orders</h1>
+            </div>
           </Route>
         </Switch>
       </div>
       <div className="right">
-    
-        <Cart/>
+        <Cart />
       </div>
     </div>
   );

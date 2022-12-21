@@ -6,7 +6,10 @@ import {
   fetchCategoriesAsync,
   selectCategoriesList,
 } from "../../../store/categories";
-import { createProductAsync } from "../../../store/products";
+import {
+  createProductAsync,
+  selectProductsList,
+} from "../../../store/products";
 
 const initialProductData = {
   name: "",
@@ -80,6 +83,9 @@ export function MenuManager() {
       setCategoryTitle("");
     });
   };
+
+  // const allProducts = useSelector(selectProductsList);
+  // console.log(allProducts);
 
   return (
     <div className="Menu">

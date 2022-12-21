@@ -71,16 +71,8 @@ export function ProductsList() {
     handleCloseModal();
   };
 
-  // TODO: move
-  const handleCompleteOrder = () => {
-    dispatch(createOrderAsync());
-  };
-
   return (
     <div className="Order" style={{ position: "relative" }}>
-      {/* TODO: MOVE */}
-      <button onClick={handleCompleteOrder}>complete</button>
-
       {isModalOpen && currentProductInModal && (
         <Modal>
           <h1>{currentProductInModal.name}</h1>

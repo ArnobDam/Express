@@ -25,7 +25,7 @@ const links = [
     id: 3,
     path: "/order",
     icon: <FaClipboardList className="link-icon" />,
-    label: "Order",
+    label: "Orders",
   },
   {
     id: 4,
