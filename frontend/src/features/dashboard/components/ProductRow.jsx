@@ -1,6 +1,5 @@
 import { forwardRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { addOrderItem } from "../../../store/orders";
 import { selectProductsByCategory } from "../../../store/products";
 import { showModal } from "../../../store/ui";
 import { formatPrice } from "../../../utils/formatPrice";

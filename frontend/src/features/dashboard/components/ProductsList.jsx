@@ -1,6 +1,6 @@
 import { createRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { addOrderItem } from "../../../store/orders";
+import { addOrderItem, createOrderAsync } from "../../../store/orders";
 import { closeModal } from "../../../store/ui";
 import { formatPrice } from "../../../utils/formatPrice";
 import { Modal } from "../../shared/components/Modal";
@@ -62,17 +62,25 @@ export function ProductsList() {
   };
 
   const handleAddProductToCart = (product) => {
-    const orderItem = {
-      product: product._id,
+    const newItem = {
+      id: product._id,
       quantity,
-      totalPrice: product.price * quantity,
+      totalPrice: quantity * product.price,
     };
-    dispatch(addOrderItem(orderItem));
+    dispatch(addOrderItem(newItem));
     handleCloseModal();
+  };
+
+  // TODO: move
+  const handleCompleteOrder = () => {
+    dispatch(createOrderAsync());
   };
 
   return (
     <div className="Order" style={{ position: "relative" }}>
+      {/* TODO: MOVE */}
+      <button onClick={handleCompleteOrder}>complete</button>
+
       {isModalOpen && currentProductInModal && (
         <Modal>
           <h1>{currentProductInModal.name}</h1>
