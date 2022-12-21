@@ -5,6 +5,7 @@ import { Home } from "./Home";
 import { MenuManager } from "./MenuManager";
 import { ProductsList } from "./ProductsList";
 import { Sidebar } from "./Sidebar";
+import {Cart} from "./Cart"
 
 export function Dashboard() {
   const location = useLocation();
@@ -35,7 +36,8 @@ export function Dashboard() {
         </Switch>
       </div>
       <div className="right">
-        <h2>current Order</h2>
+    
+        <Cart/>
       </div>
     </div>
   );

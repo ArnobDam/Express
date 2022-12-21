@@ -8,8 +8,9 @@
 }
 
 .auth-background-image {
-  width: 80%;
+  width: 100%;
   height: 70%;
+  margin-left:40px;
   background-position: center center;
   /* filter: brightness(90%); */
 }
@@ -22,7 +23,7 @@
   justify-content: center;
   border-top-left-radius: var(--border-radius-container);
   border-bottom-left-radius: var(--border-radius-container);
-  /* background-color: var(--bg-primary); */
+  /* background-color: var(--sub-color); */
   /* background-color:rgb(125,178,172); */
   /* background-color: rgb(205, 216, 218); */
   /* background-color: rgb(236,121,5); */
@@ -37,7 +38,7 @@
   justify-content: flex-start;
   align-items: center;
   padding: 150px 60px 10px 60px;
-  background-color: var(--sub-color) ;
+  /* background-color: var(--sub-color) ; */
   border-top-right-radius: var(--border-radius-container);
   border-bottom-right-radius: var(--border-radius-container);
 }
@@ -49,6 +50,7 @@
   background-color: rgb(58, 58, 58);
   background: center / contain no-repeat url("./user-lock.png");
   margin-bottom: 40px;
+ 
 }
 
 .auth-title {
