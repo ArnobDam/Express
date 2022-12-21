@@ -112,10 +112,23 @@
 
 /* -----------Product Listing--------- */
 
+.ProductsList {
+  padding: 40px 20px;
+}
+
+.category-container {
+  background-color: var(--lightest-grey);
+  border-radius: 20px;
+  padding: 20px;
+  margin-top: 20px;
+  /* padding: 20px 20px 20px 20px;
+  margin: 20px 20px 20px; */
+}
+
 .category-list {
   display: flex;
   justify-content: space-between;
-  padding: 40px 20px 0 20px;
+  align-items: center;
   cursor: pointer;
 }
 
@@ -126,17 +139,18 @@
 
 .category-item {
   background-color: var(--lightest-grey);
-  height: 30px;
   text-align: center;
-  padding: 7px 10px 10px 7px;
+  /* padding: 7px 10px 10px 7px; */
+  padding: 8px 12px;
   border-radius: 25px;
   color: var(--dark-grey);
 }
 
 .new-category {
   color: var(--bg-primary);
-  height: 30px;
-  padding: 7px 10px 10px 7px;
+  /* height: 30px; */
+  /* padding: 7px 10px 10px 7px; */
+  padding: 8px 12px;
   border-radius: 25px;
   border: 1px var(--bg-primary);
   outline-style: dashed;
@@ -180,13 +194,6 @@
   height: 90px;
   width: 90px;
   margin: 0px 25px 0px 25px;
-}
-
-.category-container {
-  background-color: var(--lightest-grey);
-  border-radius: 20px;
-  padding: 20px 20px 20px 20px;
-  margin: 20px 20px 20px;
 }
 
 .menu-name {

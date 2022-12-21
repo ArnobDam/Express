@@ -1,3 +1,4 @@
+import { CategoryRow } from "./CategoryRow";
 import { ProductRow } from "./ProductRow";
 
 const categories = [
@@ -8,11 +9,6 @@ const categories = [
   // { id: 5, title: "🍟 Sides" },
   { id: 6, title: "🍰 Bakery" },
 ];
-
-// const selectProductsList = (state) =>
-//   Object.values(state.products.entities ?? {});
-// const selectCategoriesList = (state) =>
-//   Object.values(state.categories.entities);
 
 const SANDWICH_ID = "63a224e864d88295284214c8";
 const SALAD_ID = "63a224e864d88295284214c9";
@@ -30,15 +26,8 @@ const CATEGORY_IDS = [
 
 export function ProductsList() {
   return (
-    <>
-      <div className="category-list">
-        {categories.map((category) => (
-          <div className="category-item" key={category.id}>
-            {category.title}
-          </div>
-        ))}
-        <div className="new-category">Category + </div>
-      </div>
+    <div className="ProductsList">
+      <CategoryRow categories={categories} />
       <div className="category-container">
         {CATEGORY_IDS.map((category) => (
           <ProductRow
@@ -48,6 +37,6 @@ export function ProductsList() {
           />
         ))}
       </div>
-    </>
+    </div>
   );
 }

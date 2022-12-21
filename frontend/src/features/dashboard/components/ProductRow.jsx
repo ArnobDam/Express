@@ -1,29 +1,18 @@
 import { useSelector } from "react-redux";
-
-const selectProductsByCategory = (categoryId) => (state) => {
-  const products = Object.values(
-    state?.products?.entities ? state.products.entities : {}
-  );
-
-  return products.filter((product) => product.category === categoryId);
-};
-
-function formatPrice(price){
-  return (price/100).toLocaleString("en-US",{
-    style: "currency",
-    currency: "USD",
-    currencyDisplay: "symbol"
-  })}
+import { selectProductsByCategory } from "../../../store/products";
+import { formatPrice } from "../../../utils/formatPrice";
 
 export function ProductRow({ title, categoryId }) {
-  const products = useSelector(selectProductsByCategory(categoryId));
+  const products = useSelector((state) =>
+    selectProductsByCategory(state, categoryId)
+  );
 
   return (
     <>
       <div className="item-by-name">
         <div className="category-title">
           <span className="category-name">{title}</span>
-          <span className="explore-more"> Explore more</span>
+          <span className="explore-more">Explore more</span>
         </div>
         <div className="item-container">
           {products.slice(0, 4).map((product) => (

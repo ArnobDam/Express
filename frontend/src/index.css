@@ -179,4 +179,5 @@ table {
   --light-grey: rgb(206, 205, 205);
   --dark-grey: rgb(127, 127, 127);
   --lightest-grey: rgb(246, 247, 249);
+  --border-radius-container: 20px;
 }

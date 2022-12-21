@@ -1,4 +1,5 @@
 import { jwtFetch } from "./jwt";
+import { createSelector } from "reselect";
 
 const RECEIVE_PRODUCTS = "products/RECEIVE_PRODUCTS";
 const RECEIVE_PRODUCT = "products/RECEIVE_PRODUCT";
@@ -96,3 +97,17 @@ export const productsErrorsReducer = (state = nullErrors, action) => {
       return state;
   }
 };
+
+const selectProductEntities = (state) => state.products?.entities;
+
+export const selectProductsList = createSelector(
+  selectProductEntities,
+  (products) => Object.values(products ?? {})
+);
+
+export const selectProductsByCategory = createSelector(
+  selectProductsList,
+  (_state, categoryId) => categoryId,
+  (products, categoryId) =>
+    products.filter((product) => product.category === categoryId)
+);
