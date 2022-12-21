@@ -1,5 +1,6 @@
 import { jwtFetch } from "./jwt";
 import { createSelector } from "reselect";
+import { SHOW_ADD_ITEM_TO_CART_MODAL } from "./ui";
 
 const RECEIVE_PRODUCTS = "products/RECEIVE_PRODUCTS";
 const RECEIVE_PRODUCT = "products/RECEIVE_PRODUCT";
@@ -47,7 +48,13 @@ export const createProductAsync = (newProduct) => async (dispatch) => {
   }
 };
 
-const initialState = { entities: null, ids: [], loading: false, loaded: false };
+const initialState = {
+  entities: null,
+  ids: [],
+  loading: false,
+  loaded: false,
+  current: null,
+};
 
 export const productsReducer = (state = initialState, action) => {
   switch (action.type) {
@@ -61,7 +68,6 @@ export const productsReducer = (state = initialState, action) => {
         ids: Object.keys(action.payload),
       };
     }
-
     case RECEIVE_PRODUCT: {
       return {
         ...state,
@@ -69,6 +75,12 @@ export const productsReducer = (state = initialState, action) => {
           ...state.entities,
           [action.payload._id]: action.payload,
         },
+      };
+    }
+    case SHOW_ADD_ITEM_TO_CART_MODAL: {
+      return {
+        ...state,
+        current: action.payload.product,
       };
     }
     default:
@@ -98,7 +110,7 @@ export const productsErrorsReducer = (state = nullErrors, action) => {
   }
 };
 
-const selectProductEntities = (state) => state.products?.entities;
+export const selectProductEntities = (state) => state.products?.entities;
 
 export const selectProductsList = createSelector(
   selectProductEntities,
@@ -110,4 +122,10 @@ export const selectProductsByCategory = createSelector(
   (_state, categoryId) => categoryId,
   (products, categoryId) =>
     products.filter((product) => product.category === categoryId)
+);
+
+export const selectProductById = createSelector(
+  selectProductEntities,
+  (_state, productId) => productId,
+  (products, productId) => products[productId]
 );

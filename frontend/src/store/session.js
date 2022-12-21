@@ -8,13 +8,13 @@ export const RECEIVE_USER_LOGOUT = "session/RECEIVE_USER_LOGOUT";
 // Dispatch receiveCurrentUser when a user logs in.
 const receiveCurrentUser = (currentUser) => ({
   type: RECEIVE_CURRENT_USER,
-  currentUser,
+  payload: currentUser,
 });
 
 // Dispatch receiveErrors to show authentication errors on the frontend.
 const receiveErrors = (errors) => ({
   type: RECEIVE_SESSION_ERRORS,
-  errors,
+  payload: errors,
 });
 
 // Dispatch logoutUser to clear the session user when a user logs out.
@@ -65,7 +65,7 @@ const initialState = {
 export const sessionReducer = (state = initialState, action) => {
   switch (action.type) {
     case RECEIVE_CURRENT_USER:
-      return { user: action.currentUser };
+      return { user: action.payload };
     case RECEIVE_USER_LOGOUT:
       return initialState;
     default:
@@ -78,7 +78,7 @@ const nullErrors = null;
 export const sessionErrorsReducer = (state = nullErrors, action) => {
   switch (action.type) {
     case RECEIVE_SESSION_ERRORS:
-      return action.errors;
+      return { ...state, ...action.payload };
     case RECEIVE_CURRENT_USER:
     case CLEAR_SESSION_ERRORS:
       return nullErrors;

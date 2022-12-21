@@ -1,10 +1,16 @@
 import { jwtFetch } from "./jwt";
 
 const RECEIVE_CATEGORIES = "categories/RECEIVE_CATEGORIES";
+const RECEIVE_CATEGORY = "categories/RECEIVE_CATEGORY";
 
-const receiveCategories = (products) => ({
+const receiveCategories = (categories) => ({
   type: RECEIVE_CATEGORIES,
-  payload: products,
+  payload: categories,
+});
+
+const receiveCategory = (category) => ({
+  type: RECEIVE_CATEGORY,
+  payload: category,
 });
 
 export const fetchCategoriesAsync = () => async (dispatch) => {
@@ -16,6 +22,23 @@ export const fetchCategoriesAsync = () => async (dispatch) => {
       return prev;
     }, {});
     return dispatch(receiveCategories(products));
+  } catch (err) {
+    const res = await err.json();
+    if (res.statusCode === 400) {
+      return dispatch(receiveErrors(res.errors));
+    }
+  }
+};
+
+export const createCategoryAsync = (newCategory) => async (dispatch) => {
+  try {
+    const res = await jwtFetch("/api/categories", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(newCategory),
+    });
+    const data = await res.json();
+    return dispatch(receiveCategory(data));
   } catch (err) {
     const res = await err.json();
     if (res.statusCode === 400) {
@@ -38,6 +61,16 @@ export const categoriesReducer = (state = initialState, action) => {
         ids: Object.keys(action.payload),
       };
     }
+    case RECEIVE_CATEGORY: {
+      return {
+        ...state,
+        entities: {
+          ...state.entities,
+          [action.payload._id]: action.payload,
+        },
+        ids: [...Object.keys(state.entities), action.payload._id],
+      };
+    }
     default:
       return state;
   }
@@ -55,7 +88,7 @@ const nullErrors = null;
 export const categoriesErrorsReducer = (state = nullErrors, action) => {
   switch (action.type) {
     case RECEIVE_CATEGORIES_ERRORS: {
-      return action.errors;
+      return { ...state, ...action.payload };
     }
     case CLEAR_CATEGORIES_ERRORS: {
       return nullErrors;
