@@ -135,7 +135,7 @@ router.patch("/:orderId", validateOrderInput, async (req, res, next) => {
       productObject["quantity"] = productsCount[product._id];
 
       productNameArray.push(productObject);
-      priceSubTotal += product.price;
+      priceSubTotal += productObject["totalPrice"];
     }
   });
 
@@ -199,7 +199,7 @@ router.put("/:orderId", validateOrderInput, async (req, res, next) => {
       productObject["quantity"] = productsCount[product._id];
 
       productNameArray.push(productObject);
-      priceSubTotal += product.price;
+      priceSubTotal += productObject["totalPrice"];
     }
   });
 
