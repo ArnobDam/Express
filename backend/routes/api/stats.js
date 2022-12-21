@@ -8,7 +8,22 @@ const Order = mongoose.model("Order");
 router.get("/revenue", async (req, res, next) => {
 
     try {
-        const orders = await Order.find();
+        let orders;
+        let dividedRevenue = [];
+        if (req.query.tf === "ATD") {
+            orders = await Order.find().sort({createdAt: 1});
+            // console.log(orders)
+            // orders.length / 10 (10 divisions of orders)
+            //loop through each of those divisions
+            //sum the revenue of those divisions
+            //plot those revenue sums
+
+        } else if (req.query.tf === "YTD") {
+            orders = await Order.find({createdAt: {}});
+        } else {
+            orders = await Order.find();
+        }
+        
 
         let totalRevenue = 0;
 
@@ -18,6 +33,7 @@ router.get("/revenue", async (req, res, next) => {
 
         return res.json(totalRevenue);
     } catch (err) {
+        // console.log("test")
         const error = new Error("No records found");
         error.statusCode = 404;
         error.errors = { message: "You have no avaialble orders at this time." };
