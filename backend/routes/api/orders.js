@@ -86,8 +86,8 @@ router.post("/", validateOrderInput, async (req, res, next) => {
     const newOrder = new Order({
       number: Date.now(),
       discountPercentage: req.body.discountPercentage,
-      totalPrice: priceSubTotal * (1 + (TAX_AMOUNT / 100)),
-      subTotal: priceSubTotal,
+      totalPrice: Math.ceil(priceSubTotal * (1 + (TAX_AMOUNT / 100))),
+      subTotal: Math.ceil(priceSubTotal),
       tax: TAX_AMOUNT,
       products: productNameArray,
       notes: req.body.notes,
