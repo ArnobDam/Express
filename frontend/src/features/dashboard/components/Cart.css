@@ -111,6 +111,7 @@
   color: rgb(203, 49, 49);
   margin-top: 14px;
   margin-left: 10px;
+  cursor: pointer;
 }
 
 .qty-change-section {
@@ -131,18 +132,18 @@
 
 .payment-method {
   display: flex;
-  font-size:12px;
-  color:var(--dark-grey);
+  font-size: 12px;
+  color: var(--dark-grey);
 }
 
 .order-button {
   background-color: var(--bg-primary);
   border: none;
   height: 30px;
-  margin:10px 5px 0 5px;
+  margin: 10px 5px 0 5px;
   width: 200px;
   border-radius: 10px;
-  color:white
+  color: white;
 }
 
 .payment-debit,
@@ -150,7 +151,7 @@
 .payment-code {
   width: 60px;
   height: 80px;
-  background-color:transparent;
+  background-color: transparent;
   border: 1px solid var(--light-grey);
   margin: 10px 5px 0 5px;
   border-radius: 10px;
@@ -160,22 +161,21 @@
   padding-top: 25px;
 }
 
-.sub-total{
-margin-bottom:5px;
-margin-top:8px;
-display: flex;
-justify-content: space-between;
-}
-
-
-.sales-tax{
-  margin-bottom:20px;
+.sub-total {
+  margin-bottom: 5px;
   margin-top: 8px;
   display: flex;
   justify-content: space-between;
 }
 
-.total-text{
+.sales-tax {
+  margin-bottom: 20px;
+  margin-top: 8px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.total-text {
   margin: 10px 5px 0 5px;
   display: flex;
   justify-content: space-between;
@@ -187,8 +187,7 @@ justify-content: space-between;
   font-size: 13px;
 }
 
-.amount{
-  color:var(--dark-grey);
+.amount {
+  color: var(--dark-grey);
   letter-spacing: 1px;
 }
-

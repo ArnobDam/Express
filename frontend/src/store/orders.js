@@ -1,7 +1,12 @@
+import { createSelector } from "reselect";
 import { jwtFetch } from "./jwt";
+import { selectProductEntities } from "./products";
 
 const ADD_ORDER_ITEM = "orders/ADD_ORDER_ITEM";
 const COMPLETE_ORDER = "orders/COMPLETE_ORDER";
+const INCREMENT_QUANTITY = "orders/INCREMENT_QUANTITY";
+const DECREMENT_QUANTITY = "orders/DECREMENT_QUANTITY";
+const REMOVE_ITEM_FROM_CART = "orders/REMOVE_ITEM_FROM_CART";
 
 export const addOrderItem = (orderItem) => ({
   type: ADD_ORDER_ITEM,
@@ -11,6 +16,21 @@ export const addOrderItem = (orderItem) => ({
 export const completeOrder = (order) => ({
   type: COMPLETE_ORDER,
   payload: order,
+});
+
+export const incrementQuantity = (itemId) => ({
+  type: INCREMENT_QUANTITY,
+  payload: itemId,
+});
+
+export const decrementQuantity = (itemId) => ({
+  type: DECREMENT_QUANTITY,
+  payload: itemId,
+});
+
+export const removeItemFromCart = (itemId) => ({
+  type: REMOVE_ITEM_FROM_CART,
+  payload: itemId,
 });
 
 export const createOrderAsync = () => async (dispatch, getState) => {
@@ -52,11 +72,74 @@ const initialState = {
 export const ordersReducer = (state = initialState, action) => {
   switch (action.type) {
     case ADD_ORDER_ITEM: {
+      // Increment if item already exists in cart
+      if (
+        state.current.products.find((item) => item.id === action.payload.id)
+      ) {
+        return {
+          ...state,
+          current: {
+            ...state.current,
+            products: state.current.products.map((item) => ({
+              ...item,
+              quantity: item.quantity + 1,
+            })),
+          },
+        };
+      }
+
+      // Add item to cart if not already in cart
       return {
         ...state,
         current: {
           ...state.current,
           products: [...state.current.products, action.payload],
+        },
+      };
+    }
+    case INCREMENT_QUANTITY: {
+      return {
+        ...state,
+        current: {
+          ...state.current,
+          products: state.current.products.map((item) =>
+            item.id === action.payload
+              ? {
+                  ...item,
+                  quantity: item.quantity + 1,
+                }
+              : item
+          ),
+        },
+      };
+    }
+    case DECREMENT_QUANTITY: {
+      return {
+        ...state,
+        current: {
+          ...state.current,
+          products: state.current.products
+            .map((item) => {
+              if (item.quantity <= 1) {
+                return null;
+              } else if (item.id === action.payload) {
+                return { ...item, quantity: item.quantity - 1 };
+              } else {
+                return item;
+              }
+            })
+            .filter(Boolean),
+        },
+      };
+    }
+    case REMOVE_ITEM_FROM_CART: {
+      return {
+        ...state,
+        current: {
+          ...state.current,
+          products: state.current.products.filter(
+            (item) => item.id !== action.payload
+          ),
         },
       };
     }
@@ -94,3 +177,11 @@ export const ordersErrorsReducer = (state = nullErrors, action) => {
       return state;
   }
 };
+
+export const selectCurrentCartItems = (state) => state.orders.current.products;
+export const selectCurrentCartItemsExpanded = createSelector(
+  selectCurrentCartItems,
+  selectProductEntities,
+  (cartItems, products) =>
+    cartItems.map((item) => ({ ...item, ...products[item.id] }))
+);

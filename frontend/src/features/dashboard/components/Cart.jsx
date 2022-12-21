@@ -1,110 +1,55 @@
 import "./Cart.css";
-import foodimage from "./sandwich.png";
-import { RiDeleteBin5Fill, RiMoneyDollarCircleFill } from "react-icons/ri";
+
+import { RiMoneyDollarCircleFill } from "react-icons/ri";
 import { BsFillCreditCard2BackFill } from "react-icons/bs";
 import { MdQrCode } from "react-icons/md";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  createOrderAsync,
+  selectCurrentCartItemsExpanded,
+} from "../../../store/orders";
+import { CartItem } from "./CartItem";
+import { createRef } from "react";
+import { format } from "date-fns";
+
+const TODAY = format(Date.now(), "LLL d yyyy");
+// TODO: DOESN'tWORK!
+const generateOrderNumber = () => {
+  let number = 0;
+  ++number;
+  if (number < 100) {
+    return `00${number}`;
+  }
+  return `${number}`;
+};
 
 export function Cart() {
+  const dispatch = useDispatch();
+
+  const currentCartItems = useSelector(selectCurrentCartItemsExpanded);
+
+  const scrollRefs = currentCartItems.reduce((prev, curr) => {
+    prev[curr.id] = createRef();
+    return prev;
+  }, {});
+
   return (
     <>
       <div className="cart-container">
         <div className="order-detail">
-          <div className="order-number">Order #173</div>
-          <div className="date">Dec 25 2022</div>
+          <div className="order-number">Order #{generateOrderNumber()}</div>
+          <div className="date">{TODAY}</div>
         </div>
 
         <div className="order-lists-container">
           <div className="item-cards-container">
-            <div className="order-item-card">
-              <div>
-                <img className="order-item-image" src={foodimage} alt="food" />
-              </div>
-              <div className="order-detail-right">
-                <div>Rice Shrimp</div>
-                <div className="order-item-price">$9.10</div>
-                <div className="qty-change-section">
-                  <div className="qty-button">
-                    <button className="minus-button" onClick={() => {}}>
-                      -
-                    </button>
-                    <span className="qty">1</span>
-                    <button className="plus-button" onClick={() => {}}>
-                      +
-                    </button>
-                  </div>
-                  <span className="delete-button">
-                    <RiDeleteBin5Fill />
-                  </span>
-                </div>
-              </div>
-            </div>
-            <div className="order-item-card">
-              <div>
-                <img className="order-item-image" src={foodimage} alt="food" />
-              </div>
-              <div className="order-detail-right">
-                <div>Rice Shrimp</div>
-                <div className="order-item-price">$9.10</div>
-                <div className="qty-change-section">
-                  <div className="qty-button">
-                    <button className="minus-button" onClick={() => {}}>
-                      -
-                    </button>
-                    <span className="qty">3</span>
-                    <button className="plus-button" onClick={() => {}}>
-                      +
-                    </button>
-                  </div>
-                  <span className="delete-button">
-                    <RiDeleteBin5Fill />
-                  </span>
-                </div>
-              </div>
-            </div>
-            <div className="order-item-card">
-              <div>
-                <img className="order-item-image" src={foodimage} alt="food" />
-              </div>
-              <div className="order-detail-right">
-                <div>Rice Shrimp</div>
-                <div className="order-item-price">$9.10</div>
-                <div className="qty-change-section">
-                  <div className="qty-button">
-                    <button className="minus-button" onClick={() => {}}>
-                      -
-                    </button>
-                    <span className="qty">1</span>
-                    <button className="plus-button" onClick={() => {}}>
-                      +
-                    </button>
-                  </div>
-                  <span className="delete-button">
-                    <RiDeleteBin5Fill />
-                  </span>
-                </div>
-              </div>
-            </div>
-            {/* <div className="order-item-card">
-              <div>
-                <img className="order-item-image" src={foodimage} alt="food" />
-              </div>
-              <div className="order-detail-right">
-                <div>Rice Shrimp</div>
-                <div className="order-item-price">$9.10</div>
-                <div className="qty-change-section">
-                <div className="qty-button">
-                  
-                  <button className="minus-button">-</button>
-                  <span className="qty">1</span>
-                  <button className="plus-button">+</button>
-                
-                  
-                </div>
-                <span className="delete-button"><RiDeleteBin5Fill/></span>
-                </div>
-               
-              </div>
-            </div> */}
+            {currentCartItems.map((cartItem) => (
+              <CartItem
+                key={cartItem.id}
+                cartItem={cartItem}
+                ref={scrollRefs[cartItem.id]}
+              />
+            ))}
           </div>
 
           <div className="receipt-container">
@@ -151,7 +96,12 @@ export function Cart() {
               <div className="amount"> $ 40.00</div>
             </div>
             <div>
-              <button className="order-button">Order Now</button>
+              <button
+                className="order-button"
+                onClick={() => dispatch(createOrderAsync())}
+              >
+                Order Now
+              </button>
             </div>
           </div>
         </div>
