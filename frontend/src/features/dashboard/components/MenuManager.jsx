@@ -240,24 +240,26 @@ export function MenuManager() {
       )} */}
 
       <Modal className="category-modal">
-      <div className="NewCategoryForm">
-      <form onSubmit={handleCategorySubmit}>
-          <h1 className="add-category-title">Add new Category</h1>
-           <div>
-            <input className="title-input"
-              type="text"
-              name="title"
-              placeholder="Title"
-              value={categoryTitle}
-              onChange={(e) => setCategoryTitle(e.target.value)}
-            />
-          </div>
-          <div>
-            <button className="save-button" type="submit">Save</button>
-          </div>
-        </form>
+        <div className="NewCategoryForm">
+          <form onSubmit={handleCategorySubmit}>
+            <h1 className="add-category-title">Add new Category</h1>
+            <div>
+              <input
+                className="title-input"
+                type="text"
+                name="title"
+                placeholder="Title"
+                value={categoryTitle}
+                onChange={(e) => setCategoryTitle(e.target.value)}
+              />
+            </div>
+            <div>
+              <button className="save-button" type="submit">
+                Save
+              </button>
+            </div>
+          </form>
         </div>
-
       </Modal>
 
       <div className="category-list">
@@ -298,5 +300,3 @@ export function MenuManager() {
     </div>
   );
 }
-
-
