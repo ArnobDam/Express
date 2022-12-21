@@ -91,6 +91,8 @@ router.post("/", validateOrderInput, async (req, res, next) => {
       tax: TAX_AMOUNT,
       products: productNameArray,
       notes: req.body.notes,
+      createdAt: req.body.createdAt,
+      updatedAt: req.body.updatedAt,
     });
 
 
