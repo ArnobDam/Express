@@ -5,6 +5,7 @@ const logger = require("morgan");
 const cors = require("cors");
 const csurf = require("csurf");
 const { isProduction } = require("./config/keys");
+const bodyParser = require('body-parser')
 
 require("./models/User");
 require("./models/Product");
@@ -41,6 +42,9 @@ app.use(
     },
   })
 );
+
+// app.use(bodyParser.urlencoded());
+// app.use(bodyParser.json());
 
 app.use("/api/users", usersRouter);
 app.use("/api/products", productsRouter);

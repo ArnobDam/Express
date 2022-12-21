@@ -38,25 +38,26 @@ router.get("/:productId", async (req, res, next) => {
 });
 
 // CREATE PRODUCT
-router.post("/", validateProductInput, async (req, res, next) => {
-  let busboy = new Busboy({
-    headers: req.headers,
-    limits: {
-      fileSize: 6 * 1024 * 1024, //2MB limit
-    },
-  });
+router.post("/", async (req, res, next) => {
+  // console.log(req.body);
+  // let busboy = Busboy({
+  //   headers: req.headers,
+  //   limits: {
+  //     fileSize: 6 * 1024 * 1024, //2MB limit
+  //   },
+  // });
 
-  busboy.on("file", (fieldname, file, filename, encoding, mimetype) => {
-    const saveTo = path.join("../../images", filename);
-    console.log("this is uploading i think to" + saveTo);
-    file.pipe(fs.createWriteStream(saveTo));
-  });
+  // busboy.on("file", (fieldname, file, filename, encoding, mimetype) => {
+  //   const saveTo = path.join("../../images", filename);
+  //   console.log("this is uploading i think to" + saveTo);
+  //   file.pipe(fs.createWriteStream(saveTo));
+  // });
 
-  busboy.on("finish", () => {
-    console.log("upload finished :)");
-    res.writeHead(200, { Connection: "close" });
-    res.end("Goodbye!");
-  });
+  // busboy.on("finish", () => {
+  //   console.log("upload finished :)");
+  //   res.writeHead(200, { Connection: "close" });
+  //   res.end("Goodbye!");
+  // });
 
   try {
     const newProduct = new Product({
@@ -64,7 +65,7 @@ router.post("/", validateProductInput, async (req, res, next) => {
       category: req.body.category,
       price: req.body.price,
       description: req.body.description,
-      imageUrl: req.body.imageUrl,
+      imageUrl: saveTo,
     });
 
     let product = await newProduct.save();
