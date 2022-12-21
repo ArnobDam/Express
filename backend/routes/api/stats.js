@@ -6,25 +6,6 @@ const Order = mongoose.model("Order");
 
 // GET TOTAL REVENUE
 router.get("/revenue", async (req, res, next) => {
-  //     DateItem.aggregate(
-  //         { $group : {
-  //              _id : { year: { $year : "$accessDate" }, month: { $month : "$accessDate" },day: { $dayOfMonth : "$accessDate" }},
-  //              count : { $sum : 1 }}
-  //              },
-  //         { $group : {
-  //              _id : { year: "$_id.year", month: "$_id.month" },
-  //              dailyusage: { $push: { day: "$_id.day", count: "$count" }}}
-  //              },
-  //         { $group : {
-  //              _id : { year: "$_id.year" },
-  //              monthlyusage: { $push: { month: "$_id.month", dailyusage: "$dailyusage" }}}
-  //              },
-  //         function (err, res)
-  //              { if (err) ; // TODO handle error
-  //                console.log(res);
-  //              });
-  //   });
-
   try {
     let orders;
 
@@ -33,72 +14,22 @@ router.get("/revenue", async (req, res, next) => {
         {
           $group: {
             _id: {
-              year: { $year: "$createdAt" },
-              month: { $month: "$createdAt" },
+              $year: "$createdAt",
             },
             yearlyRevenue: { $sum: "$totalPrice" },
           },
         },
-
-        // {
-        //   $group: {
-        //     _id: {
-        //       year: { $month: "$_id.year" },
-        //     },
-        //   },
-        // },
-        // {
-        //   $group: {
-        //     _id: {
-        //       year: "$_id.year",
-        //     },
-        //   },
-        // },
-        // {
-        //   $group: {
-        //     _id: { year: "$_id.month" },
-        //     months: {
-        //       $push: { month: "$_id.month", monthlyRevenue: "$monthlyRevenue" },
-        //     },
-        //   },
-        // },
       ]);
 
-      // orders = await Order.find().sort({createdAt: 1});
-      //   orders = await Order.aggregate([
-      //     {
-      //       $group: {
-      //         _id: {
-      //           year: { $year: "$createdAt" },
-      //           month: { $month: "$createdAt" },
-      //         },
-      //         totalYearlyRevenue: { $sum: "$totalPrice" },
-      //       },
-      //       $,
-      //     },
-      //     {
-      //       $group: {
-      //         _id: { year: "$_id.year" },
-      //         totalMonthlyRevenue: {
-      //           $push: {
-      //             month: "$_id.year",
-      //             monthlyRevenue: "$totalYearlyRevenue",
-      //           },
-      //         },
-      //       },
-      //     },
-      //   ]);
-      //   orders = await Order.aggregate([
-      //     {
-      //       $group: {},
-      //     },
-      //   ]);
       return res.json(orders);
-    } else if (req.query.tf === "YTD") {
+    } else if (req.query.tf === "MTD") {
       orders = await Order.aggregate([
         {
           $group: {
-            _id: { $year: "$createdAt" },
+            _id: {
+              year: { $year: "$createdAt" },
+              month: { $month: "$createdAt" },
+            },
             totalMonthlyRevenue: { $sum: "$totalPrice" },
           },
         },

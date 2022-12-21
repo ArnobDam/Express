@@ -30,7 +30,7 @@ router.get("/:orderId", async (req, res, next) => {
     // const order = await Order.findById(req.params.orderId)
     console.log(req.params.orderId);
 
-    const order = await Order.findById(req.params.orderId)
+    const order = await Order.findById(req.params.orderId);
 
     // .populate("orderId", )
     return res.json(order);
@@ -44,7 +44,6 @@ router.get("/:orderId", async (req, res, next) => {
 
 // CREATE ORDER
 router.post("/", validateOrderInput, async (req, res, next) => {
-
   const TAX_AMOUNT = 8.875;
 
   try {
@@ -57,7 +56,7 @@ router.post("/", validateOrderInput, async (req, res, next) => {
       productIdArray.push(product._id);
     }
 
-    productIdArray.forEach(id => {
+    productIdArray.forEach((id) => {
       productsCount[id] = (productsCount[id] || 0) + 1;
     });
 
@@ -67,27 +66,29 @@ router.post("/", validateOrderInput, async (req, res, next) => {
       _id: { $in: productIdArray },
     }).then((products) => {
       for (const product of products) {
-        let productObject = {}
+        let productObject = {};
         productObject["_id"] = product._id;
         productObject["name"] = product.name;
         productObject["quantity"] = productsCount[product._id];
         productObject["totalPrice"] = product.price * productObject["quantity"];
 
         productNameArray.push(productObject);
-        priceSubTotal += product.price;
+        priceSubTotal += productObject["totalPrice"];
       }
     });
 
     // console.log(productNameArray);
 
-    req.body.discountPercentage ? priceSubTotal -= priceSubTotal * (req.body.discountPercentage / 100) : priceSubTotal;
+    req.body.discountPercentage
+      ? (priceSubTotal -= priceSubTotal * (req.body.discountPercentage / 100))
+      : priceSubTotal;
     // console.log(priceSubTotal)
 
     const newOrder = new Order({
       number: Date.now(),
       discountPercentage: req.body.discountPercentage,
-      totalPrice: Math.ceil(priceSubTotal * (1 + (TAX_AMOUNT / 100))),
-      subTotal: Math.ceil(priceSubTotal),
+      totalPrice: priceSubTotal * (1 + TAX_AMOUNT / 100),
+      subTotal: priceSubTotal,
       tax: TAX_AMOUNT,
       products: productNameArray,
       notes: req.body.notes,
@@ -95,11 +96,9 @@ router.post("/", validateOrderInput, async (req, res, next) => {
       updatedAt: req.body.updatedAt,
     });
 
-
     let order = await newOrder.save();
     return res.status(201).json(order);
-  }
-  catch (err) {
+  } catch (err) {
     const error = new Error("Order can't be created.");
     error.statusCode = 422;
     error.errors = { message: "Invalid order input values." };
@@ -111,7 +110,6 @@ router.post("/", validateOrderInput, async (req, res, next) => {
 router.patch("/:orderId", validateOrderInput, async (req, res, next) => {
   const TAX_AMOUNT = 8.875;
 
-
   const productIdArray = [];
   const productNameArray = [];
   const productsCount = {};
@@ -121,7 +119,7 @@ router.patch("/:orderId", validateOrderInput, async (req, res, next) => {
     productIdArray.push(product._id);
   }
 
-  productIdArray.forEach(id => {
+  productIdArray.forEach((id) => {
     productsCount[id] = (productsCount[id] || 0) + 1;
   });
 
@@ -131,7 +129,7 @@ router.patch("/:orderId", validateOrderInput, async (req, res, next) => {
     _id: { $in: productIdArray },
   }).then((products) => {
     for (const product of products) {
-      let productObject = {}
+      let productObject = {};
       productObject["_id"] = product._id;
       productObject["name"] = product.name;
       productObject["quantity"] = productsCount[product._id];
@@ -143,7 +141,9 @@ router.patch("/:orderId", validateOrderInput, async (req, res, next) => {
 
   // console.log(productNameArray);
 
-  req.body.discountPercentage ? priceSubTotal -= priceSubTotal * (req.body.discountPercentage / 100) : priceSubTotal;
+  req.body.discountPercentage
+    ? (priceSubTotal -= priceSubTotal * (req.body.discountPercentage / 100))
+    : priceSubTotal;
   // console.log(priceSubTotal)
 
   Order.findByIdAndUpdate(
@@ -151,7 +151,7 @@ router.patch("/:orderId", validateOrderInput, async (req, res, next) => {
     {
       number: Date.now(),
       discountPercentage: req.body.discountPercentage,
-      totalPrice: priceSubTotal * (1 + (TAX_AMOUNT / 100)),
+      totalPrice: priceSubTotal * (1 + TAX_AMOUNT / 100),
       subTotal: priceSubTotal,
       tax: TAX_AMOUNT,
       products: productNameArray,
@@ -161,21 +161,19 @@ router.patch("/:orderId", validateOrderInput, async (req, res, next) => {
   )
     .then((order) => {
       return res.json(order);
-    }).catch((err) => {
+    })
+    .catch((err) => {
       const error = new Error("Order can't be created.");
       error.statusCode = 422;
       error.errors = { message: "Invalid order input values." };
       return next(error);
-    })
-
-
+    });
 });
 
 // UPDATE ORDER
 router.put("/:orderId", validateOrderInput, async (req, res, next) => {
   const TAX_AMOUNT = 8.875;
 
-
   const productIdArray = [];
   const productNameArray = [];
   const productsCount = {};
@@ -185,7 +183,7 @@ router.put("/:orderId", validateOrderInput, async (req, res, next) => {
     productIdArray.push(product._id);
   }
 
-  productIdArray.forEach(id => {
+  productIdArray.forEach((id) => {
     productsCount[id] = (productsCount[id] || 0) + 1;
   });
 
@@ -195,7 +193,7 @@ router.put("/:orderId", validateOrderInput, async (req, res, next) => {
     _id: { $in: productIdArray },
   }).then((products) => {
     for (const product of products) {
-      let productObject = {}
+      let productObject = {};
       productObject["_id"] = product._id;
       productObject["name"] = product.name;
       productObject["quantity"] = productsCount[product._id];
@@ -207,7 +205,9 @@ router.put("/:orderId", validateOrderInput, async (req, res, next) => {
 
   // console.log(productNameArray);
 
-  req.body.discountPercentage ? priceSubTotal -= priceSubTotal * (req.body.discountPercentage / 100) : priceSubTotal;
+  req.body.discountPercentage
+    ? (priceSubTotal -= priceSubTotal * (req.body.discountPercentage / 100))
+    : priceSubTotal;
   // console.log(priceSubTotal)
 
   Order.findByIdAndUpdate(
@@ -215,7 +215,7 @@ router.put("/:orderId", validateOrderInput, async (req, res, next) => {
     {
       number: Date.now(),
       discountPercentage: req.body.discountPercentage,
-      totalPrice: priceSubTotal * (1 + (TAX_AMOUNT / 100)),
+      totalPrice: priceSubTotal * (1 + TAX_AMOUNT / 100),
       subTotal: priceSubTotal,
       tax: TAX_AMOUNT,
       products: productNameArray,
@@ -225,14 +225,13 @@ router.put("/:orderId", validateOrderInput, async (req, res, next) => {
   )
     .then((order) => {
       return res.json(order);
-    }).catch((err) => {
+    })
+    .catch((err) => {
       const error = new Error("Order can't be created.");
       error.statusCode = 422;
       error.errors = { message: "Invalid order input values." };
       return next(error);
-    })
-
-
+    });
 });
 
 // DELETE ORDER
