@@ -7,25 +7,17 @@ import { useDispatch, useSelector } from "react-redux";
 import {
   createOrderAsync,
   selectCurrentCartItemsExpanded,
+  selectCurrentOrderNumber,
 } from "../../../store/orders";
 import { CartItem } from "./CartItem";
 import { createRef } from "react";
 import { format } from "date-fns";
 
 const TODAY = format(Date.now(), "LLL d yyyy");
-// TODO: DOESN'tWORK!
-const generateOrderNumber = () => {
-  let number = 0;
-  ++number;
-  if (number < 100) {
-    return `00${number}`;
-  }
-  return `${number}`;
-};
-
+const formatOrderNumber = (orderNumber) => {};
 export function Cart() {
   const dispatch = useDispatch();
-
+  const currentOrderNumber = useSelector(selectCurrentOrderNumber);
   const currentCartItems = useSelector(selectCurrentCartItemsExpanded);
 
   const scrollRefs = currentCartItems.reduce((prev, curr) => {
@@ -37,7 +29,7 @@ export function Cart() {
     <>
       <div className="cart-container">
         <div className="order-detail">
-          <div className="order-number">Order #{generateOrderNumber()}</div>
+          <div className="order-number">Order #{currentOrderNumber}</div>
           <div className="date">{TODAY}</div>
         </div>
 

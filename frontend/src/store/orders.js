@@ -7,6 +7,7 @@ const COMPLETE_ORDER = "orders/COMPLETE_ORDER";
 const INCREMENT_QUANTITY = "orders/INCREMENT_QUANTITY";
 const DECREMENT_QUANTITY = "orders/DECREMENT_QUANTITY";
 const REMOVE_ITEM_FROM_CART = "orders/REMOVE_ITEM_FROM_CART";
+const INCREMENT_ORDER_NUMBER = "orders/INCREMEMNT_ORDER_NUMBER";
 
 export const addOrderItem = (orderItem) => ({
   type: ADD_ORDER_ITEM,
@@ -31,6 +32,10 @@ export const decrementQuantity = (itemId) => ({
 export const removeItemFromCart = (itemId) => ({
   type: REMOVE_ITEM_FROM_CART,
   payload: itemId,
+});
+
+export const incrementOrderNumber = () => ({
+  type: INCREMENT_ORDER_NUMBER,
 });
 
 export const createOrderAsync = () => async (dispatch, getState) => {
@@ -66,6 +71,7 @@ const initialState = {
   current: {
     products: [],
   },
+  orderNumber: 1,
   history: [],
 };
 
@@ -152,6 +158,12 @@ export const ordersReducer = (state = initialState, action) => {
         history: [action.payload, ...state.history],
       };
     }
+    case INCREMENT_ORDER_NUMBER: {
+      return {
+        ...state,
+        orderNumber: state.orderNumber + 1,
+      };
+    }
     default:
       return state;
   }
@@ -185,3 +197,4 @@ export const selectCurrentCartItemsExpanded = createSelector(
   (cartItems, products) =>
     cartItems.map((item) => ({ ...item, ...products[item.id] }))
 );
+export const selectCurrentOrderNumber = (state) => state.orders.orderNumber;

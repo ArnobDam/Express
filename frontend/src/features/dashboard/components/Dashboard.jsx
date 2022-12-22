@@ -13,7 +13,7 @@ export function Dashboard() {
 
   useEffect(() => {
     if (location.pathname === "/") {
-      history.replace("/order");
+      history.replace("/menu");
     }
   }, [location.pathname, history]);
 

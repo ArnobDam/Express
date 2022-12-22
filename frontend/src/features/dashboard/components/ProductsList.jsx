@@ -1,6 +1,7 @@
 import { createRef, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { addOrderItem, createOrderAsync } from "../../../store/orders";
+import { shallowEqual, useDispatch, useSelector } from "react-redux";
+import { addOrderItem } from "../../../store/orders";
+import { selectCurrentProduct } from "../../../store/products";
 import { closeModal } from "../../../store/ui";
 import { formatPrice } from "../../../utils/formatPrice";
 import { Modal } from "../../shared/components/Modal";
@@ -44,8 +45,10 @@ export function ProductsList() {
     });
   };
 
-  const isModalOpen = useSelector((state) => state.ui.modal);
-  const currentProductInModal = useSelector((state) => state.ui.current);
+  const isAddItemToCartModalOpen = useSelector(
+    (state) => state.ui.modal === "add_item_to_cart"
+  );
+  const currentProduct = useSelector(selectCurrentProduct, shallowEqual);
 
   const [quantity, setQuantity] = useState(1);
   const handleDecrement = () => {
@@ -73,21 +76,21 @@ export function ProductsList() {
 
   return (
     <div className="Order" style={{ position: "relative" }}>
-      {isModalOpen && currentProductInModal && (
+      {isAddItemToCartModalOpen && currentProduct && (
         <Modal>
-          <h1>{currentProductInModal.name}</h1>
+          <h1>{currentProduct.name}</h1>
           <img
-            src={currentProductInModal.imageUrl}
-            alt={currentProductInModal.name}
+            src={currentProduct.imageUrl}
+            alt={currentProduct.name}
             height="100px"
           />
-          <p>{formatPrice(currentProductInModal.price)}</p>
+          <p>{formatPrice(currentProduct.price)}</p>
           <button onClick={handleDecrement}>-</button>
           <p>{quantity}</p>
           <button onClick={handleIncrement}>+</button>
           <div>modifiers</div>
           <button onClick={handleCloseModal}>Cancel</button>
-          <button onClick={() => handleAddProductToCart(currentProductInModal)}>
+          <button onClick={() => handleAddProductToCart(currentProduct)}>
             OK
           </button>
         </Modal>

@@ -80,7 +80,7 @@ export const productsReducer = (state = initialState, action) => {
     case SHOW_ADD_ITEM_TO_CART_MODAL: {
       return {
         ...state,
-        current: action.payload.product,
+        current: action.payload,
       };
     }
     default:
@@ -129,3 +129,5 @@ export const selectProductById = createSelector(
   (_state, productId) => productId,
   (products, productId) => products[productId]
 );
+
+export const selectCurrentProduct = (state) => state.products.current;
