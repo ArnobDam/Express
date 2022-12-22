@@ -33,11 +33,11 @@ const initialProductData = {
     "https://preview.redd.it/fseqknyvblex.jpg?auto=webp&s=ea4b90dab14cf0e779fd145e5b2ccf878e076d6f",
 };
 
-const SANDWICH_ID = "63a321d938a679217e604707";
-const SALAD_ID = "63a321d938a679217e604708";
-const SOUP_ID = "63a321d938a679217e604709";
-const DRINK_ID = "63a321d938a679217e60470a";
-const BAKERY_ID = "63a321d938a679217e60470b";
+const SANDWICH_ID = "63a3f5da60d34848d20c458a";
+const SALAD_ID = "63a3f5da60d34848d20c458b";
+const SOUP_ID = "63a3f5da60d34848d20c458c";
+const DRINK_ID = "63a3f5da60d34848d20c458d";
+const BAKERY_ID = "63a3f5da60d34848d20c458e";
 
 const categories = [
   { id: SANDWICH_ID, title: "🥪 Sandwiches" },
