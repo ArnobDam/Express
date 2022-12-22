@@ -8,3 +8,99 @@
   align-items: center;
   align-content: center;
 }
+
+.daniel-about-me {
+  display: flex;
+  position: relative;
+  flex-direction: row;
+  align-items: center;
+  align-content: center;
+  width: fit-content;
+  height: fit-content;
+  padding: 14px 18px;
+  border: 1px solid rgba(0, 0, 0, 0.2);
+  box-shadow: 0px 8px 18px -12px rgba(0, 0, 0, 0.3);
+  border-radius: 10px;
+  animation: 0.5s ease-in 0s 1 opacityUp;
+  z-index: 2;
+}
+
+.name-profile {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-content: center;
+  align-items: flex-start;
+  height: 72px;
+  width: 100%;
+  padding: 6px 10px;
+}
+
+.full-name {
+  font-weight: 600;
+  color: rgba(0, 0, 0, 1);
+  font-size: 28px;
+}
+
+.role {
+  font-weight: 400;
+  color: rgba(0, 0, 0, 0.6);
+  font-size: 14px;
+}
+
+.daniel-about-me-body {
+  display: flex;
+  position: relative;
+  flex-direction: row;
+  align-items: center;
+  align-content: center;
+  width: 100%;
+  max-height: 40%;
+  /* height: fit-content; */
+  padding: 14px 18px;
+  border: 1px solid rgba(0, 0, 0, 0.2);
+  box-shadow: 0px 8px 18px -12px rgba(0, 0, 0, 0.3);
+  border-radius: 10px;
+  opacity: 0;
+  animation: 0.5s ease-in 0.5s 1 forwards opacityDown;
+  overflow-y: auto;
+}
+
+.daniel-about-me-body-links {
+  display: flex;
+  position: relative;
+  flex-direction: row;
+  align-items: center;
+  align-content: center;
+  justify-content: center;
+  width: fit-content;
+  height: fit-content;
+  padding: 14px 18px;
+  border: 1px solid rgba(0, 0, 0, 0.2);
+  box-shadow: 0px 8px 18px -12px rgba(0, 0, 0, 0.3);
+  border-radius: 10px;
+  opacity: 0;
+  animation: 0.5s ease-in 1s 1 forwards opacityDown;
+}
+
+@keyframes opacityUp {
+  0% {
+    opacity: 0;
+    transform: translateY(15px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes opacityDown {
+  0% {
+    opacity: 0;
+    transform: translateY(-15px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
