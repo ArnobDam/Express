@@ -41,7 +41,6 @@ export const ProductCard = forwardRef(
       dispatch(removeProductAsync(productId));
     };
 
-    const isEditProductModalOpen = useSelector(selectIsEditProductModalOpen);
     const handleOpenEditProductModal = (productToEdit) => {
       dispatch(showEditProductModal(productToEdit));
     };
@@ -101,12 +100,6 @@ export const ProductCard = forwardRef(
             </div>
           </div>
         </div>
-        {/* EDIT MODAL */}
-        {/* {isEditProductModalOpen && (
-          <Modal className="product-modal">
-            <h1>HELLO</h1>
-          </Modal>
-        )} */}
       </>
     );
   }
