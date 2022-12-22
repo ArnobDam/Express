@@ -28,7 +28,7 @@ router.get("/:categoryId", async (req, res, next) => {
   // res.json({ message: "GET /category" });
   try {
     // const category = await Category.findById(req.params.categoryId)
-    console.log(req.params.categoryId);
+    // console.log(req.params.categoryId);
 
     const products = await Product.find({
       category: new ObjectId(req.params.categoryId),

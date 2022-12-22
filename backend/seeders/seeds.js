@@ -280,7 +280,7 @@ for (let i = 0; i < ORDER_AMOUNT; i++) {
       (productsCount[products[RANDOM_NUM]._id] || 0) + 1;
   }
 
-  console.log(orderItems);
+  // console.log(orderItems);
 
   for (const product of orderItems) {
     let productObject = {};

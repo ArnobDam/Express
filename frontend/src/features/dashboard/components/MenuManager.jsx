@@ -90,7 +90,7 @@ export function MenuManager() {
     const newProduct = {
       ...productFormData,
     };
-    console.log(newProduct);
+    // console.log(newProduct);
     dispatch(createProductAsync(newProduct)).then(() => {
       // TODO:
       alert("Success, product created");

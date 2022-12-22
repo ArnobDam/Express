@@ -58,7 +58,7 @@ router.post("/", busboy({ immediate: true }), async (req, res, next) => {
   });
 
   await req.busboy.on("finish", async () => {
-    console.log("upload finished :)");
+    // console.log("upload finished :)");
     try {
       const newProduct = new Product({
         name: formData.get("name"),

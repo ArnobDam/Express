@@ -28,7 +28,7 @@ router.get("/:orderId", async (req, res, next) => {
   // res.json({ message: "GET /order" });
   try {
     // const order = await Order.findById(req.params.orderId)
-    console.log(req.params.orderId);
+    // console.log(req.params.orderId);
 
     const order = await Order.findById(req.params.orderId);
 
