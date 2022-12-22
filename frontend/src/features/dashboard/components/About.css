@@ -5,21 +5,44 @@
   align-items: center;
   align-content: center;
   border: 1px solid red;
-  height: 10%;
+  box-sizing: border-box;
+  padding: 20px;
+}
+
+.main-about {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  align-content: flex-end;
+  align-items: center;
+  border: 1px solid black;
+  overflow-y: hidden;
+}
+
+.about-team {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: flex-end;
+  align-content: center;
+  border: 1px solid red;
 }
 
 .about-page-div {
   display: flex;
   flex-direction: row;
   justify-content: space-evenly;
-  align-items: center;
+  align-items: flex-end;
   align-content: center;
   border: 1px solid red;
-  height: 90%;
 }
 
 .about-page-div #scorecard {
-  border-radius: 10px;
-  height: 80%;
-  width: 25%;
+  border-radius: 4px;
+  height: fit-content;
+  height: 24px;
+  width: fit-content;
+  padding: 18px 32px 18px 32px;
+  box-sizing: border-box;
 }
+
