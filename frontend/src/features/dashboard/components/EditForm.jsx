@@ -9,7 +9,6 @@ import {
 import { closeModal } from "../../../store/ui";
 
 export function EditForm({ productToEdit, categories }) {
-  console.log(productToEdit._id);
   const productErrors = useSelector((state) => state.errors.products);
 
   const [updateProductFormData, setUpdateProductFormData] = useState({

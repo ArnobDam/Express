@@ -34,8 +34,23 @@ const CATEGORY_IDS = [
   { id: BAKERY_ID, title: "Bakery" },
 ];
 
+function formatCategoryTitle(category) {
+  if (category.title === "Sandwiches") {
+    return "🥪 Sandwiches";
+  } else if (category.title === "") {
+  }
+}
+
 export function ProductsList() {
   const dispatch = useDispatch();
+  const categoriesList = useSelector((state) =>
+    Object.values(state.categories.entities ?? {})
+      .map((category) => ({
+        id: category._id,
+        title: category.title,
+      }))
+      .slice(0, 5)
+  );
 
   const scrollRefs = CATEGORY_IDS.reduce((prev, curr) => {
     prev[curr.id] = createRef();
@@ -125,7 +140,7 @@ export function ProductsList() {
         </Modal>
       )}
       <div className="category-list">
-        {categories.map((category) => (
+        {categoriesList.map((category) => (
           <div
             className="category-item"
             key={category.id}
@@ -148,7 +163,7 @@ export function ProductsList() {
       </div>
       <div className="ProductsList">
         <div className="category-container">
-          {CATEGORY_IDS.map((category) => (
+          {categoriesList.map((category) => (
             <ProductRow
               key={category.id}
               ref={scrollRefs[category.id]}
