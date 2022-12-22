@@ -53,9 +53,23 @@ export function PieChart({ data }) {
     }
   }
 
-  console.log(categoryNamesAndTotalPrices)
+  // console.log(categoryNamesAndTotalPrices)
 
   // console.log(currentOrderWithCategoryNames)
+
+  let totalPrice = 0;
+
+  if (!categoryNamesAndTotalPrices[0]) {
+    totalPrice = 1;
+  } else {
+    categoryNamesAndTotalPrices.forEach((obj) => {
+      totalPrice += obj.totalPrice
+    })
+    
+  }
+
+  // console.log(totalPrice);
+
 
   return (
     <ResponsivePie
