@@ -72,7 +72,8 @@ router.post("/", validateOrderInput, async (req, res, next) => {
         productObject["quantity"] = productsCount[product._id];
         productObject["totalPrice"] = product.price * productObject["quantity"];
         productObject["itemPrice"] = product.price;
-        
+        productObject["imageUrl"] = product.imageUrl;
+
         productNameArray.push(productObject);
         priceSubTotal += productObject["totalPrice"];
       }
@@ -134,6 +135,8 @@ router.patch("/:orderId", validateOrderInput, async (req, res, next) => {
       productObject["_id"] = product._id;
       productObject["name"] = product.name;
       productObject["quantity"] = productsCount[product._id];
+      productObject["itemPrice"] = product.price;
+      productObject["imageUrl"] = product.imageUrl;
 
       productNameArray.push(productObject);
       priceSubTotal += productObject["totalPrice"];
@@ -198,6 +201,8 @@ router.put("/:orderId", validateOrderInput, async (req, res, next) => {
       productObject["_id"] = product._id;
       productObject["name"] = product.name;
       productObject["quantity"] = productsCount[product._id];
+      productObject["itemPrice"] = product.price;
+      productObject["imageUrl"] = product.imageUrl;
 
       productNameArray.push(productObject);
       priceSubTotal += productObject["totalPrice"];
