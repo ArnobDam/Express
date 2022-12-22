@@ -1,5 +1,5 @@
 .modal-overlay {
-  position: absolute;
+  position: sticky;
   z-index: 20;
   top: 0;
   right: 0;
@@ -10,6 +10,16 @@
   justify-content: center;
   align-items: flex-start;
   padding-top: 300px;
+  overflow: hidden;
+}
+
+.Order {
+  display: flex;
+  flex-direction: column;
+  position: sticky;
+  top: 0px;
+  height: 100%;
+  /* overflow-y: scroll; */
 }
 
 .modal {
