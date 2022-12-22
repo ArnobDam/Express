@@ -39,44 +39,59 @@ router.get("/:productId", async (req, res, next) => {
 
 // CREATE PRODUCT
 router.post("/", async (req, res, next) => {
-  // console.log(req.body);
-  // let busboy = Busboy({
-  //   headers: req.headers,
-  //   limits: {
-  //     fileSize: 6 * 1024 * 1024, //2MB limit
-  //   },
-  // });
+  console.log(req.body);
 
-  // busboy.on("file", (fieldname, file, filename, encoding, mimetype) => {
-  //   const saveTo = path.join("../../images", filename);
-  //   console.log("this is uploading i think to" + saveTo);
-  //   file.pipe(fs.createWriteStream(saveTo));
-  // });
+  let busboy = Busboy({ headers: req.headers });
 
-  // busboy.on("finish", () => {
-  //   console.log("upload finished :)");
-  //   res.writeHead(200, { Connection: "close" });
-  //   res.end("Goodbye!");
-  // });
+  // console.log(busboy);
 
-  try {
-    const newProduct = new Product({
-      name: req.body.name,
-      category: req.body.category,
-      price: req.body.price,
-      description: req.body.description,
-      imageUrl: saveTo,
-    });
+  busboy.on("file", (fieldname, file, filename, encoding, mimetype) => {
+    const saveTo = path.join("../../images", filename);
+    console.log("this is uploading i think to" + saveTo);
+    file.pipe(fs.createWriteStream(saveTo));
+  });
 
-    let product = await newProduct.save();
-    // return req.pipe(busboy);
-    return res.status(201).json(product);
-  } catch (err) {
-    const error = new Error("Product can't be created.");
-    error.statusCode = 422;
-    error.errors = { message: "Invalid product input values." };
-    return next(error);
-  }
+  busboy.on("finish", () => {
+    console.log("upload finished :)");
+    // res.end("Goodbye!");
+    try {
+      const newProduct = new Product({
+        name: req.body.name,
+        category: req.body.category,
+        price: req.body.price,
+        description: req.body.description,
+        imageUrl: saveTo,
+      });
+      // return req.pipe(busboy);
+      let product = newProduct.save();
+      res.writeHead(201, { Connection: "close" });
+      return res.json(product);
+    } catch (err) {
+      const error = new Error("Product can't be created.");
+      error.statusCode = 422;
+      error.errors = { message: "Invalid product input values." };
+      return next(error);
+    }
+  });
+
+  // try {
+  //   const newProduct = new Product({
+  //     name: req.body.name,
+  //     category: req.body.category,
+  //     price: req.body.price,
+  //     description: req.body.description,
+  //     imageUrl: saveTo,
+  //   });
+
+  //   let product = await newProduct.save();
+  //   // return req.pipe(busboy);
+  //   return res.status(201).json(product);
+  // } catch (err) {
+  //   const error = new Error("Product can't be created.");
+  //   error.statusCode = 422;
+  //   error.errors = { message: "Invalid product input values." };
+  //   return next(error);
+  // }
 });
 
 // UPDATE PRODUCT
