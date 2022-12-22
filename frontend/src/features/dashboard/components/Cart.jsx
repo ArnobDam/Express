@@ -8,10 +8,14 @@ import {
   createOrderAsync,
   selectCurrentCartItemsExpanded,
   selectCurrentOrderNumber,
+  selectDiscountAmount,
+  selectSalesTax,
+  selectSubTotal,
 } from "../../../store/orders";
 import { CartItem } from "./CartItem";
 import { createRef } from "react";
 import { format } from "date-fns";
+import { formatPrice } from "../../../utils/formatPrice";
 
 const TODAY = format(Date.now(), "LLL d yyyy");
 const formatOrderNumber = (orderNumber) => {
@@ -25,6 +29,9 @@ export function Cart() {
   const dispatch = useDispatch();
   const currentOrderNumber = useSelector(selectCurrentOrderNumber);
   const currentCartItems = useSelector(selectCurrentCartItemsExpanded);
+  const subTotal = useSelector(selectSubTotal);
+  const salesTax = useSelector(selectSalesTax);
+  const discountedAmount = useSelector(selectDiscountAmount);
 
   const scrollRefs = currentCartItems.reduce((prev, curr) => {
     prev[curr.id] = createRef();
@@ -80,15 +87,18 @@ export function Cart() {
             <div className="total-container">
               <div className="sub-total">
                 <div>Subtotal</div>
-                <div className="amount"> $47.00</div>
+                <div className="amount">{formatPrice(subTotal)}</div>
               </div>
               <div className="sub-total">
                 <div>Discount</div>
-                <div className="amount">-$5.00</div>
+                <div className="amount">
+                  {discountedAmount > 0 ? "-" : ""}
+                  {formatPrice(discountedAmount)}
+                </div>
               </div>
               <div className="sales-tax">
                 <div>Sales tax</div>
-                <div className="amount">$2.00</div>
+                <div className="amount">{formatPrice(salesTax)}</div>
               </div>
             </div>
             <div className="total-text">

@@ -1,6 +1,9 @@
 import { createSelector } from "reselect";
 import { jwtFetch } from "./jwt";
 
+const TAX_RATE = 8.875;
+const DISCOUNT_RATE = 0.1;
+
 const ADD_ORDER_ITEM = "orders/ADD_ORDER_ITEM";
 const COMPLETE_ORDER = "orders/COMPLETE_ORDER";
 const INCREMENT_QUANTITY = "orders/INCREMENT_QUANTITY";
@@ -42,7 +45,6 @@ export const createOrderAsync = () => async (dispatch, getState) => {
   if (currentOrder.products.length < 1) {
     return;
   }
-  console.log({ currentOrder });
   let orderItems = [];
   currentOrder.products.forEach((item) => {
     for (let i = 0; i < item.quantity; i++) {
@@ -58,6 +60,8 @@ export const createOrderAsync = () => async (dispatch, getState) => {
     });
     const data = await res.json();
     dispatch(completeOrder(data));
+    dispatch(incrementOrderNumber());
+    localStorage.setItem("orderNumber", getState().orders.orderNumber);
   } catch (err) {
     const res = await err.json();
     if (res.statusCode === 400) {
@@ -70,7 +74,8 @@ const initialState = {
   current: {
     products: [],
   },
-  orderNumber: 1,
+  orderNumber: parseInt(localStorage.getItem("orderNumber"), 10) ?? 1,
+  tax: TAX_RATE,
   history: [],
 };
 
@@ -85,13 +90,16 @@ export const ordersReducer = (state = initialState, action) => {
           ...state,
           current: {
             ...state.current,
-            products: state.current.products.map((item) => ({
-              ...item,
-              quantity:
-                item.id === action.payload.id
-                  ? item.quantity + action.payload.quantity
-                  : item.quantity,
-            })),
+            products: state.current.products.map((item) => {
+              if (item.id === action.payload.id) {
+                return {
+                  ...item,
+                  quantity: item.quantity + action.payload.quantity,
+                  totalPrice: item.totalPrice * item.quantity,
+                };
+              }
+              return item;
+            }),
           },
         };
       }
@@ -200,3 +208,18 @@ export const selectCurrentCartItemsExpanded = createSelector(
     cartItems.map((item) => ({ ...item, ...products[item.id] }))
 );
 export const selectCurrentOrderNumber = (state) => state.orders.orderNumber;
+export const selectSubTotal = (state) =>
+  state.orders.current.products.reduce(
+    (prev, curr) => prev + curr.totalPrice,
+    0
+  );
+export const selectSalesTax = createSelector(
+  selectSubTotal,
+  (subTotal) => (subTotal / 100) * TAX_RATE
+);
+export const selectDiscountAmount = createSelector(
+  selectSubTotal,
+  (subTotal) => subTotal * DISCOUNT_RATE
+);
+
+export const selectTotalWithTax = (state) => {};
