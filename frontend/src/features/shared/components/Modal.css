@@ -19,3 +19,11 @@
   padding: 12px 16px;
   
 }
+
+.exit-modal{
+  background-color: transparent;
+  border: none;
+  color:white;
+  font-size:25px
+  
+}

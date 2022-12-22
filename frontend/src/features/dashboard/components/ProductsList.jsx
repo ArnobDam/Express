@@ -6,6 +6,7 @@ import { closeModal } from "../../../store/ui";
 import { formatPrice } from "../../../utils/formatPrice";
 import { Modal } from "../../shared/components/Modal";
 import { ProductRow } from "./ProductRow";
+import "./ProductsList.css";
 
 const SANDWICH_ID = "63a321d938a679217e604707";
 const SALAD_ID = "63a321d938a679217e604708";
@@ -77,22 +78,46 @@ export function ProductsList() {
   return (
     <div className="Order" style={{ position: "relative" }}>
       {isAddItemToCartModalOpen && currentProduct && (
-        <Modal>
-          <h1>{currentProduct.name}</h1>
-          <img
-            src={currentProduct.imageUrl}
-            alt={currentProduct.name}
-            height="100px"
-          />
-          <p>{formatPrice(currentProduct.price)}</p>
-          <button onClick={handleDecrement}>-</button>
-          <p>{quantity}</p>
-          <button onClick={handleIncrement}>+</button>
-          <div>modifiers</div>
-          <button onClick={handleCloseModal}>Cancel</button>
-          <button onClick={() => handleAddProductToCart(currentProduct)}>
-            OK
-          </button>
+        <Modal className="products-modal">
+          <h1 className="product-modal-name">{currentProduct.name}</h1>
+          <div className="product-modal-detail">
+            <div>
+              <img
+                className="product-modal-image"
+                src={currentProduct.imageUrl}
+                alt={currentProduct.name}
+                height="100px"
+              />
+            </div>
+            <div className="product-modal-price">
+              {formatPrice(currentProduct.price)}
+            </div>
+            <div className="product-modal-qty">
+              <div>
+                <button className="modal-qty-button" onClick={handleDecrement}>
+                  -
+                </button>
+              </div>
+              <div className="modal-qty">{quantity}</div>
+              <div>
+                <button className="modal-qty-button" onClick={handleIncrement}>
+                  +
+                </button>
+              </div>
+            </div>
+            {/* <div>modifiers</div> */}
+            <div className="modal-buttons">
+              <button
+                className="modal-add-button"
+                onClick={() => handleAddProductToCart(currentProduct)}
+              >
+                Add
+              </button>
+              <button className="modal-cxl-button" onClick={handleCloseModal}>
+                Cancel
+              </button>
+            </div>
+          </div>
         </Modal>
       )}
       <div className="category-list">

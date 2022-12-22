@@ -7,7 +7,7 @@ export function Modal({ children, className = "" }) {
 
   return (
     <div className={`modal-overlay`}>
-      <button onClick={() => dispatch(closeModal())}>x</button>
+      <button className="exit-modal"onClick={() => dispatch(closeModal())}>x</button>
       <div className={`modal ${className}`}>{children}</div>
     </div>
   );
