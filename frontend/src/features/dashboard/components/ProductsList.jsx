@@ -72,6 +72,7 @@ export function ProductsList() {
     const newItem = {
       id: product._id,
       quantity,
+      price: product.price,
       totalPrice: quantity * product.price,
     };
     dispatch(addOrderItem(newItem));

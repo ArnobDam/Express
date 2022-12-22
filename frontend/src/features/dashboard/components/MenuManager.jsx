@@ -2,14 +2,23 @@ import React, { useEffect, useState, useCallback } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useDropzone } from "react-dropzone";
 import {
+  clearCategoriesErrors,
   createCategoryAsync,
   fetchCategoriesAsync,
   selectCategoriesList,
 } from "../../../store/categories";
-import { createProductAsync } from "../../../store/products";
+import {
+  clearProductsErrors,
+  createProductAsync,
+} from "../../../store/products";
 
 import { createRef } from "react";
-import { showAddNewCategoryModal } from "../../../store/ui";
+import {
+  closeModal,
+  selectIsAddCategoryModalOpen,
+  selectIsAddNewProductModalOpen,
+  showAddNewCategoryModal,
+} from "../../../store/ui";
 import { Modal } from "../../shared/components/Modal";
 import { ProductCard } from "./ProductCard";
 import "./MenuManager.css";
@@ -19,9 +28,16 @@ const initialProductData = {
   category: "",
   price: "",
   description: "",
-  imageUrl:
-    "https://preview.redd.it/fseqknyvblex.jpg?auto=webp&s=ea4b90dab14cf0e779fd145e5b2ccf878e076d6f",
+  imageUrl: "",
 };
+// const initialProductData = {
+//   name: "",
+//   category: "",
+//   price: "",
+//   description: "",
+//   imageUrl:
+//     "https://preview.redd.it/fseqknyvblex.jpg?auto=webp&s=ea4b90dab14cf0e779fd145e5b2ccf878e076d6f",
+// };
 
 const SANDWICH_ID = "63a47615ad6d4fe86b6daf6f";
 const SALAD_ID = "63a47615ad6d4fe86b6daf70";
@@ -57,6 +73,8 @@ export function MenuManager() {
   }, []);
 
   const { getRootProps, getInputProps, isDragActive } = useDropzone({ onDrop });
+  const productErrors = useSelector((state) => state.errors.products);
+  const categoryErrors = useSelector((state) => state.errors.categories);
 
   /**
    * @param {React.ChangeEvent<HTMLInputElement>} event
@@ -77,15 +95,25 @@ export function MenuManager() {
    */
   const handleProductSubmit = (event) => {
     event.preventDefault();
+    dispatch(clearProductsErrors());
     const newProduct = {
       ...productFormData,
     };
-    console.log(newProduct);
-    dispatch(createProductAsync(newProduct)).then(() => {
-      // TODO:
-      alert("Success, product created");
+
+    const formData = new FormData();
+    formData.set("name", newProduct.name);
+    formData.set("description", newProduct.description);
+    formData.set("price", newProduct.price);
+    formData.set("category", newProduct.category);
+    formData.set("price", newProduct.price * 100);
+    newProduct.imageUrl &&
+      formData.set("image", newProduct.imageUrl, newProduct.imageUrl.name);
+
+    dispatch(createProductAsync(formData));
+    if (!productErrors) {
       resetProductForm();
-    });
+      handleCloseModal();
+    }
   };
 
   // const categories = useSelector(selectCategoriesList);
@@ -103,12 +131,13 @@ export function MenuManager() {
    */
   const handleCategorySubmit = (event) => {
     event.preventDefault();
+    dispatch(clearCategoriesErrors());
     const newCategory = { title: categoryTitle };
-    dispatch(createCategoryAsync(newCategory)).then((res) => {
-      //TODO:
-      alert("Success, category created");
+    dispatch(createCategoryAsync(newCategory));
+    if (!categoryErrors) {
       setCategoryTitle("");
-    });
+      handleCloseModal();
+    }
   };
 
   const scrollRefs = CATEGORY_IDS.reduce((prev, curr) => {
@@ -123,16 +152,18 @@ export function MenuManager() {
     });
   };
 
-  const isNewItemModalOpen = useSelector(
-    (state) => state.ui.modal === "add_new_item"
-  );
+  const isNewItemModalOpen = useSelector(selectIsAddNewProductModalOpen);
 
-  const isAddNewCategoryModalOpen = useSelector(
-    (state) => state.ui.modal === "add_new_category"
-  );
+  const isAddNewCategoryModalOpen = useSelector(selectIsAddCategoryModalOpen);
 
   const handleShowAddCategoryModal = () => {
     dispatch(showAddNewCategoryModal());
+  };
+
+  const handleCloseModal = () => {
+    dispatch(closeModal());
+    dispatch(clearProductsErrors());
+    dispatch(clearCategoriesErrors());
   };
 
   return (
@@ -164,7 +195,7 @@ export function MenuManager() {
                     Select category
                   </option>
                   {categories.map((category) => (
-                    <option key={category._id} value={category._id}>
+                    <option key={category.id} value={category.id}>
                       {category.title}
                     </option>
                   ))}
@@ -210,10 +241,25 @@ export function MenuManager() {
                   </button>
                 </div>
                 <div>
-                  <button type="submit" className="cancel-button">
+                  <button
+                    type="button"
+                    className="cancel-button"
+                    onClick={handleCloseModal}
+                  >
                     Cancel
                   </button>
                 </div>
+              </div>
+              {/* TODO: */}
+              <div
+                style={{
+                  color: "var(--error-red)",
+                  fontSize: "12px",
+                  textAlign: "center",
+                  marginTop: "12px",
+                }}
+              >
+                {productErrors && productErrors.message}
               </div>
             </form>
           </div>
@@ -243,13 +289,28 @@ export function MenuManager() {
                 </div>
                 <div>
                   <div>
-                    <button className="cancel-button" type="submit">
+                    <button
+                      className="cancel-button"
+                      type="button"
+                      onClick={handleCloseModal}
+                    >
                       Cancel
                     </button>
                   </div>
                 </div>
               </div>
             </form>
+            {/* TODO: */}
+            <div
+              style={{
+                color: "var(--error-red)",
+                fontSize: "12px",
+                textAlign: "center",
+                marginTop: "8px",
+              }}
+            >
+              {categoryErrors && categoryErrors.title}
+            </div>
           </div>
         </Modal>
       )}

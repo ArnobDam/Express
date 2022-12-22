@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { selectProductsByCategory } from "../../../store/products";
 import { showAddNewItemModal, showAddItemToCartModal } from "../../../store/ui";
 import { formatPrice } from "../../../utils/formatPrice";
-import "./ProductCard.css"
+import "./ProductCard.css";
 import { RiDeleteBin5Fill, RiEdit2Fill } from "react-icons/ri";
 
 export const ProductCard = forwardRef(
@@ -11,6 +11,12 @@ export const ProductCard = forwardRef(
     const products = useSelector((state) =>
       selectProductsByCategory(state, categoryId)
     );
+
+    let productsToList = create
+      ? products
+          .sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt))
+          .slice(0, 3)
+      : products.slice(0, 4);
 
     const dispatch = useDispatch();
 
@@ -21,6 +27,8 @@ export const ProductCard = forwardRef(
     const handleOpenAddNewModal = () => {
       dispatch(showAddNewItemModal());
     };
+
+    console.log(productsToList);
 
     return (
       <div className="ProductRow" ref={ref}>
@@ -40,7 +48,7 @@ export const ProductCard = forwardRef(
                 <div>Add new dish</div>
               </div>
             )}
-            {products.slice(0, create ? 3 : 4).map((product) => (
+            {productsToList.map((product) => (
               <div
                 className="product-card-item"
                 key={product._id}
@@ -56,8 +64,12 @@ export const ProductCard = forwardRef(
                 <div className="menu-name">{product.name}</div>
                 <div className="item-price">{formatPrice(product.price)}</div>
                 <div className="edit-and-delete">
-                  <div className="product-card-edit"><RiEdit2Fill/></div>
-                <div className="product-card-delete"><RiDeleteBin5Fill/></div>
+                  <div className="product-card-edit">
+                    <RiEdit2Fill />
+                  </div>
+                  <div className="product-card-delete">
+                    <RiDeleteBin5Fill />
+                  </div>
                 </div>
               </div>
             ))}

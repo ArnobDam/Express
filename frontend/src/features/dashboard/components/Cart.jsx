@@ -11,6 +11,7 @@ import {
   selectDiscountAmount,
   selectSalesTax,
   selectSubTotal,
+  selectTotalWithTax,
 } from "../../../store/orders";
 import { CartItem } from "./CartItem";
 import { createRef } from "react";
@@ -32,6 +33,7 @@ export function Cart() {
   const subTotal = useSelector(selectSubTotal);
   const salesTax = useSelector(selectSalesTax);
   const discountedAmount = useSelector(selectDiscountAmount);
+  const totalWithTax = useSelector(selectTotalWithTax);
 
   const scrollRefs = currentCartItems.reduce((prev, curr) => {
     prev[curr.id] = createRef();
@@ -103,7 +105,7 @@ export function Cart() {
             </div>
             <div className="total-text">
               <div>Total</div>
-              <div className="amount"> $ 40.00</div>
+              <div className="amount">{formatPrice(totalWithTax)}</div>
             </div>
             <div>
               <button

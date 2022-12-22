@@ -124,6 +124,7 @@ export const ordersReducer = (state = initialState, action) => {
               ? {
                   ...item,
                   quantity: item.quantity + 1,
+                  totalPrice: item.totalPrice + item.price,
                 }
               : item
           ),
@@ -137,10 +138,14 @@ export const ordersReducer = (state = initialState, action) => {
           ...state.current,
           products: state.current.products
             .map((item) => {
-              if (item.quantity <= 1) {
+              if (item.quantity <= 1 && item.id === action.payload) {
                 return null;
               } else if (item.id === action.payload) {
-                return { ...item, quantity: item.quantity - 1 };
+                return {
+                  ...item,
+                  quantity: item.quantity - 1,
+                  totalPrice: item.totalPrice - item.price,
+                };
               } else {
                 return item;
               }
@@ -223,4 +228,9 @@ export const selectDiscountAmount = createSelector(
   (subTotal) => subTotal * DISCOUNT_RATE
 );
 
-export const selectTotalWithTax = (state) => {};
+export const selectTotalWithTax = createSelector(
+  selectSubTotal,
+  selectDiscountAmount,
+  selectSalesTax,
+  (subTotal, discountAmount, salesTax) => subTotal - discountAmount + salesTax
+);

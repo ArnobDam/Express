@@ -24,7 +24,7 @@ export const fetchCategoriesAsync = () => async (dispatch) => {
     return dispatch(receiveCategories(products));
   } catch (err) {
     const res = await err.json();
-    if (res.statusCode === 400) {
+    if (res.statusCode >= 400) {
       return dispatch(receiveErrors(res.errors));
     }
   }
@@ -41,7 +41,7 @@ export const createCategoryAsync = (newCategory) => async (dispatch) => {
     return dispatch(receiveCategory(data));
   } catch (err) {
     const res = await err.json();
-    if (res.statusCode === 400) {
+    if (res.statusCode >= 400) {
       return dispatch(receiveErrors(res.errors));
     }
   }
@@ -76,11 +76,14 @@ export const categoriesReducer = (state = initialState, action) => {
   }
 };
 
-const RECEIVE_CATEGORIES_ERRORS = "products/RECEIVE_CATEGORIES_ERRORS";
-const CLEAR_CATEGORIES_ERRORS = "products/CLEAR_CATEGORIES_ERRORS";
+const RECEIVE_CATEGORIES_ERRORS = "categories/RECEIVE_CATEGORIES_ERRORS";
+const CLEAR_CATEGORIES_ERRORS = "categories/CLEAR_CATEGORIES_ERRORS";
 const receiveErrors = (errors) => ({
   type: RECEIVE_CATEGORIES_ERRORS,
   payload: errors,
+});
+export const clearCategoriesErrors = () => ({
+  type: CLEAR_CATEGORIES_ERRORS,
 });
 
 const nullErrors = null;

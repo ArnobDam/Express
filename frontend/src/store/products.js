@@ -26,7 +26,7 @@ export const fetchProductsAsync = () => async (dispatch) => {
     return dispatch(receiveProducts(products));
   } catch (err) {
     const res = await err.json();
-    if (res.statusCode === 400) {
+    if (res.statusCode >= 400) {
       return dispatch(receiveErrors(res.errors));
     }
   }
@@ -36,13 +36,13 @@ export const createProductAsync = (newProduct) => async (dispatch) => {
   try {
     const res = await jwtFetch("/api/products", {
       method: "POST",
-      body: JSON.stringify(newProduct),
+      body: newProduct,
     });
     const data = await res.json();
     return dispatch(receiveProduct(data));
   } catch (err) {
     const res = await err.json();
-    if (res.statusCode === 400) {
+    if (res.statusCode >= 400) {
       return dispatch(receiveErrors(res.errors));
     }
   }
@@ -94,7 +94,9 @@ const receiveErrors = (errors) => ({
   type: RECEIVE_PRODUCTS_ERRORS,
   payload: errors,
 });
-
+export const clearProductsErrors = () => ({
+  type: CLEAR_PRODUCTS_ERRORS,
+});
 const nullErrors = null;
 
 export const productsErrorsReducer = (state = nullErrors, action) => {
