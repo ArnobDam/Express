@@ -3,6 +3,18 @@
   height: 100%;
 }
 
+/* .history-title{
+  margin:20px 0 0 25px;
+  color:white;
+  font-size:20px;
+  letter-spacing: 2px;
+  background-color: var(--bg-primary);
+  width:150px;
+  height: 40px;
+  border-radius: 20px;
+  padding-top:10px
+} */
+
 .history-order {
   background-color: white;
   border-radius: 20px;

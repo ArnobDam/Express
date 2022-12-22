@@ -46,7 +46,7 @@ export function HistoryCard({ history }) {
           <React.Fragment key={product._id}>
             <div className="history-order-breakdown">
               <div>
-                <img className="history-img" src={sand} alt="" />
+                <img className="history-img" src={product.imageUrl} alt={product.name} />
               </div>
               <div className="each-order-detail">
                 <div>{product.name}</div>
