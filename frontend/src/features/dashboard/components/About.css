@@ -4,9 +4,10 @@
   justify-content: center;
   align-items: center;
   align-content: center;
-  border: 1px solid red;
   box-sizing: border-box;
-  padding: 20px;
+  padding: 26px 20px 14px 20px;
+  border-left: 1px solid rgba(0, 0, 0, 0.1);
+  border-right: 1px solid rgba(0, 0, 0, 0.1);
 }
 
 .main-about {
@@ -15,17 +16,31 @@
   justify-content: flex-end;
   align-content: flex-end;
   align-items: center;
-  border: 1px solid black;
-  overflow-y: hidden;
+  height: 92.55%;
+  border-left: 1px solid rgba(0, 0, 0, 0.1);
+  border-right: 1px solid rgba(0, 0, 0, 0.1);
 }
 
 .about-team {
   display: flex;
   flex-direction: row;
   justify-content: center;
-  align-items: flex-end;
+  align-items: flex-start;
   align-content: center;
-  border: 1px solid red;
+  padding: 14px 36px;
+  height: 100%;
+  width: 100%;
+}
+
+.motto-team-about {
+  border: 1px solid rgba(0, 0, 0, 0.05);
+  padding: 16px;
+  box-sizing: border-box;
+  border-radius: 10px;
+  height: 50%;
+  width: 100%;
+  box-shadow: 0px 10px 24px -10px rgba(0, 0, 0, 0.3);
+  animation: 0.5s ease-in 0s 1 opacityUp;
 }
 
 .about-page-div {
@@ -34,15 +49,66 @@
   justify-content: space-evenly;
   align-items: flex-end;
   align-content: center;
-  border: 1px solid red;
+  background-color: #ec7905;
+  width: 100%;
+  font-size: 16px;
+  font-weight: 600;
+  color: white;
 }
 
 .about-page-div #scorecard {
-  border-radius: 4px;
   height: fit-content;
   height: 24px;
   width: fit-content;
   padding: 18px 32px 18px 32px;
   box-sizing: border-box;
+  width: 100%;
+  transition-property: background-color;
+  transition-duration: 0.2s;
 }
 
+.about-page-div #scorecard:hover {
+  cursor: pointer;
+  background-color: #f89634;
+}
+
+.back-to-about-main {
+  border: 1px solid beige;
+  animation: 0.5s ease-in 0s 1 backLeft forwards;
+}
+
+.back-button-to-about {
+  border-radius: 12px;
+  padding: 10px 24px;
+  width: fit-content;
+  background-color: #ec7905;
+  color: white;
+  font-weight: 500;
+}
+
+.back-button-to-about:hover {
+  cursor: pointer;
+  background-color: #f89634;
+}
+
+@keyframes opacityUp {
+  0% {
+    opacity: 0;
+    transform: translateY(15px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes backLeft {
+  0% {
+    opacity: 0;
+    width: 0%;
+  }
+  100% {
+    opacity: 1;
+    width: 100%;
+  }
+}

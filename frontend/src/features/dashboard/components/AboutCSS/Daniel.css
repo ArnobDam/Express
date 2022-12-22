@@ -1,5 +1,4 @@
 :root {
-  
 }
 
 .daniel-profile-div {
@@ -8,5 +7,8 @@
   justify-content: center;
   align-items: center;
   align-content: center;
-  border: 1px solid red;
+}
+
+.arnob-about-me {
+  border: 1px solid black;
 }
