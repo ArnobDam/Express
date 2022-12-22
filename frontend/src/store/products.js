@@ -76,6 +76,22 @@ export const createProductAsync = (newProduct) => async (dispatch) => {
   }
 };
 
+export const updateProductAsync = (updatedProduct) => async (dispatch) => {
+  try {
+    const res = await jwtFetch(`/api/products/${updatedProduct._id}`, {
+      method: "PATCH",
+      body: JSON.stringify(updatedProduct),
+    });
+    const data = await res.json();
+    return dispatch(receiveProduct(data));
+  } catch (err) {
+    const res = await err.json();
+    if (res.statusCode >= 400) {
+      return dispatch(receiveErrors(res.errors));
+    }
+  }
+};
+
 export const removeProductAsync = (productId) => async (dispatch) => {
   try {
     await jwtFetch(`/api/products/${productId}`, {
