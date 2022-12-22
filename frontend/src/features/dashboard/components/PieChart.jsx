@@ -4,49 +4,6 @@ import { useSelector } from "react-redux";
 import { createSelector } from "reselect";
 import { selectCurrentCartItemsExpanded } from "../../../store/orders";
 
-// const selectCategoryNameFromId = createSelector(
-//   state => state.categories.entities,
-//   (_categories, categoryId) => categoryId,
-//   (categories, categoryId) => categories[categoryId]
-// )
-const samplePieData = [
-  {
-    id: "java",
-    label: "java",
-    value: 78,
-    color: "hsl(151, 70%, 50%)",
-  },
-  {
-    id: "erlang",
-    label: "erlang",
-    value: 163,
-    color: "hsl(50, 70%, 50%)",
-  },
-  {
-    id: "c",
-    label: "c",
-    value: 562,
-    color: "hsl(106, 70%, 50%)",
-  },
-  {
-    id: "css",
-    label: "css",
-    value: 450,
-    color: "hsl(30, 70%, 50%)",
-  },
-  {
-    id: "sass",
-    label: "sass",
-    value: 577,
-    color: "hsl(206, 70%, 50%)",
-  },
-];
-const getCategoryName = (categoryId) => {
-  if (categoryId === '63a47615ad6d4fe86b6daf74') {
-    return 'Sandwhiches'
-  }
-}
-
 export function PieChart({ data }) {
 
   const currentOrder = useSelector(selectCurrentCartItemsExpanded);
@@ -70,21 +27,39 @@ export function PieChart({ data }) {
       currentOrderWithCategoryNames[i].categoryName = "Other"
     }
   }
-  // console.log(data)
-  console.log(currentOrderWithCategoryNames)
 
-  // const idConverter = (idString) => {
-  //   console.log(idString)
-  //   if (idString == "63a47615ad6d4fe86b6daf74") {
-  //     return ("Sandwiches");
-  //   } else {
-  //     return idString;
-  //   }
-  // }
+  const categoryNamesAndTotalPrices = [];
+
+  for (let i=0; i<currentOrderWithCategoryNames.length; i++) {
+    //if element object with category name doesn't exist, add object and total price,
+    //if if does exist, add to total price
+    let currentCategoryName = currentOrderWithCategoryNames[i].categoryName;
+    let categoryNameExists = false;
+    let categoryNameExistsIndex;
+    for (let i=0; i<categoryNamesAndTotalPrices.length; i++) {
+      if (categoryNamesAndTotalPrices[i].categoryName === currentCategoryName) {
+        categoryNameExists = true;
+        categoryNameExistsIndex = i;
+      }
+    }
+
+    if (categoryNameExists) {
+      categoryNamesAndTotalPrices[categoryNameExistsIndex].totalPrice += currentOrderWithCategoryNames[i].totalPrice;
+    } else {
+      categoryNamesAndTotalPrices.push(
+        {categoryName: currentOrderWithCategoryNames[i].categoryName,
+        totalPrice: currentOrderWithCategoryNames[i].totalPrice}
+        )
+    }
+  }
+
+  console.log(categoryNamesAndTotalPrices)
+
+  // console.log(currentOrderWithCategoryNames)
 
   return (
     <ResponsivePie
-      data={currentOrderWithCategoryNames}
+      data={categoryNamesAndTotalPrices}
       value="totalPrice"
       id="categoryName"
       // id={idConverter("id")}
