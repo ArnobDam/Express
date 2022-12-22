@@ -7,6 +7,9 @@ import { BiSearch } from "react-icons/bi";
 import { SidebarLink } from "./SidebarLink";
 import { PieChart } from "./PieChart";
 import { LogoutButton } from "./LogoutButton";
+import { formatPrice } from "../../../utils/formatPrice";
+import { useSelector } from "react-redux";
+import { selectTotalWithTax } from "../../../store/orders";
 
 const links = [
   {
@@ -80,7 +83,19 @@ const samplePieData = [
   },
 ];
 
+// console.log(useSelector(selectTotalWithTax))
+
+
 export function Sidebar() {
+  let totalWithTax = useSelector(selectTotalWithTax);
+  const PieChartPrice = () => {
+    if (totalWithTax === 0) {
+      return "";
+    } else {
+      return formatPrice(totalWithTax);
+    }
+    
+  }
   return (
     <div>
       <div className="brand-logo" style={{ width: "120px", height: "100px" }} />
@@ -102,7 +117,8 @@ export function Sidebar() {
             icon={link.icon}
           />
         ))}
-        <div style={{ height: "240px" }}>
+        <div style={{ height: "240px", position: "relative" }}>
+          <div style={{position: "absolute", top: "45%", left: "25%", fontSize: 26}}>{PieChartPrice()}</div>
           <PieChart data={samplePieData} />
         </div>
         <LogoutButton />

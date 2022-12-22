@@ -2,7 +2,7 @@ import { ResponsivePie } from "@nivo/pie";
 
 import { useSelector } from "react-redux";
 import { createSelector } from "reselect";
-import { selectCurrentCartItemsExpanded } from "../../../store/orders";
+import { selectCurrentCartItemsExpanded, selectTotalWithTax } from "../../../store/orders";
 import { formatPrice } from "../../../utils/formatPrice";
 
 export function PieChart({ data }) {
@@ -60,16 +60,17 @@ export function PieChart({ data }) {
 
   // console.log(currentOrderWithCategoryNames)
 
-  let totalPrice = 0;
+  // let totalPrice = 0;
 
-  if (!categoryNamesAndTotalPrices[0]) {
-    totalPrice = 1;
-  } else {
-    categoryNamesAndTotalPrices.forEach((obj) => {
-      totalPrice += obj.totalPrice
-    })
+  // if (!categoryNamesAndTotalPrices[0]) {
+  //   totalPrice = 1;
+  // } else {
+  //   categoryNamesAndTotalPrices.forEach((obj) => {
+  //     totalPrice += obj.totalPrice
+  //   })
     
-  }
+  // }
+  // console.log(useSelector(selectTotalWithTax))
 
   // console.log(totalPrice);
 
@@ -85,6 +86,8 @@ export function PieChart({ data }) {
   'rgb(254, 232, 200)',
   'rgb(255, 247, 236)',
   ]
+
+
 
   return (
     <ResponsivePie
