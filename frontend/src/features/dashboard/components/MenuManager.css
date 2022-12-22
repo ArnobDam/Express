@@ -61,30 +61,30 @@
 .product-modal {
   height: 560px;
   border-radius: 10px;
+  top: 40% !important;
 }
 
 .save-button {
-  background-color:var(--bg-primary);
+  background-color: var(--bg-primary);
   border: 1px solid var(--bg-primary);
   width: 150px;
   height: 33px;
   color: white;
   border-radius: 20px;
   margin: 20px 0 0 2px;
-
 }
 
 .cancel-button {
-  background-color:white;
+  background-color: white;
   border: 1px solid var(--bg-primary);
   width: 150px;
   height: 33px;
-  color:var(--bg-primary);
+  color: var(--bg-primary);
   border-radius: 20px;
   margin: 20px 2px 0 0;
 }
 
-.form-buttons{
+.form-buttons {
   display: flex;
   justify-content: space-between;
 }
@@ -102,7 +102,7 @@
   padding-top: 24px;
 }
 
-.add-photo{
+.add-photo {
   margin-bottom: 10px;
 }
 /* category modal */
@@ -133,10 +133,9 @@
   letter-spacing: 0.5px;
 }
 
-.category-buttons{
+.category-buttons {
   display: flex;
   justify-content: space-between;
 }
 
 /* menu css */
-

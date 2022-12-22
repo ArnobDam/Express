@@ -84,7 +84,7 @@ export function ProductsList() {
   };
 
   return (
-    <div className="Order" style={{ position: "relative" }}>
+    <div className="Order">
       {isAddItemToCartModalOpen && currentProduct && (
         <Modal className="products-modal">
           <h1 className="product-modal-name">{currentProduct.name}</h1>

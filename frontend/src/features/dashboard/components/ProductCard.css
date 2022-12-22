@@ -1,5 +1,5 @@
 .ProductsList {
-  padding: 0px 20px 40px 20px;
+  padding: 0px 20px 20px 20px;
   width: 100%;
 }
 
@@ -9,7 +9,6 @@
   padding: 20px;
   margin-top: 14px;
   width: 100%;
-
   /* padding: 20px 20px 20px 20px;
   margin: 20px 20px 20px; */
 }
@@ -105,18 +104,16 @@
   color: var(--bg-primary);
 }
 
-.edit-and-delete{
+.edit-and-delete {
   display: flex;
   justify-content: space-around;
-
 }
 
-.product-card-edit{
-  color:var(--dark-grey)
-  
+.product-card-edit {
+  color: var(--dark-grey);
 }
 
-.product-card-delete{
+.product-card-delete {
   /* color:var(--dark-grey); */
   color: rgb(203, 49, 49);
 }
