@@ -61,20 +61,30 @@ export function MenuManager() {
   const dispatch = useDispatch();
 
   const productToEdit = useSelector(selectCurrentProduct);
-  console.log(productToEdit);
+
   const [productFormData, setProductFormData] = useState(initialProductData);
+  const [updateProductFormData, setUpdateProductFormData] = useState({
+    name: productToEdit?.name,
+    category: productToEdit?.category,
+    price: productToEdit?.price,
+    description: productToEdit?.description,
+    imageUrl: productToEdit?.imageUrl,
+  });
 
   useEffect(() => {
     if (productToEdit) {
-      setProductFormData({
-        name: productToEdit.name,
-        category: productToEdit.category,
-        price: productToEdit.price,
-        imageUrl: productToEdit.imageUrl,
-        description: productToEdit.description,
+      setUpdateProductFormData({
+        name: productToEdit?.name,
+        category: productToEdit?.category,
+        price: productToEdit?.price,
+        description: productToEdit?.description,
+        imageUrl: productToEdit?.imageUrl,
       });
     }
   }, [productToEdit]);
+
+  console.log(productToEdit);
+  console.log(updateProductFormData);
 
   const categoryLoaded = useSelector((state) => state.categories.loaded);
 
@@ -91,6 +101,15 @@ export function MenuManager() {
    */
   const handleChange = (event) => {
     setProductFormData((prev) => ({
+      ...prev,
+      [event.target.name]: event.target.value,
+    }));
+  };
+  /**
+   * @param {React.ChangeEvent<HTMLInputElement>} event
+   */
+  const handleUpdateChange = (event) => {
+    setUpdateProductFormData((prev) => ({
       ...prev,
       [event.target.name]: event.target.value,
     }));
@@ -280,7 +299,7 @@ export function MenuManager() {
       )}
 
       {/* EDIT MODAL */}
-      {isEditProductModalOpen && (
+      {isEditProductModalOpen && productToEdit && (
         <Modal className="product-modal">
           <div className="NewProductForm">
             <form onSubmit={() => {}} encType="multipart/form-data">
@@ -291,8 +310,8 @@ export function MenuManager() {
                   type="text"
                   name="name"
                   placeholder="Name"
-                  value={productFormData.name}
-                  onChange={handleChange}
+                  value={updateProductFormData.name}
+                  onChange={handleUpdateChange}
                 />
               </div>
               <div>
@@ -300,8 +319,8 @@ export function MenuManager() {
                   className="select-option"
                   name="category"
                   id="category"
-                  value={productFormData.category}
-                  onChange={handleChange}
+                  value={updateProductFormData.category}
+                  onChange={handleUpdateChange}
                 >
                   <option value="" key="">
                     Select category
@@ -319,8 +338,8 @@ export function MenuManager() {
                   type="text"
                   name="description"
                   placeholder="Description"
-                  value={productFormData.description}
-                  onChange={handleChange}
+                  value={updateProductFormData.description}
+                  onChange={handleUpdateChange}
                 />
               </div>
               <div>
@@ -329,8 +348,8 @@ export function MenuManager() {
                   type="number"
                   name="price"
                   placeholder="Price"
-                  value={productFormData.price}
-                  onChange={handleChange}
+                  value={updateProductFormData.price}
+                  onChange={handleUpdateChange}
                 />
               </div>
               <div className="pic-input" {...getRootProps()}>

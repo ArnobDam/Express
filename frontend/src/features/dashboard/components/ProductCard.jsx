@@ -8,12 +8,10 @@ import {
   showAddNewItemModal,
   showAddItemToCartModal,
   showEditProductModal,
-  selectIsEditProductModalOpen,
 } from "../../../store/ui";
 import { formatPrice } from "../../../utils/formatPrice";
 import "./ProductCard.css";
 import { RiDeleteBin5Fill, RiEdit2Fill } from "react-icons/ri";
-import { Modal } from "../../shared/components/Modal";
 
 export const ProductCard = forwardRef(
   ({ title, categoryId, create = false }, ref) => {
