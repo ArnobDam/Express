@@ -1,0 +1,14 @@
+:root {
+}
+
+.daniel-profile-div {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  align-content: center;
+}
+
+.arnob-about-me {
+  border: 1px solid black;
+}
