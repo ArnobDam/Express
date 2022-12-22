@@ -77,6 +77,7 @@ export function ProductsList() {
       quantity,
       price: product.price,
       totalPrice: quantity * product.price,
+      category: product.category,
     };
     dispatch(addOrderItem(newItem));
     handleCloseModal();

@@ -219,6 +219,20 @@ export const selectCurrentCartItemsExpanded = createSelector(
   (cartItems, products) =>
     cartItems.map((item) => ({ ...item, ...products[item.id] }))
 );
+export const selectCurrentCartItemsExpandedWithCategoryTitle = createSelector(
+  [
+    selectCurrentCartItems,
+    (state) => state.products?.entities,
+    (state) => state.categories?.entities,
+  ],
+  (cartItems, products, categories) => {
+    return cartItems.map((item) => ({
+      ...item,
+      ...products[item.id],
+      categoryName: categories[item.category].title,
+    }));
+  }
+);
 export const selectCurrentOrderNumber = (state) => state.orders.orderNumber;
 export const selectSubTotal = (state) =>
   state.orders.current.products.reduce(
