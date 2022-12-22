@@ -50,24 +50,44 @@ const getCategoryName = (categoryId) => {
 export function PieChart({ data }) {
 
   const currentOrder = useSelector(selectCurrentCartItemsExpanded);
-  // console.log(data)
-  console.log(currentOrder)
 
-  const idConverter = (idString) => {
-    console.log(idString)
-    if (idString == "63a47615ad6d4fe86b6daf74") {
-      return ("Sandwiches");
+  const currentOrderWithCategoryNames = [];
+
+  for (let i=0; i<currentOrder.length; i++) {
+    currentOrderWithCategoryNames.push(currentOrder[i]);
+    // console.log(currentOrder[i].category) 
+    if (currentOrder[i].category === "63a47615ad6d4fe86b6daf6f") {
+      currentOrderWithCategoryNames[i].categoryName = "Sandwiches"
+    } else if (currentOrder[i].category === "63a47615ad6d4fe86b6daf70") {
+      currentOrderWithCategoryNames[i].categoryName = "Salads"
+    } else if (currentOrder[i].category === "63a47615ad6d4fe86b6daf71") {
+      currentOrderWithCategoryNames[i].categoryName = "Soups"
+    } else if (currentOrder[i].category === "63a47615ad6d4fe86b6daf72") {
+      currentOrderWithCategoryNames[i].categoryName = "Drinks"
+    } else if (currentOrder[i].category === "63a47615ad6d4fe86b6daf73") {
+      currentOrderWithCategoryNames[i].categoryName = "Bakery Items"
     } else {
-      return idString;
+      currentOrderWithCategoryNames[i].categoryName = "Other"
     }
   }
+  // console.log(data)
+  console.log(currentOrderWithCategoryNames)
+
+  // const idConverter = (idString) => {
+  //   console.log(idString)
+  //   if (idString == "63a47615ad6d4fe86b6daf74") {
+  //     return ("Sandwiches");
+  //   } else {
+  //     return idString;
+  //   }
+  // }
 
   return (
     <ResponsivePie
-      data={currentOrder}
+      data={currentOrderWithCategoryNames}
       value="totalPrice"
-      // id="name"
-      id={idConverter("id")}
+      id="categoryName"
+      // id={idConverter("id")}
       colors={{ scheme: "orange_red" }}
       margin={{ top: 10, right: 30, bottom: 10, left: 10 }}
       innerRadius={0.8}
