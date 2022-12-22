@@ -17,7 +17,7 @@ export const CartItem = forwardRef(({ cartItem }, ref) => {
   }, [ref]);
 
   const dispatch = useDispatch();
-
+ 
   const handleIncrement = (itemId) => {
     dispatch(incrementQuantity(itemId));
   };

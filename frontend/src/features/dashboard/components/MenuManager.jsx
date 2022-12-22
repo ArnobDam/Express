@@ -6,22 +6,12 @@ import {
   fetchCategoriesAsync,
   selectCategoriesList,
 } from "../../../store/categories";
-import {
-  createProductAsync,
-  selectProductsList,
-} from "../../../store/products";
+import { createProductAsync } from "../../../store/products";
 
 import { createRef } from "react";
-import { addOrderItem, createOrderAsync } from "../../../store/orders";
-import {
-  closeModal,
-  showAddItemToCartModal,
-  showAddNewCategoryModal,
-  showAddNewItemModal,
-} from "../../../store/ui";
-import { formatPrice } from "../../../utils/formatPrice";
+import { showAddNewCategoryModal } from "../../../store/ui";
 import { Modal } from "../../shared/components/Modal";
-import { ProductRow } from "./ProductRow";
+import { ProductCard } from "./ProductCard";
 import "./MenuManager.css";
 
 const initialProductData = {
@@ -98,7 +88,7 @@ export function MenuManager() {
     });
   };
 
-  const categories = useSelector(selectCategoriesList);
+  // const categories = useSelector(selectCategoriesList);
 
   useEffect(() => {
     if (!categoryLoaded) {
@@ -121,9 +111,6 @@ export function MenuManager() {
     });
   };
 
-  // const allProducts = useSelector(selectProductsList);
-  // console.log(allProducts);
-
   const scrollRefs = CATEGORY_IDS.reduce((prev, curr) => {
     prev[curr.id] = createRef();
     return prev;
@@ -139,40 +126,10 @@ export function MenuManager() {
   const isNewItemModalOpen = useSelector(
     (state) => state.ui.modal === "add_new_item"
   );
-  const isAddItemToCartModalOpen = useSelector(
-    (state) => state.ui.modal === "add_item_to_cart"
-  );
+
   const isAddNewCategoryModalOpen = useSelector(
     (state) => state.ui.modal === "add_new_category"
   );
-  const currentProductInModal = useSelector((state) => state.products.current);
-
-  const [quantity, setQuantity] = useState(1);
-  const handleDecrement = () => {
-    if (quantity === 1) return;
-    setQuantity((prev) => prev - 1);
-  };
-  const handleIncrement = () => {
-    setQuantity((prev) => prev + 1);
-  };
-
-  const handleCloseModal = () => {
-    dispatch(closeModal());
-  };
-
-  const handleShowModal = () => {
-    dispatch(showAddNewItemModal());
-  };
-
-  const handleAddProductToCart = (product) => {
-    const newItem = {
-      id: product._id,
-      quantity,
-      totalPrice: quantity * product.price,
-    };
-    dispatch(addOrderItem(newItem));
-    handleCloseModal();
-  };
 
   const handleShowAddCategoryModal = () => {
     dispatch(showAddNewCategoryModal());
@@ -239,17 +196,24 @@ export function MenuManager() {
                   <div>Drop the files here ...</div>
                 ) : (
                   <div className="photo-content">
-                    <div> + </div>
+                    <div className="add-photo"> + </div>
                     <div>Drag 'n' drop some files here, </div>
                     <div>or click to select files</div>
                   </div>
                 )}
               </div>
 
-              <div>
-                <button type="submit" className="save-button">
-                  Save
-                </button>
+              <div className="form-buttons">
+                <div>
+                  <button type="submit" className="save-button">
+                    Save
+                  </button>
+                </div>
+                <div>
+                  <button type="submit" className="cancel-button">
+                    Cancel
+                  </button>
+                </div>
               </div>
             </form>
           </div>
@@ -271,10 +235,19 @@ export function MenuManager() {
                   onChange={(e) => setCategoryTitle(e.target.value)}
                 />
               </div>
-              <div>
-                <button className="save-button" type="submit">
-                  Save
-                </button>
+              <div className="category-buttons">
+                <div>
+                  <button className="save-button" type="submit">
+                    Save
+                  </button>
+                </div>
+                <div>
+                  <div>
+                    <button className="cancel-button" type="submit">
+                      Cancel
+                    </button>
+                  </div>
+                </div>
               </div>
             </form>
           </div>
@@ -282,7 +255,7 @@ export function MenuManager() {
       )}
 
       <div className="category-list">
-        {/* {categories.map((category) => (
+        {categories.map((category) => (
           <div
             className="category-item"
             key={category.id}
@@ -291,7 +264,7 @@ export function MenuManager() {
           >
             {category.title}
           </div>
-        ))} */}
+        ))}
 
         <div
           role="button"
@@ -300,17 +273,11 @@ export function MenuManager() {
         >
           Category +
         </div>
-
-        {/* <Link to={"/menu"}>
-          <div role="button" className="new-category">
-            Category +
-          </div>
-        </Link> */}
       </div>
       <div className="ProductsList">
         <div className="category-container">
           {CATEGORY_IDS.map((category) => (
-            <ProductRow
+            <ProductCard
               key={category.id}
               create={true}
               ref={scrollRefs[category.id]}

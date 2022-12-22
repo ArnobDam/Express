@@ -135,9 +135,9 @@ export function ProductsList() {
           </div>
         ))}
 
-        <div role="button" className="new-category">
+        {/* <div role="button" className="new-category">
           Category +
-        </div>
+        </div> */}
 
         {/* <Link to={"/menu"}>
           <div role="button" className="new-category">
