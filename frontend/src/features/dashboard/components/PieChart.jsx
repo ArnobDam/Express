@@ -3,6 +3,7 @@ import { ResponsivePie } from "@nivo/pie";
 import { useSelector } from "react-redux";
 import { createSelector } from "reselect";
 import { selectCurrentCartItemsExpanded } from "../../../store/orders";
+import { formatPrice } from "../../../utils/formatPrice";
 
 export function PieChart({ data }) {
 
@@ -15,6 +16,7 @@ export function PieChart({ data }) {
     // console.log(currentOrder[i].category) 
     if (currentOrder[i].category === "63a47615ad6d4fe86b6daf6f") {
       currentOrderWithCategoryNames[i].categoryName = "Sandwiches"
+      currentOrderWithCategoryNames[i].color = "#000000"
     } else if (currentOrder[i].category === "63a47615ad6d4fe86b6daf70") {
       currentOrderWithCategoryNames[i].categoryName = "Salads"
     } else if (currentOrder[i].category === "63a47615ad6d4fe86b6daf71") {
@@ -48,7 +50,8 @@ export function PieChart({ data }) {
     } else {
       categoryNamesAndTotalPrices.push(
         {categoryName: currentOrderWithCategoryNames[i].categoryName,
-        totalPrice: currentOrderWithCategoryNames[i].totalPrice}
+        totalPrice: currentOrderWithCategoryNames[i].totalPrice,
+        color: '#000000'}
         )
     }
   }
@@ -70,14 +73,28 @@ export function PieChart({ data }) {
 
   // console.log(totalPrice);
 
+  let customColors=
+  [
+  // 'rgb(127, 0, 0)', 
+  // 'rgb(179, 0, 0)', 
+  // 'rgb(215, 48, 31)', 
+  // 'rgb(239, 101, 72)', 
+  'rgb(252, 141, 89)', 
+  'rgb(253, 187, 132)',
+  'rgb(253, 212, 158)',
+  'rgb(254, 232, 200)',
+  'rgb(255, 247, 236)',
+  ]
 
   return (
     <ResponsivePie
       data={categoryNamesAndTotalPrices}
       value="totalPrice"
       id="categoryName"
+      valueFormat={formatPrice}
       // id={idConverter("id")}
-      colors={{ scheme: "orange_red" }}
+      // colors={{ scheme: "orange_red" }}
+      colors={customColors}
       margin={{ top: 10, right: 30, bottom: 10, left: 10 }}
       innerRadius={0.8}
       padAngle={0.7}
