@@ -71,7 +71,8 @@ router.post("/", validateOrderInput, async (req, res, next) => {
         productObject["name"] = product.name;
         productObject["quantity"] = productsCount[product._id];
         productObject["totalPrice"] = product.price * productObject["quantity"];
-
+        productObject["itemPrice"] = product.price;
+        
         productNameArray.push(productObject);
         priceSubTotal += productObject["totalPrice"];
       }

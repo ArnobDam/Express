@@ -1,3 +1,11 @@
+.center-main-about-me {
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  height: 100%;
+  width: 100%;
+}
+
 .about-title {
   display: flex;
   flex-direction: row;
@@ -6,6 +14,7 @@
   align-content: center;
   box-sizing: border-box;
   padding: 26px 20px 14px 20px;
+  height: fit-content;
   border-left: 1px solid rgba(0, 0, 0, 0.1);
   border-right: 1px solid rgba(0, 0, 0, 0.1);
 }
@@ -16,7 +25,7 @@
   justify-content: flex-end;
   align-content: flex-end;
   align-items: center;
-  height: 92.55%;
+  height: 100%;
   border-left: 1px solid rgba(0, 0, 0, 0.1);
   border-right: 1px solid rgba(0, 0, 0, 0.1);
 }
@@ -73,7 +82,6 @@
 }
 
 .back-to-about-main {
-  border: 1px solid beige;
   animation: 0.5s ease-in 0s 1 backLeft forwards;
 }
 
@@ -89,6 +97,28 @@
 .back-button-to-about:hover {
   cursor: pointer;
   background-color: #f89634;
+}
+
+.profile-pic {
+  height: 72px;
+  border-radius: 72px;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.main-about-me-element {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  align-content: center;
+  height: 100%;
+  width: 100%;
+  gap: 12px;
+}
+
+.link-to {
+  display: flex;
+  flex-direction: row;
 }
 
 @keyframes opacityUp {
