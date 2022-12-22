@@ -38,7 +38,7 @@
   justify-content: flex-start;
   align-items: center;
   padding: 150px 60px 10px 60px;
-  /* background-color: var(--sub-color) ; */
+  background-color: var(--sub-color) ;
   border-top-right-radius: var(--border-radius-container);
   border-bottom-right-radius: var(--border-radius-container);
 }
