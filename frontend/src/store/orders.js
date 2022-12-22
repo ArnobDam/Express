@@ -234,3 +234,5 @@ export const selectTotalWithTax = createSelector(
   selectSalesTax,
   (subTotal, discountAmount, salesTax) => subTotal - discountAmount + salesTax
 );
+
+export const selectOrderHistoryList = (state) => state.orders.history;
