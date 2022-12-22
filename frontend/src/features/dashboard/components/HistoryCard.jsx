@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import { BsCheckCircleFill } from "react-icons/bs";
 import sand from "./sandwich.png";
+import { formatPrice } from "../../../utils/formatPrice";
+import { formatDistanceToNow } from "date-fns";
 
 export function HistoryCard({ history }) {
   const [showDetails, setShowDetails] = useState(false);
@@ -25,10 +27,15 @@ export function HistoryCard({ history }) {
           </div>
         </div>
         <div className="history-order-right">
-          <div className="history-time">10 min ago</div>
+          <div className="history-time">
+            {formatDistanceToNow(new Date(history.createdAt), {
+              addSuffix: true,
+            })}
+          </div>
           <div className="history-payment-detail">
+           
             <div className="history-price">
-              ${(history.totalPrice / 100).toFixed(2)}
+              {formatPrice(history.totalPrice)}
             </div>
             <div className="history-payment-method">Credit Card</div>
           </div>
@@ -45,11 +52,14 @@ export function HistoryCard({ history }) {
                 <div>{product.name}</div>
                 <div className="detail-price">
                   <div className="detail-qty-section">
-                    <div className="detail-each-price">each price</div>
-
-                    <div className="detail-qty">x {product.quantity}</div>
+                    <div className="detail-each-price">
+                      <div>{formatPrice(product.itemPrice)}</div>
+                      <div className="detail-qty">x {product.quantity}</div>
+                    </div>
                   </div>
-                  <div className="detail-total">${(product.totalPrice/100).toFixed(2)}</div>
+                  <div className="detail-total">
+                    {formatPrice(product.totalPrice)}
+                  </div>
                 </div>
               </div>
             </div>
