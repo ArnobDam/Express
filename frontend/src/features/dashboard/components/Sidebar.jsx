@@ -7,6 +7,10 @@ import { BiSearch } from "react-icons/bi";
 import { SidebarLink } from "./SidebarLink";
 import { PieChart } from "./PieChart";
 import { LogoutButton } from "./LogoutButton";
+import { formatPrice } from "../../../utils/formatPrice";
+import { useSelector } from "react-redux";
+import { selectTotalWithTax } from "../../../store/orders";
+import { useEffect, useState } from "react";
 
 const links = [
   {
@@ -80,7 +84,37 @@ const samplePieData = [
   },
 ];
 
+// console.log(useSelector(selectTotalWithTax))
+
+
 export function Sidebar() {
+  let totalWithTax = useSelector(selectTotalWithTax);
+  // console.log(Math.floor(totalWithTax).toString().length)
+  const [priceLeftMargin, setPriceLeftMargin] = useState("27%")
+
+  const PieChartPrice = () => {
+    if (totalWithTax === 0) {
+      return "";
+    } else {
+      return formatPrice(totalWithTax);
+    }
+  }
+
+  useEffect(() => {
+    // console.log("test")
+    if (Math.floor(totalWithTax).toString().length === 3) {
+      setPriceLeftMargin("30%");
+    } else if (Math.floor(totalWithTax).toString().length === 4) {
+      setPriceLeftMargin("27%");
+    } else {
+      setPriceLeftMargin("24%");
+    }
+    console.log(priceLeftMargin)
+  }, [PieChartPrice])
+
+
+  
+
   return (
     <div>
       <div className="brand-logo" style={{ width: "120px", height: "100px" }} />
@@ -102,7 +136,8 @@ export function Sidebar() {
             icon={link.icon}
           />
         ))}
-        <div style={{ height: "240px" }}>
+        <div style={{ height: "240px", position: "relative" }}>
+          <div style={{position: "absolute", top: "45%", left: priceLeftMargin, fontSize: 26, opacity: 0.4}}>{PieChartPrice()}</div>
           <PieChart data={samplePieData} />
         </div>
         <LogoutButton />
