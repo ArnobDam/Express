@@ -36,7 +36,7 @@
   justify-content: center;
   align-items: flex-start;
   align-content: center;
-  padding: 14px 36px;
+  padding: 0 36px 0 36px;
   height: 100%;
   width: 100%;
 }
@@ -58,11 +58,12 @@
   justify-content: space-evenly;
   align-items: flex-end;
   align-content: center;
-  background-color: #ec7905;
+  background-color: var(--sub-color);
   width: 100%;
   font-size: 16px;
   font-weight: 600;
-  color: white;
+  color:var(--bg-primary);
+  letter-spacing: 2px;
 }
 
 .about-page-div #scorecard {
@@ -78,15 +79,17 @@
 
 .about-page-div #scorecard:hover {
   cursor: pointer;
-  background-color: #f89634;
+  background-color: var(--bg-primary);
+  color:white
 }
 
 .back-to-about-main {
   animation: 0.3s ease-in 0s 1 backLeft forwards;
+  letter-spacing: 2px;
 }
 
 .back-button-to-about {
-  border-radius: 12px;
+  border-radius: 290px;
   padding: 10px 24px;
   width: fit-content;
   background-color: #ec7905;
@@ -115,7 +118,7 @@
   width: 102px;
   border-radius: 72px;
   animation: rotateCircle 2s linear 0s infinite forwards;
-  background: linear-gradient(45deg, red, blue) content-box;
+  background: linear-gradient(45deg, var(--bg-primary),var(--lightest-grey)) content-box;
 }
 
 .name-profile {
@@ -128,6 +131,7 @@
   width: 100%;
   padding: 6px 10px;
   gap: 8px;
+  letter-spacing: 1px;
 }
 
 .full-name {
