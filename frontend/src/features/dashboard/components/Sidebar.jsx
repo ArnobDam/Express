@@ -106,8 +106,10 @@ export function Sidebar() {
       setPriceLeftMargin("30%");
     } else if (Math.floor(totalWithTax).toString().length === 4) {
       setPriceLeftMargin("27%");
-    } else {
+    } else if (Math.floor(totalWithTax).toString().length === 5) {
       setPriceLeftMargin("24%");
+    } else {
+      setPriceLeftMargin("19%");
     }
     console.log(priceLeftMargin)
   }, [PieChartPrice])
