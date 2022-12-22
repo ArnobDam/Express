@@ -17,6 +17,7 @@ import { CartItem } from "./CartItem";
 import { createRef } from "react";
 import { format } from "date-fns";
 import { formatPrice } from "../../../utils/formatPrice";
+import { useState } from "react";
 
 const TODAY = format(Date.now(), "LLL d yyyy");
 const formatOrderNumber = (orderNumber) => {
@@ -39,6 +40,8 @@ export function Cart() {
     prev[curr.id] = createRef();
     return prev;
   }, {});
+
+  const [paymentType, setPaymentType] = useState(null);
 
   return (
     <>
@@ -67,19 +70,37 @@ export function Cart() {
               <div className="payment-text">Payment</div>
             </div>
             <div className="payment-method">
-              <div className="payment-debit">
+              <div
+                className={`payment-debit ${
+                  paymentType === "credit" ? "active-payment" : ""
+                }`}
+                role="button"
+                onClick={() => setPaymentType("credit")}
+              >
                 <div>
                   <BsFillCreditCard2BackFill />
                 </div>
-                <div>Debit</div>
+                <div>Credit</div>
               </div>
-              <div className="payment-cash">
+              <div
+                className={`payment-cash ${
+                  paymentType === "cash" ? "active-payment" : ""
+                }`}
+                role="button"
+                onClick={() => setPaymentType("cash")}
+              >
                 <div>
                   <RiMoneyDollarCircleFill />
                 </div>
                 <div>Cash</div>
               </div>
-              <div className="payment-code">
+              <div
+                className={`payment-code ${
+                  paymentType === "code" ? "active-payment" : ""
+                }`}
+                role="button"
+                onClick={() => setPaymentType("code")}
+              >
                 <div>
                   <MdQrCode />
                 </div>
@@ -110,7 +131,11 @@ export function Cart() {
             <div>
               <button
                 className="order-button"
-                onClick={() => dispatch(createOrderAsync())}
+                onClick={() => {
+                  dispatch(createOrderAsync());
+                  setPaymentType(null);
+                }}
+                disabled={currentCartItems.length === 0}
               >
                 Order Now
               </button>
