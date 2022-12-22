@@ -1,0 +1,131 @@
+.history-container {
+  background-color:var(--lightest-grey);
+  height: 100%;
+}
+
+.history-order {
+  background-color:white;
+  border-radius: 20px;
+  padding-top: 20px;
+}
+
+.history-order-detail{
+  display: flex;
+  flex-direction: column;
+  margin:0 0 0 20px; 
+}
+
+.history-detail{
+  margin-bottom: 5px;
+  font-size: 13px;
+}
+
+.history-order-number{
+  font-size:17px;
+  margin-bottom: 5px;
+}
+
+.history-payment{
+  color:var(--dark-grey);
+  margin-bottom: 5px;
+  font-size:14px
+}
+.checkmark{
+  color:green;
+  font-size: 50px;
+  margin:0 0 0 20px;
+  padding:4px 0 0 0;
+}
+
+.history-order-left{
+  display:flex;
+}
+
+.history-payment-detail{
+  display: flex;
+  margin:5px 20px 5px 10px
+}
+
+.history-time{
+  color:var(--dark-grey);
+  font-size:14px;
+  margin-left: 80px;
+}
+
+.history-price{
+  margin: 5px 10px 0 0;
+  font-size:14px;
+  
+}
+
+.history-payment-method{
+background-color:var(--lightest-grey);
+color:var(--dark-grey);
+border-radius: 20px;
+font-size: 14px;
+height: 25px;
+width: 90px;
+padding: 5px 0 0 7px;
+}
+
+.history-order-container{
+  display: flex;
+  flex-direction: column;
+  min-height: 100px;
+  padding:20px 0 0 0;
+  margin: 0  20px 0px 20px;
+  border-radius: 20px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.history-order-breakdown{
+  background-color:white;
+  height: 60px;
+   margin: 20px 20px 20px 80px;
+   padding-left:10px;
+   display: flex;
+}
+
+.history-order-detail-container{
+display: flex;
+justify-content: space-between;
+}
+
+.detail-price{
+  display: flex;
+  justify-content: space-between;
+  margin-top: 20px;
+}
+
+.detail-qty-section{
+  display: flex;
+}
+
+.history-img{
+  height:60px;
+  width:60px;
+  border-radius: 50%;
+}
+
+.detail-qty{
+  margin-left:5px;
+  font-size: 13px;
+  color: var(--dark-grey);
+}
+
+.detail-total{
+  letter-spacing: 2px;
+  font-size: 15px;
+  margin-left:320px
+}
+
+.detail-each-price{
+  letter-spacing: 2px;
+  font-size: 13px;
+  color: var(--dark-grey);
+}
+
+.each-order-detail{
+ margin-left:20px; 
+}
