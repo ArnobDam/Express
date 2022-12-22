@@ -25,6 +25,7 @@ import {
 import { Modal } from "../../shared/components/Modal";
 import { ProductCard } from "./ProductCard";
 import "./MenuManager.css";
+import { EditForm } from "./EditForm";
 
 const initialProductData = {
   name: "",
@@ -63,28 +64,25 @@ export function MenuManager() {
   const productToEdit = useSelector(selectCurrentProduct);
 
   const [productFormData, setProductFormData] = useState(initialProductData);
-  const [updateProductFormData, setUpdateProductFormData] = useState({
-    name: productToEdit?.name,
-    category: productToEdit?.category,
-    price: productToEdit?.price,
-    description: productToEdit?.description,
-    imageUrl: productToEdit?.imageUrl,
-  });
+  // const [updateProductFormData, setUpdateProductFormData] = useState({
+  //   name: productToEdit?.name,
+  //   category: productToEdit?.category,
+  //   price: productToEdit?.price,
+  //   description: productToEdit?.description,
+  //   imageUrl: productToEdit?.imageUrl,
+  // });
 
-  useEffect(() => {
-    if (productToEdit) {
-      setUpdateProductFormData({
-        name: productToEdit?.name,
-        category: productToEdit?.category,
-        price: productToEdit?.price,
-        description: productToEdit?.description,
-        imageUrl: productToEdit?.imageUrl,
-      });
-    }
-  }, [productToEdit]);
-
-  console.log(productToEdit);
-  console.log(updateProductFormData);
+  // useEffect(() => {
+  //   if (productToEdit) {
+  //     setUpdateProductFormData({
+  //       name: productToEdit?.name,
+  //       category: productToEdit?.category,
+  //       price: productToEdit?.price,
+  //       description: productToEdit?.description,
+  //       imageUrl: productToEdit?.imageUrl,
+  //     });
+  //   }
+  // }, [productToEdit]);
 
   const categoryLoaded = useSelector((state) => state.categories.loaded);
 
@@ -101,15 +99,6 @@ export function MenuManager() {
    */
   const handleChange = (event) => {
     setProductFormData((prev) => ({
-      ...prev,
-      [event.target.name]: event.target.value,
-    }));
-  };
-  /**
-   * @param {React.ChangeEvent<HTMLInputElement>} event
-   */
-  const handleUpdateChange = (event) => {
-    setUpdateProductFormData((prev) => ({
       ...prev,
       [event.target.name]: event.target.value,
     }));
@@ -301,99 +290,7 @@ export function MenuManager() {
       {/* EDIT MODAL */}
       {isEditProductModalOpen && productToEdit && (
         <Modal className="product-modal">
-          <div className="NewProductForm">
-            <form onSubmit={() => {}} encType="multipart/form-data">
-              <h2 className="modal-title">Edit product</h2>
-              <div>
-                <input
-                  className="product-form-input"
-                  type="text"
-                  name="name"
-                  placeholder="Name"
-                  value={updateProductFormData.name}
-                  onChange={handleUpdateChange}
-                />
-              </div>
-              <div>
-                <select
-                  className="select-option"
-                  name="category"
-                  id="category"
-                  value={updateProductFormData.category}
-                  onChange={handleUpdateChange}
-                >
-                  <option value="" key="">
-                    Select category
-                  </option>
-                  {categories.map((category) => (
-                    <option key={category.id} value={category.id}>
-                      {category.title}
-                    </option>
-                  ))}
-                </select>
-              </div>
-              <div>
-                <input
-                  className="product-form-input"
-                  type="text"
-                  name="description"
-                  placeholder="Description"
-                  value={updateProductFormData.description}
-                  onChange={handleUpdateChange}
-                />
-              </div>
-              <div>
-                <input
-                  className="product-form-input"
-                  type="number"
-                  name="price"
-                  placeholder="Price"
-                  value={updateProductFormData.price}
-                  onChange={handleUpdateChange}
-                />
-              </div>
-              <div className="pic-input" {...getRootProps()}>
-                <input {...getInputProps()} />
-                {isDragActive ? (
-                  <div>Drop the files here ...</div>
-                ) : (
-                  <div className="photo-content">
-                    <div className="add-photo"> + </div>
-                    <div>Drag 'n' drop some files here, </div>
-                    <div>or click to select files</div>
-                  </div>
-                )}
-              </div>
-
-              <div className="form-buttons">
-                <div>
-                  <button type="submit" className="save-button">
-                    Save changes
-                  </button>
-                </div>
-                <div>
-                  <button
-                    type="button"
-                    className="cancel-button"
-                    onClick={handleCloseModal}
-                  >
-                    Discard changes
-                  </button>
-                </div>
-              </div>
-              {/* TODO: */}
-              <div
-                style={{
-                  color: "var(--error-red)",
-                  fontSize: "12px",
-                  textAlign: "center",
-                  marginTop: "12px",
-                }}
-              >
-                {productErrors && productErrors.message}
-              </div>
-            </form>
-          </div>
+          <EditForm categories={categories} productToEdit={productToEdit} />
         </Modal>
       )}
 
