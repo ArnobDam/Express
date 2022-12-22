@@ -1,0 +1,12 @@
+:root {
+  
+}
+
+.daniel-profile-div {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  align-content: center;
+  border: 1px solid red;
+}

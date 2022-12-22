@@ -1,0 +1,25 @@
+.about-title {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  align-content: center;
+  border: 1px solid red;
+  height: 10%;
+}
+
+.about-page-div {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+  align-items: center;
+  align-content: center;
+  border: 1px solid red;
+  height: 90%;
+}
+
+.about-page-div #scorecard {
+  border-radius: 10px;
+  height: 80%;
+  width: 25%;
+}
