@@ -59,7 +59,7 @@ export const createOrderAsync = () => async (dispatch, getState) => {
       body: JSON.stringify({ products: orderItems }),
     });
     const data = await res.json();
-    console.log({ data });
+    // console.log({ data });
     dispatch(completeOrder(data));
     dispatch(incrementOrderNumber());
     if (localStorage.getItem("orderNumber")) {

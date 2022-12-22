@@ -280,8 +280,6 @@ for (let i = 0; i < ORDER_AMOUNT; i++) {
       (productsCount[products[RANDOM_NUM]._id] || 0) + 1;
   }
 
-  console.log(orderItems);
-
   for (const product of orderItems) {
     let productObject = {};
     productObject["_id"] = product._id;
@@ -315,8 +313,6 @@ for (let i = 0; i < ORDER_AMOUNT; i++) {
 
   let discountAmount = totalPriceSum * (discountPerc / 100);
 
-  // console.log(Math.ceil((totalPriceSum - discountAmount) * (1 + TAX / 100)));
-
   createOrders.push(
     new Order({
       number: Math.floor(Date.now() / 1000000000) * 1000 + ORDER_NUMBER_INC,
@@ -331,8 +327,6 @@ for (let i = 0; i < ORDER_AMOUNT; i++) {
   );
   ORDER_NUMBER_INC++;
 }
-
-// console.log(createOrders);
 
 const insertSeeds = () => {
   console.log("Resetting db and seeding users and products...");

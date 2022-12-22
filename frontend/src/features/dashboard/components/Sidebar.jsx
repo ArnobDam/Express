@@ -111,7 +111,6 @@ export function Sidebar() {
     } else {
       setPriceLeftMargin("19%");
     }
-    console.log(priceLeftMargin)
   }, [PieChartPrice])
 
 

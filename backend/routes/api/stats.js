@@ -44,7 +44,6 @@ router.get("/revenue", async (req, res, next) => {
       return res.json(totalRevenue);
     }
   } catch (err) {
-    // console.log("test")
     const error = new Error("No records found");
     error.statusCode = 404;
     error.errors = { message: "You have no avaialble orders at this time." };

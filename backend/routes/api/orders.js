@@ -28,7 +28,6 @@ router.get("/:orderId", async (req, res, next) => {
   // res.json({ message: "GET /order" });
   try {
     // const order = await Order.findById(req.params.orderId)
-    console.log(req.params.orderId);
 
     const order = await Order.findById(req.params.orderId);
 
@@ -60,8 +59,6 @@ router.post("/", validateOrderInput, async (req, res, next) => {
       productsCount[id] = (productsCount[id] || 0) + 1;
     });
 
-    // console.log(productsCount)
-
     await Product.find({
       _id: { $in: productIdArray },
     }).then((products) => {
@@ -79,12 +76,9 @@ router.post("/", validateOrderInput, async (req, res, next) => {
       }
     });
 
-    // console.log(productNameArray);
-
     req.body.discountPercentage
       ? (priceSubTotal -= priceSubTotal * (req.body.discountPercentage / 100))
       : priceSubTotal;
-    // console.log(priceSubTotal)
 
     const newOrder = new Order({
       number: Date.now(),
@@ -125,8 +119,6 @@ router.patch("/:orderId", validateOrderInput, async (req, res, next) => {
     productsCount[id] = (productsCount[id] || 0) + 1;
   });
 
-  // console.log(productsCount)
-
   await Product.find({
     _id: { $in: productIdArray },
   }).then((products) => {
@@ -143,12 +135,9 @@ router.patch("/:orderId", validateOrderInput, async (req, res, next) => {
     }
   });
 
-  // console.log(productNameArray);
-
   req.body.discountPercentage
     ? (priceSubTotal -= priceSubTotal * (req.body.discountPercentage / 100))
     : priceSubTotal;
-  // console.log(priceSubTotal)
 
   Order.findByIdAndUpdate(
     req.params.orderId,
@@ -191,8 +180,6 @@ router.put("/:orderId", validateOrderInput, async (req, res, next) => {
     productsCount[id] = (productsCount[id] || 0) + 1;
   });
 
-  // console.log(productsCount)
-
   await Product.find({
     _id: { $in: productIdArray },
   }).then((products) => {
@@ -209,12 +196,9 @@ router.put("/:orderId", validateOrderInput, async (req, res, next) => {
     }
   });
 
-  // console.log(productNameArray);
-
   req.body.discountPercentage
     ? (priceSubTotal -= priceSubTotal * (req.body.discountPercentage / 100))
     : priceSubTotal;
-  // console.log(priceSubTotal)
 
   Order.findByIdAndUpdate(
     req.params.orderId,

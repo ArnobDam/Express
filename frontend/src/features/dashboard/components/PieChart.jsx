@@ -64,8 +64,6 @@ export function PieChart({ data }) {
 
   // console.log(categoryNamesAndTotalPrices)
 
-  console.log(currentOrderWithCategoryNames);
-
   // let totalPrice = 0;
 
   // if (!categoryNamesAndTotalPrices[0]) {
