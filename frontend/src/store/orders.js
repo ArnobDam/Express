@@ -95,7 +95,8 @@ export const ordersReducer = (state = initialState, action) => {
                 return {
                   ...item,
                   quantity: item.quantity + action.payload.quantity,
-                  totalPrice: item.totalPrice * item.quantity,
+                  totalPrice:
+                    item.totalPrice * (action.payload.quantity + item.quantity),
                 };
               }
               return item;
