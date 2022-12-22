@@ -4,7 +4,6 @@ import { selectProductsByCategory } from "../../../store/products";
 import { showAddNewItemModal, showAddItemToCartModal } from "../../../store/ui";
 import { formatPrice } from "../../../utils/formatPrice";
 
-
 export const ProductRow = forwardRef(
   ({ title, categoryId, create = false }, ref) => {
     const products = useSelector((state) =>
@@ -51,6 +50,8 @@ export const ProductRow = forwardRef(
                   className="food-image"
                   src={product.imageUrl}
                   alt={product.name}
+                  height="100%"
+                  style={{ objectFit: "cover" }}
                 />
                 <div className="menu-name">{product.name}</div>
                 <div className="item-price">{formatPrice(product.price)}</div>
