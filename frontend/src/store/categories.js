@@ -103,3 +103,11 @@ export const categoriesErrorsReducer = (state = nullErrors, action) => {
 
 export const selectCategoriesList = (state) =>
   Object.values(state.categories.entities);
+
+export const selectCategoriesListForRow = (state) =>
+  Object.values(state.categories.entities ?? {})
+    .map((category) => ({
+      id: category._id,
+      title: category.title,
+    }))
+    .slice(0, 5);

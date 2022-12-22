@@ -1,10 +1,11 @@
 import React, { useEffect, useState, useCallback } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { shallowEqual, useDispatch, useSelector } from "react-redux";
 import { useDropzone } from "react-dropzone";
 import {
   clearCategoriesErrors,
   createCategoryAsync,
   fetchCategoriesAsync,
+  selectCategoriesListForRow,
 } from "../../../store/categories";
 import {
   clearCurrent,
@@ -20,12 +21,12 @@ import {
   selectIsAddNewProductModalOpen,
   selectIsEditProductModalOpen,
   showAddNewCategoryModal,
-  showEditProductModal,
 } from "../../../store/ui";
 import { Modal } from "../../shared/components/Modal";
 import { ProductCard } from "./ProductCard";
 import "./MenuManager.css";
 import { EditForm } from "./EditForm";
+import { formatCategoryTitle } from "../../../utils/formatCategoryTitle";
 
 const initialProductData = {
   name: "",
@@ -35,54 +36,36 @@ const initialProductData = {
   imageUrl: "",
 };
 
-const SANDWICH_ID = "63a47615ad6d4fe86b6daf6f";
-const SALAD_ID = "63a47615ad6d4fe86b6daf70";
-const SOUP_ID = "63a47615ad6d4fe86b6daf71";
-const DRINK_ID = "63a47615ad6d4fe86b6daf72";
-const BAKERY_ID = "63a47615ad6d4fe86b6daf73";
+// const SANDWICH_ID = "63a47615ad6d4fe86b6daf6f";
+// const SALAD_ID = "63a47615ad6d4fe86b6daf70";
+// const SOUP_ID = "63a47615ad6d4fe86b6daf71";
+// const DRINK_ID = "63a47615ad6d4fe86b6daf72";
+// const BAKERY_ID = "63a47615ad6d4fe86b6daf73";
 
-const categories = [
-  { id: SANDWICH_ID, title: "🥪 Sandwiches" },
-  { id: SALAD_ID, title: "🥗 Salads" },
-  { id: SOUP_ID, title: "🥣 Soups" },
-  { id: DRINK_ID, title: "🍹 Drinks" },
-  { id: BAKERY_ID, title: "🍰 Bakery" },
-  // { id: 6, title: "🍟 Sides" },
-];
+// const categories = [
+//   { id: SANDWICH_ID, title: "🥪 Sandwiches" },
+//   { id: SALAD_ID, title: "🥗 Salads" },
+//   { id: SOUP_ID, title: "🥣 Soups" },
+//   { id: DRINK_ID, title: "🍹 Drinks" },
+//   { id: BAKERY_ID, title: "🍰 Bakery" },
+//   // { id: 6, title: "🍟 Sides" },
+// ];
 
-const CATEGORY_IDS = [
-  { id: SANDWICH_ID, title: "Sandwiches" },
-  { id: SALAD_ID, title: "Salads" },
-  { id: SOUP_ID, title: "Soups" },
-  { id: DRINK_ID, title: "Drinks" },
-  { id: BAKERY_ID, title: "Bakery" },
-];
+// const CATEGORY_IDS = [
+//   { id: SANDWICH_ID, title: "Sandwiches" },
+//   { id: SALAD_ID, title: "Salads" },
+//   { id: SOUP_ID, title: "Soups" },
+//   { id: DRINK_ID, title: "Drinks" },
+//   { id: BAKERY_ID, title: "Bakery" },
+// ];
 
 export function MenuManager() {
   const dispatch = useDispatch();
+  const categoriesList = useSelector(selectCategoriesListForRow, shallowEqual);
 
   const productToEdit = useSelector(selectCurrentProduct);
 
   const [productFormData, setProductFormData] = useState(initialProductData);
-  // const [updateProductFormData, setUpdateProductFormData] = useState({
-  //   name: productToEdit?.name,
-  //   category: productToEdit?.category,
-  //   price: productToEdit?.price,
-  //   description: productToEdit?.description,
-  //   imageUrl: productToEdit?.imageUrl,
-  // });
-
-  // useEffect(() => {
-  //   if (productToEdit) {
-  //     setUpdateProductFormData({
-  //       name: productToEdit?.name,
-  //       category: productToEdit?.category,
-  //       price: productToEdit?.price,
-  //       description: productToEdit?.description,
-  //       imageUrl: productToEdit?.imageUrl,
-  //     });
-  //   }
-  // }, [productToEdit]);
 
   const categoryLoaded = useSelector((state) => state.categories.loaded);
 
@@ -158,7 +141,7 @@ export function MenuManager() {
     }
   };
 
-  const scrollRefs = CATEGORY_IDS.reduce((prev, curr) => {
+  const scrollRefs = categoriesList.reduce((prev, curr) => {
     prev[curr.id] = createRef();
     return prev;
   }, {});
@@ -215,9 +198,9 @@ export function MenuManager() {
                   <option value="" key="">
                     Select category
                   </option>
-                  {categories.map((category) => (
+                  {categoriesList.map((category) => (
                     <option key={category.id} value={category.id}>
-                      {category.title}
+                      {formatCategoryTitle(category)}
                     </option>
                   ))}
                 </select>
@@ -290,7 +273,7 @@ export function MenuManager() {
       {/* EDIT MODAL */}
       {isEditProductModalOpen && productToEdit && (
         <Modal className="product-modal">
-          <EditForm categories={categories} productToEdit={productToEdit} />
+          <EditForm categories={categoriesList} productToEdit={productToEdit} />
         </Modal>
       )}
 
@@ -344,14 +327,14 @@ export function MenuManager() {
       )}
 
       <div className="category-list">
-        {categories.map((category) => (
+        {categoriesList.map((category) => (
           <div
             className="category-item"
             key={category.id}
             role="button"
             onClick={() => handleScrollIntoView(category.id)}
           >
-            {category.title}
+            {formatCategoryTitle(category)}
           </div>
         ))}
 
@@ -365,7 +348,7 @@ export function MenuManager() {
       </div>
       <div className="ProductsList">
         <div className="category-container">
-          {CATEGORY_IDS.map((category) => (
+          {categoriesList.map((category) => (
             <ProductCard
               key={category.id}
               create={true}
