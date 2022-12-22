@@ -11,7 +11,9 @@ export function About() {
   return (
     <div className="center-main-about-me">
       <div className="about-title">
-        {profileSelector === 0 && <h1>About</h1>}
+      {/* <div className="about-line"></div> */}
+        {profileSelector === 0 && 
+        <div className="about-express">About Express</div>}
         {profileSelector !== 0 && (
           <div className="back-to-about-main">
             <div
@@ -20,6 +22,7 @@ export function About() {
             >
               Back
             </div>
+            {/* <div className="about-line"></div> */}
           </div>
         )}
       </div>
@@ -27,7 +30,7 @@ export function About() {
         <div className="about-team">
           {profileSelector === 0 && (
             <div className="motto-team-about">
-              Hello! from the ExpressPOS team.
+              Express is a POS System built upon efficiency, ease of access and sleek visuals. We created Express in order to upgrade existing restaurant owners’ technologies. Besides seamless checkout technology, user’s are also able to view data visualizations of their business’ sales.
             </div>
           )}
           {profileSelector === 1 && (
