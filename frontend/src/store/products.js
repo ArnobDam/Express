@@ -1,6 +1,7 @@
 import { jwtFetch } from "./jwt";
 import { createSelector } from "reselect";
 import { SHOW_ADD_ITEM_TO_CART_MODAL } from "./ui";
+import { incrementOrderNumber } from "./orders";
 
 const RECEIVE_PRODUCTS = "products/RECEIVE_PRODUCTS";
 const RECEIVE_PRODUCT = "products/RECEIVE_PRODUCT";

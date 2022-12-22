@@ -14,7 +14,13 @@ import { createRef } from "react";
 import { format } from "date-fns";
 
 const TODAY = format(Date.now(), "LLL d yyyy");
-const formatOrderNumber = (orderNumber) => {};
+const formatOrderNumber = (orderNumber) => {
+  if (orderNumber < 10) {
+    return `0${orderNumber}`;
+  }
+  return `${orderNumber}`;
+};
+
 export function Cart() {
   const dispatch = useDispatch();
   const currentOrderNumber = useSelector(selectCurrentOrderNumber);
@@ -29,7 +35,9 @@ export function Cart() {
     <>
       <div className="cart-container">
         <div className="order-detail">
-          <div className="order-number">Order #{currentOrderNumber}</div>
+          <div className="order-number">
+            Order #{formatOrderNumber(currentOrderNumber)}
+          </div>
           <div className="date">{TODAY}</div>
         </div>
 

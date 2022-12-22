@@ -1,6 +1,5 @@
 import { createSelector } from "reselect";
 import { jwtFetch } from "./jwt";
-import { selectProductEntities } from "./products";
 
 const ADD_ORDER_ITEM = "orders/ADD_ORDER_ITEM";
 const COMPLETE_ORDER = "orders/COMPLETE_ORDER";
@@ -9,9 +8,9 @@ const DECREMENT_QUANTITY = "orders/DECREMENT_QUANTITY";
 const REMOVE_ITEM_FROM_CART = "orders/REMOVE_ITEM_FROM_CART";
 const INCREMENT_ORDER_NUMBER = "orders/INCREMEMNT_ORDER_NUMBER";
 
-export const addOrderItem = (orderItem) => ({
+export const addOrderItem = ({ orderItem, quantity }) => ({
   type: ADD_ORDER_ITEM,
-  payload: orderItem,
+  payload: { orderItem, quantity },
 });
 
 export const completeOrder = (order) => ({
@@ -80,7 +79,9 @@ export const ordersReducer = (state = initialState, action) => {
     case ADD_ORDER_ITEM: {
       // Increment if item already exists in cart
       if (
-        state.current.products.find((item) => item.id === action.payload.id)
+        state.current.products.find(
+          (item) => item.id === action.payload.orderItem.id
+        )
       ) {
         return {
           ...state,
@@ -88,7 +89,7 @@ export const ordersReducer = (state = initialState, action) => {
             ...state.current,
             products: state.current.products.map((item) => ({
               ...item,
-              quantity: item.quantity + 1,
+              quantity: item.quantity + action.payload.quantity,
             })),
           },
         };
@@ -193,7 +194,7 @@ export const ordersErrorsReducer = (state = nullErrors, action) => {
 export const selectCurrentCartItems = (state) => state.orders.current.products;
 export const selectCurrentCartItemsExpanded = createSelector(
   selectCurrentCartItems,
-  selectProductEntities,
+  (state) => state.products?.entities,
   (cartItems, products) =>
     cartItems.map((item) => ({ ...item, ...products[item.id] }))
 );
