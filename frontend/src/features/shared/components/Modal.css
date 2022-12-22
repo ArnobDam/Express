@@ -1,13 +1,14 @@
 .modal-overlay {
-  position: sticky;
+  position: absolute;
   z-index: 20;
   top: 0;
   background-color: rgba(0, 0, 0, 0.7);
   display: flex;
   justify-content: center;
-  align-items: flex-start;
-  padding-top: 200px;
+  align-items: center;
+  padding-top: 0px;
   height: 100%;
+  width: 100%;
   overflow: hidden;
 }
 
@@ -15,7 +16,7 @@
   position: sticky;
   top: 0px;
   height: 100%;
-  overflow-y: auto;
+  /* overflow-y: auto; */
 }
 
 .modal {
@@ -23,7 +24,7 @@
   border: 1px solid #bebebe;
   border-radius: 2px;
   padding: 12px 16px;
-  position: relative
+  position: relative;
 }
 
 .Menu {
@@ -31,12 +32,22 @@
   overflow-y: scroll;
 }
 
-.exit-modal{
+.exit-modal {
   background-color: transparent;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  align-content: center;
   border: none;
-  color:white;
-  font-size:25px;
+  color: black;
+  font-size: 25px;
   position: absolute;
-  top:30px;
-
+  top: 195px;
+  right: 195px;
+  z-index: 5;
+  width: 31px;
+  height: fit-content;
+  background-color: white;
+  border-radius: 32px;
+  border: 1px solid black;
 }
