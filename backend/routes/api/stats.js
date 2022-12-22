@@ -76,7 +76,6 @@ router.get("/number-of-orders", async (req, res, next) => {
 router.get("/number-of-products-sold", async (req, res, next) => {
   try {
     const orders = await Order.find();
-
     let totalNumberOfProductsSold = 0;
 
     for (const order of orders) {

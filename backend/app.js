@@ -5,12 +5,12 @@ const logger = require("morgan");
 const cors = require("cors");
 const csurf = require("csurf");
 const { isProduction } = require("./config/keys");
+const bodyParser = require("body-parser");
 
 require("./models/User");
 require("./models/Product");
 require("./models/Category");
 require("./models/Order");
-
 
 require("./config/passport");
 const passport = require("passport");
@@ -19,11 +19,13 @@ const usersRouter = require("./routes/api/users");
 const productsRouter = require("./routes/api/products");
 const categoriesRouter = require("./routes/api/categories");
 const ordersRouter = require("./routes/api/orders");
-const statsRouter = require("./routes/api/stats")
+const statsRouter = require("./routes/api/stats");
 const csrfRouter = require("./routes/csrf");
+const busboy = require("connect-busboy");
 
 const app = express();
 
+app.use(busboy({ immediate: true }));
 app.use(logger("dev"));
 app.use(passport.initialize());
 app.use(express.json());
@@ -41,6 +43,9 @@ app.use(
     },
   })
 );
+
+// app.use(bodyParser.urlencoded());
+// app.use(bodyParser.json());
 
 app.use("/api/users", usersRouter);
 app.use("/api/products", productsRouter);

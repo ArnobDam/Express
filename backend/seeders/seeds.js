@@ -5,6 +5,7 @@ const bcrypt = require("bcryptjs");
 const { faker } = require("@faker-js/faker");
 const Product = require("../models/Product");
 const Category = require("../models/Category");
+const Order = require("../models/Order");
 
 const NUM_SEED_USERS = 10;
 const NUM_SEED_PRODUCT = 30;
@@ -257,6 +258,81 @@ for (let i = 0; i < bakery.length; i++) {
 //   );
 // }
 
+const ORDER_AMOUNT = 400;
+const createOrders = [];
+const discountChance = [
+  0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 20, 0, 0, 0, 0, 0, 0, 0, 0,
+  0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 40, 0, 0, 0, 0, 0, 0, 0, 0, 0, 20, 0, 5,
+];
+let ORDER_NUMBER_INC = 1;
+
+for (let i = 0; i < ORDER_AMOUNT; i++) {
+  const TAX = 8.8875;
+  let orderItems = [];
+  let productArray = [];
+  let productsCount = {};
+  let totalPriceSum = 0;
+
+  for (let y = 0; y < Math.floor(Math.random() * (10 - 1) + 1); y++) {
+    let RANDOM_NUM = Math.floor(Math.random() * (products.length - 1));
+    orderItems.push(products[RANDOM_NUM]);
+    productsCount[products[RANDOM_NUM]._id] =
+      (productsCount[products[RANDOM_NUM]._id] || 0) + 1;
+  }
+
+  console.log(orderItems);
+
+  for (const product of orderItems) {
+    let productObject = {};
+    productObject["_id"] = product._id;
+    productObject["name"] = product.name;
+    productObject["quantity"] = productsCount[product._id];
+    productObject["totalPrice"] = product.price * productObject["quantity"];
+
+    productArray.push(productObject);
+    totalPriceSum += productObject["totalPrice"];
+  }
+
+  // 2022-12-22T05:05:57.504+00:00
+
+  let YEAR = Math.floor(Math.random() * 22);
+  let MONTH = Math.floor(Math.random() * (12 - 1) + 1);
+  let DAY = Math.floor(Math.random() * (28 - 1) + 1);
+
+  if (YEAR < 10) YEAR = "0" + YEAR.toString();
+  else YEAR.toString();
+
+  if (MONTH < 10) MONTH = "0" + MONTH.toString();
+  else MONTH.toString();
+
+  if (DAY < 10) DAY = "0" + DAY.toString();
+  else DAY.toString();
+
+  let DATE = "20" + YEAR + "-" + MONTH + "-" + DAY + "T05:05:57.504+00:00";
+
+  let discountPerc =
+    discountChance[Math.floor(Math.random() * (discountChance.length - 1))];
+
+  let discountAmount = totalPriceSum * (discountPerc / 100);
+
+  // console.log(Math.ceil((totalPriceSum - discountAmount) * (1 + TAX / 100)));
+
+  createOrders.push(
+    new Order({
+      number: Math.floor(Date.now() / 1000000000) * 1000 + ORDER_NUMBER_INC,
+      discountPercentage: discountPerc,
+      products: productArray,
+      totalPrice: Math.ceil((totalPriceSum - discountAmount) * (1 + TAX / 100)),
+      subTotal: totalPriceSum,
+      tax: TAX,
+      createdAt: DATE,
+      updatedAt: DATE,
+    })
+  );
+  ORDER_NUMBER_INC++;
+}
+
+// console.log(createOrders);
 
 const insertSeeds = () => {
   console.log("Resetting db and seeding users and products...");
@@ -265,31 +341,39 @@ const insertSeeds = () => {
     .drop()
     .then(() => User.insertMany(users))
     .then(() => {
-      console.log("Done!");
+      console.log("Done making users!");
     })
     .catch((err) => {
       console.error(err.stack);
       process.exit(1);
     });
 
-    Category.collection
+  Category.collection
     .drop()
     .then(() => Product.collection.drop())
     .then(() => Category.insertMany(categories))
     .then(() => Product.insertMany(products))
     .then(() => {
-      console.log("Done!");
+      console.log("Done making items!");
+      console.log("Done making categories!");
+    })
+    .catch((err) => {
+      console.error(err.stack);
+      process.exit(1);
+    });
+
+  Order.collection
+    .drop()
+    .then(() => Order.insertMany(createOrders))
+    .then(() => {
+      console.log("Done making orders!");
       mongoose.disconnect();
     })
     .catch((err) => {
       console.error(err.stack);
       process.exit(1);
     });
-
-
 };
-
-console.log("test");
 
 mongoose
   .connect(db, { useNewUrlParser: true })
