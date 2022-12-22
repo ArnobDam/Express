@@ -6,6 +6,7 @@
   color: var(--bg-primary);
   border: 1px dashed;
   letter-spacing: 0.5px;
+  height: 190px;
 }
 
 .add-button {
@@ -19,7 +20,7 @@
   height: 35px;
   border-radius: 10px;
   color: var(--dark-grey);
-  margin-bottom: 13px;
+  margin-bottom: 20px;
   border: none;
   padding-left: 10px;
   letter-spacing: 2px;
@@ -35,38 +36,57 @@
   border: none;
   padding-left: 10px;
   box-shadow: 0px 0px 14px 1px rgba(17, 17, 26, 0.18);
+  letter-spacing: 2px;
 }
 .select-option {
   width: 350px;
   height: 35px;
   border-radius: 10px;
   color: var(--dark-grey);
-  margin-bottom: 13px;
+  margin-bottom: 20px;
   border: none;
   padding-left: 8px;
   box-shadow: 0px 0px 14px 1px rgba(17, 17, 26, 0.18);
+  letter-spacing: 2px;
 }
 
 .modal-title {
-  margin: 20px 0 20px 0;
+  margin: 20px 0 30px 0;
   font-size: 25px;
   text-align: center;
   color: black;
-  letter-spacing: 0.5px;
+  letter-spacing: 2px;
 }
 
 .product-modal {
-  height: 500px;
+  height: 560px;
   border-radius: 10px;
 }
 
 .save-button {
-  background-color: white;
+  background-color:var(--bg-primary);
   border: 1px solid var(--bg-primary);
-  width: 350px;
-  height: 30px;
-  color: var(--bg-primary);
-  border-radius: 10px;
+  width: 150px;
+  height: 33px;
+  color: white;
+  border-radius: 20px;
+  margin: 20px 0 0 2px;
+
+}
+
+.cancel-button {
+  background-color:white;
+  border: 1px solid var(--bg-primary);
+  width: 150px;
+  height: 33px;
+  color:var(--bg-primary);
+  border-radius: 20px;
+  margin: 20px 2px 0 0;
+}
+
+.form-buttons{
+  display: flex;
+  justify-content: space-between;
 }
 
 .save-button:hover {
@@ -82,11 +102,14 @@
   padding-top: 24px;
 }
 
+.add-photo{
+  margin-bottom: 10px;
+}
 /* category modal */
 
 .category-modal {
   width: 383px;
-  height: 200px;
+  height: 220px;
   border-radius: 10px;
 }
 
@@ -103,9 +126,17 @@
 }
 
 .add-category-title {
-  margin: 20px 0 20px 0;
+  margin: 20px 0 30px 0;
   font-size: 25px;
   text-align: center;
   color: black;
   letter-spacing: 0.5px;
 }
+
+.category-buttons{
+  display: flex;
+  justify-content: space-between;
+}
+
+/* menu css */
+

@@ -1,16 +1,21 @@
 import { createRef, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { addOrderItem, createOrderAsync } from "../../../store/orders";
-import { closeModal } from "../../../store/ui";
+import { shallowEqual, useDispatch, useSelector } from "react-redux";
+import { addOrderItem } from "../../../store/orders";
+import { selectCurrentProduct } from "../../../store/products";
+import {
+  closeModal,
+  selectIsAddNewItemToCartModalOpen,
+} from "../../../store/ui";
 import { formatPrice } from "../../../utils/formatPrice";
 import { Modal } from "../../shared/components/Modal";
 import { ProductRow } from "./ProductRow";
+import "./ProductsList.css";
 
-const SANDWICH_ID = "63a321d938a679217e604707";
-const SALAD_ID = "63a321d938a679217e604708";
-const SOUP_ID = "63a321d938a679217e604709";
-const DRINK_ID = "63a321d938a679217e60470a";
-const BAKERY_ID = "63a321d938a679217e60470b";
+const SANDWICH_ID = "63a47615ad6d4fe86b6daf6f";
+const SALAD_ID = "63a47615ad6d4fe86b6daf70";
+const SOUP_ID = "63a47615ad6d4fe86b6daf71";
+const DRINK_ID = "63a47615ad6d4fe86b6daf72";
+const BAKERY_ID = "63a47615ad6d4fe86b6daf73";
 
 const categories = [
   { id: SANDWICH_ID, title: "🥪 Sandwiches" },
@@ -44,8 +49,10 @@ export function ProductsList() {
     });
   };
 
-  const isModalOpen = useSelector((state) => state.ui.modal);
-  const currentProductInModal = useSelector((state) => state.ui.current);
+  const isAddItemToCartModalOpen = useSelector(
+    selectIsAddNewItemToCartModalOpen
+  );
+  const currentProduct = useSelector(selectCurrentProduct, shallowEqual);
 
   const [quantity, setQuantity] = useState(1);
   const handleDecrement = () => {
@@ -73,23 +80,47 @@ export function ProductsList() {
 
   return (
     <div className="Order" style={{ position: "relative" }}>
-      {isModalOpen && currentProductInModal && (
-        <Modal>
-          <h1>{currentProductInModal.name}</h1>
-          <img
-            src={currentProductInModal.imageUrl}
-            alt={currentProductInModal.name}
-            height="100px"
-          />
-          <p>{formatPrice(currentProductInModal.price)}</p>
-          <button onClick={handleDecrement}>-</button>
-          <p>{quantity}</p>
-          <button onClick={handleIncrement}>+</button>
-          <div>modifiers</div>
-          <button onClick={handleCloseModal}>Cancel</button>
-          <button onClick={() => handleAddProductToCart(currentProductInModal)}>
-            OK
-          </button>
+      {isAddItemToCartModalOpen && currentProduct && (
+        <Modal className="products-modal">
+          <h1 className="product-modal-name">{currentProduct.name}</h1>
+          <div className="product-modal-detail">
+            <div>
+              <img
+                className="product-modal-image"
+                src={currentProduct.imageUrl}
+                alt={currentProduct.name}
+                height="100px"
+              />
+            </div>
+            <div className="product-modal-price">
+              {formatPrice(currentProduct.price)}
+            </div>
+            <div className="product-modal-qty">
+              <div>
+                <button className="modal-qty-button" onClick={handleDecrement}>
+                  -
+                </button>
+              </div>
+              <div className="modal-qty">{quantity}</div>
+              <div>
+                <button className="modal-qty-button" onClick={handleIncrement}>
+                  +
+                </button>
+              </div>
+            </div>
+            {/* <div>modifiers</div> */}
+            <div className="modal-buttons">
+              <button
+                className="modal-add-button"
+                onClick={() => handleAddProductToCart(currentProduct)}
+              >
+                Add
+              </button>
+              <button className="modal-cxl-button" onClick={handleCloseModal}>
+                Cancel
+              </button>
+            </div>
+          </div>
         </Modal>
       )}
       <div className="category-list">
@@ -104,9 +135,9 @@ export function ProductsList() {
           </div>
         ))}
 
-        <div role="button" className="new-category">
+        {/* <div role="button" className="new-category">
           Category +
-        </div>
+        </div> */}
 
         {/* <Link to={"/menu"}>
           <div role="button" className="new-category">

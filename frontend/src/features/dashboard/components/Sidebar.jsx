@@ -22,12 +22,6 @@ const links = [
     label: "Menu",
   },
   {
-    id: 3,
-    path: "/order",
-    icon: <FaClipboardList className="link-icon" />,
-    label: "Orders",
-  },
-  {
     id: 4,
     path: "/history",
     icon: <RiChatHistoryFill className="link-icon" />,
@@ -43,7 +37,13 @@ const links = [
     id: 6,
     path: "/settings",
     icon: <AiFillSetting className="link-icon" />,
-    label: "Settings",
+    label: "Product Management",
+  },
+  {
+    id: 3,
+    path: "/about",
+    icon: <FaClipboardList className="link-icon" />,
+    label: "About",
   },
 ];
 
