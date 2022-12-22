@@ -25,29 +25,6 @@
   z-index: 2;
 }
 
-.name-profile {
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-start;
-  align-content: center;
-  align-items: flex-start;
-  height: 72px;
-  width: 100%;
-  padding: 6px 10px;
-}
-
-.full-name {
-  font-weight: 600;
-  color: rgba(0, 0, 0, 1);
-  font-size: 28px;
-}
-
-.role {
-  font-weight: 400;
-  color: rgba(0, 0, 0, 0.6);
-  font-size: 14px;
-}
-
 .daniel-about-me-body {
   display: flex;
   position: relative;

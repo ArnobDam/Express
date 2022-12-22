@@ -33,11 +33,13 @@ export function About() {
           {profileSelector === 1 && (
             <div className="main-about-me-element">
               <div className="arnob-about-me">
-                <img
-                  alt="arnob"
-                  className="profile-pic"
-                  src="https://media.licdn.com/dms/image/C4D03AQEvbYVuaaEkEg/profile-displayphoto-shrink_800_800/0/1607486966851?e=1677110400&v=beta&t=epkurBoMNSnA13BOztde8kLmi1zwQX31XZQLLYPasyE"
-                />
+                <div className="circle-border-spin">
+                  <img
+                    alt="arnob"
+                    className="profile-pic"
+                    src="https://media.licdn.com/dms/image/C4D03AQEvbYVuaaEkEg/profile-displayphoto-shrink_800_800/0/1607486966851?e=1677110400&v=beta&t=epkurBoMNSnA13BOztde8kLmi1zwQX31XZQLLYPasyE"
+                  />
+                </div>
                 <div className="name-profile">
                   <p className="full-name">Arnob Dam</p>
                   <p className="role">Project Lead</p>
@@ -106,47 +108,47 @@ export function About() {
                         >
                           <g>
                             <polygon
-                              class="st0"
+                              className="st0"
                               points="15998,8534.7 15996,8534.7 15996,8536.7 15996,8555.2 15996,8557.2 15998,8557.2 16016.6,8557.2     16018.6,8557.2 16018.6,8555.2 16018.6,8536.7 16018.6,8534.7 16016.6,8534.7   "
                             />
                             <path
-                              class="st0"
+                              className="st0"
                               d="M15938.2,8534.7c-7.2,0-14.2,1.4-20.8,4.2c-6.4,2.7-12.1,6.6-17,11.5s-8.8,10.6-11.5,17    c-2.8,6.6-4.2,13.6-4.2,20.8v78.4v2h2h18.6h2v-2v-78.7c0.4-8.1,3.8-15.7,9.5-21.3c5.8-5.7,13.4-9,21.5-9.3h41.2h2v-2v-18.6v-2h-2    H15938.2z"
                             />
                             <polygon
-                              class="st0"
+                              className="st0"
                               points="16035.1,8608.9 16033.1,8608.9 16033.1,8610.9 16033.1,8629.5 16033.1,8631.5 16035.1,8631.5     16053.7,8631.5 16055.7,8631.5 16055.7,8629.5 16055.7,8610.9 16055.7,8608.9 16053.7,8608.9   "
                             />
                             <polygon
-                              class="st0"
+                              className="st0"
                               points="16035.1,8571.8 16033.1,8571.8 16033.1,8573.8 16033.1,8592.4 16033.1,8594.4 16035.1,8594.4     16053.7,8594.4 16055.7,8594.4 16055.7,8592.4 16055.7,8573.8 16055.7,8571.8 16053.7,8571.8   "
                             />
                             <polygon
-                              class="st0"
+                              className="st0"
                               points="16053.7,8534.7 16035.1,8534.7 16033.1,8534.7 16033.1,8536.7 16033.1,8555.2 16033.1,8557.2     16035.1,8557.2 16053.7,8557.2 16055.7,8557.2 16055.7,8555.2 16055.7,8536.7 16055.7,8534.7   "
                             />
                             <polygon
-                              class="st0"
+                              className="st0"
                               points="16035.1,8646 16033.1,8646 16033.1,8648 16033.1,8666.6 16033.1,8668.6 16035.1,8668.6     16053.7,8668.6 16055.7,8668.6 16055.7,8666.6 16055.7,8648 16055.7,8646 16053.7,8646   "
                             />
                             <polygon
-                              class="st0"
+                              className="st0"
                               points="16035.1,8683.1 16033.1,8683.1 16033.1,8685.1 16033.1,8703.7 16033.1,8705.7 16035.1,8705.7     16053.7,8705.7 16055.7,8705.7 16055.7,8703.7 16055.7,8685.1 16055.7,8683.1 16053.7,8683.1   "
                             />
                             <polygon
-                              class="st0"
+                              className="st0"
                               points="15998,8683.1 15996,8683.1 15996,8685.1 15996,8703.7 15996,8705.7 15998,8705.7 16016.6,8705.7     16018.6,8705.7 16018.6,8703.7 16018.6,8685.1 16018.6,8683.1 16016.6,8683.1   "
                             />
                             <polygon
-                              class="st0"
+                              className="st0"
                               points="15960.9,8683.1 15958.9,8683.1 15958.9,8685.1 15958.9,8703.7 15958.9,8705.7 15960.9,8705.7     15979.5,8705.7 15981.5,8705.7 15981.5,8703.7 15981.5,8685.1 15981.5,8683.1 15979.5,8683.1   "
                             />
                             <polygon
-                              class="st0"
+                              className="st0"
                               points="15923.8,8683.1 15921.8,8683.1 15921.8,8685.1 15921.8,8703.7 15921.8,8705.7 15923.8,8705.7     15942.4,8705.7 15944.4,8705.7 15944.4,8703.7 15944.4,8685.1 15944.4,8683.1 15942.4,8683.1   "
                             />
                             <polygon
-                              class="st0"
+                              className="st0"
                               points="15886.7,8683.1 15884.7,8683.1 15884.7,8685.1 15884.7,8703.7 15884.7,8705.7 15886.7,8705.7     15905.2,8705.7 15907.2,8705.7 15907.2,8703.7 15907.2,8685.1 15907.2,8683.1 15905.2,8683.1   "
                             />
                           </g>
@@ -172,11 +174,13 @@ export function About() {
           {profileSelector === 2 && (
             <div className="main-about-me-element">
               <div className="chazz-about-me">
-                <img
-                  alt="chazz"
-                  className="profile-pic"
-                  src="https://www.kindpng.com/picc/m/136-1369892_avatar-people-person-business-user-man-character-avatar.png"
-                />
+                <div className="circle-border-spin">
+                  <img
+                    alt="chazz"
+                    className="profile-pic"
+                    src="https://www.kindpng.com/picc/m/136-1369892_avatar-people-person-business-user-man-character-avatar.png"
+                  />
+                </div>
                 <div className="name-profile">
                   <p className="full-name">Chazz Lee</p>
                   <p className="role">Project Flex</p>
@@ -245,47 +249,47 @@ export function About() {
                         >
                           <g>
                             <polygon
-                              class="st0"
+                              className="st0"
                               points="15998,8534.7 15996,8534.7 15996,8536.7 15996,8555.2 15996,8557.2 15998,8557.2 16016.6,8557.2     16018.6,8557.2 16018.6,8555.2 16018.6,8536.7 16018.6,8534.7 16016.6,8534.7   "
                             />
                             <path
-                              class="st0"
+                              className="st0"
                               d="M15938.2,8534.7c-7.2,0-14.2,1.4-20.8,4.2c-6.4,2.7-12.1,6.6-17,11.5s-8.8,10.6-11.5,17    c-2.8,6.6-4.2,13.6-4.2,20.8v78.4v2h2h18.6h2v-2v-78.7c0.4-8.1,3.8-15.7,9.5-21.3c5.8-5.7,13.4-9,21.5-9.3h41.2h2v-2v-18.6v-2h-2    H15938.2z"
                             />
                             <polygon
-                              class="st0"
+                              className="st0"
                               points="16035.1,8608.9 16033.1,8608.9 16033.1,8610.9 16033.1,8629.5 16033.1,8631.5 16035.1,8631.5     16053.7,8631.5 16055.7,8631.5 16055.7,8629.5 16055.7,8610.9 16055.7,8608.9 16053.7,8608.9   "
                             />
                             <polygon
-                              class="st0"
+                              className="st0"
                               points="16035.1,8571.8 16033.1,8571.8 16033.1,8573.8 16033.1,8592.4 16033.1,8594.4 16035.1,8594.4     16053.7,8594.4 16055.7,8594.4 16055.7,8592.4 16055.7,8573.8 16055.7,8571.8 16053.7,8571.8   "
                             />
                             <polygon
-                              class="st0"
+                              className="st0"
                               points="16053.7,8534.7 16035.1,8534.7 16033.1,8534.7 16033.1,8536.7 16033.1,8555.2 16033.1,8557.2     16035.1,8557.2 16053.7,8557.2 16055.7,8557.2 16055.7,8555.2 16055.7,8536.7 16055.7,8534.7   "
                             />
                             <polygon
-                              class="st0"
+                              className="st0"
                               points="16035.1,8646 16033.1,8646 16033.1,8648 16033.1,8666.6 16033.1,8668.6 16035.1,8668.6     16053.7,8668.6 16055.7,8668.6 16055.7,8666.6 16055.7,8648 16055.7,8646 16053.7,8646   "
                             />
                             <polygon
-                              class="st0"
+                              className="st0"
                               points="16035.1,8683.1 16033.1,8683.1 16033.1,8685.1 16033.1,8703.7 16033.1,8705.7 16035.1,8705.7     16053.7,8705.7 16055.7,8705.7 16055.7,8703.7 16055.7,8685.1 16055.7,8683.1 16053.7,8683.1   "
                             />
                             <polygon
-                              class="st0"
+                              className="st0"
                               points="15998,8683.1 15996,8683.1 15996,8685.1 15996,8703.7 15996,8705.7 15998,8705.7 16016.6,8705.7     16018.6,8705.7 16018.6,8703.7 16018.6,8685.1 16018.6,8683.1 16016.6,8683.1   "
                             />
                             <polygon
-                              class="st0"
+                              className="st0"
                               points="15960.9,8683.1 15958.9,8683.1 15958.9,8685.1 15958.9,8703.7 15958.9,8705.7 15960.9,8705.7     15979.5,8705.7 15981.5,8705.7 15981.5,8703.7 15981.5,8685.1 15981.5,8683.1 15979.5,8683.1   "
                             />
                             <polygon
-                              class="st0"
+                              className="st0"
                               points="15923.8,8683.1 15921.8,8683.1 15921.8,8685.1 15921.8,8703.7 15921.8,8705.7 15923.8,8705.7     15942.4,8705.7 15944.4,8705.7 15944.4,8703.7 15944.4,8685.1 15944.4,8683.1 15942.4,8683.1   "
                             />
                             <polygon
-                              class="st0"
+                              className="st0"
                               points="15886.7,8683.1 15884.7,8683.1 15884.7,8685.1 15884.7,8703.7 15884.7,8705.7 15886.7,8705.7     15905.2,8705.7 15907.2,8705.7 15907.2,8703.7 15907.2,8685.1 15907.2,8683.1 15905.2,8683.1   "
                             />
                           </g>
@@ -311,11 +315,13 @@ export function About() {
           {profileSelector === 3 && (
             <div className="main-about-me-element">
               <div className="kunju-about-me">
-                <img
-                  alt="kunju"
-                  className="profile-pic"
-                  src="https://secure.gravatar.com/avatar/a867c078843d21095e8b49a46af573d1?secure=true&size=300"
-                />
+                <div className="circle-border-spin">
+                  <img
+                    alt="kunju"
+                    className="profile-pic"
+                    src="https://secure.gravatar.com/avatar/a867c078843d21095e8b49a46af573d1?secure=true&size=300"
+                  />
+                </div>
                 <div className="name-profile">
                   <p className="full-name">Kunju Kim</p>
                   <p className="role">Project Frontend Lead</p>
@@ -387,47 +393,47 @@ export function About() {
                         >
                           <g>
                             <polygon
-                              class="st0"
+                              className="st0"
                               points="15998,8534.7 15996,8534.7 15996,8536.7 15996,8555.2 15996,8557.2 15998,8557.2 16016.6,8557.2     16018.6,8557.2 16018.6,8555.2 16018.6,8536.7 16018.6,8534.7 16016.6,8534.7   "
                             />
                             <path
-                              class="st0"
+                              className="st0"
                               d="M15938.2,8534.7c-7.2,0-14.2,1.4-20.8,4.2c-6.4,2.7-12.1,6.6-17,11.5s-8.8,10.6-11.5,17    c-2.8,6.6-4.2,13.6-4.2,20.8v78.4v2h2h18.6h2v-2v-78.7c0.4-8.1,3.8-15.7,9.5-21.3c5.8-5.7,13.4-9,21.5-9.3h41.2h2v-2v-18.6v-2h-2    H15938.2z"
                             />
                             <polygon
-                              class="st0"
+                              className="st0"
                               points="16035.1,8608.9 16033.1,8608.9 16033.1,8610.9 16033.1,8629.5 16033.1,8631.5 16035.1,8631.5     16053.7,8631.5 16055.7,8631.5 16055.7,8629.5 16055.7,8610.9 16055.7,8608.9 16053.7,8608.9   "
                             />
                             <polygon
-                              class="st0"
+                              className="st0"
                               points="16035.1,8571.8 16033.1,8571.8 16033.1,8573.8 16033.1,8592.4 16033.1,8594.4 16035.1,8594.4     16053.7,8594.4 16055.7,8594.4 16055.7,8592.4 16055.7,8573.8 16055.7,8571.8 16053.7,8571.8   "
                             />
                             <polygon
-                              class="st0"
+                              className="st0"
                               points="16053.7,8534.7 16035.1,8534.7 16033.1,8534.7 16033.1,8536.7 16033.1,8555.2 16033.1,8557.2     16035.1,8557.2 16053.7,8557.2 16055.7,8557.2 16055.7,8555.2 16055.7,8536.7 16055.7,8534.7   "
                             />
                             <polygon
-                              class="st0"
+                              className="st0"
                               points="16035.1,8646 16033.1,8646 16033.1,8648 16033.1,8666.6 16033.1,8668.6 16035.1,8668.6     16053.7,8668.6 16055.7,8668.6 16055.7,8666.6 16055.7,8648 16055.7,8646 16053.7,8646   "
                             />
                             <polygon
-                              class="st0"
+                              className="st0"
                               points="16035.1,8683.1 16033.1,8683.1 16033.1,8685.1 16033.1,8703.7 16033.1,8705.7 16035.1,8705.7     16053.7,8705.7 16055.7,8705.7 16055.7,8703.7 16055.7,8685.1 16055.7,8683.1 16053.7,8683.1   "
                             />
                             <polygon
-                              class="st0"
+                              className="st0"
                               points="15998,8683.1 15996,8683.1 15996,8685.1 15996,8703.7 15996,8705.7 15998,8705.7 16016.6,8705.7     16018.6,8705.7 16018.6,8703.7 16018.6,8685.1 16018.6,8683.1 16016.6,8683.1   "
                             />
                             <polygon
-                              class="st0"
+                              className="st0"
                               points="15960.9,8683.1 15958.9,8683.1 15958.9,8685.1 15958.9,8703.7 15958.9,8705.7 15960.9,8705.7     15979.5,8705.7 15981.5,8705.7 15981.5,8703.7 15981.5,8685.1 15981.5,8683.1 15979.5,8683.1   "
                             />
                             <polygon
-                              class="st0"
+                              className="st0"
                               points="15923.8,8683.1 15921.8,8683.1 15921.8,8685.1 15921.8,8703.7 15921.8,8705.7 15923.8,8705.7     15942.4,8705.7 15944.4,8705.7 15944.4,8703.7 15944.4,8685.1 15944.4,8683.1 15942.4,8683.1   "
                             />
                             <polygon
-                              class="st0"
+                              className="st0"
                               points="15886.7,8683.1 15884.7,8683.1 15884.7,8685.1 15884.7,8703.7 15884.7,8705.7 15886.7,8705.7     15905.2,8705.7 15907.2,8705.7 15907.2,8703.7 15907.2,8685.1 15907.2,8683.1 15905.2,8683.1   "
                             />
                           </g>
@@ -456,14 +462,16 @@ export function About() {
           {profileSelector === 4 && (
             <div className="main-about-me-element">
               <div className="daniel-about-me">
-                <img
-                  alt="daniel"
-                  className="profile-pic"
-                  src="https://secure.gravatar.com/avatar/00b58fe109a8a8d4756e6cd8d4cc09a4?secure=true&size=300"
-                />
+                <div className="circle-border-spin">
+                  <img
+                    alt="daniel"
+                    className="profile-pic"
+                    src="https://secure.gravatar.com/avatar/00b58fe109a8a8d4756e6cd8d4cc09a4?secure=true&size=300"
+                  />
+                </div>
                 <div className="name-profile">
                   <p className="full-name">Daniel Kim</p>
-                  <p className="role">Project Frontend Lead</p>
+                  <p className="role">Project Backend Lead</p>
                 </div>
               </div>
               <div className="daniel-about-me-body">
@@ -481,22 +489,22 @@ export function About() {
                     ante eleifend dignissim. Nam sed placerat lacus. Nunc ornare
                     lacus dolor. Donec velit diam, malesuada id arcu nec, auctor
                     interdum nunc. Sed dictum ut eros sit amet euismod. Proin
-                    ornare, augue at tincidunt laoreet, metus turpis suscipit
-                    et luctus risus nisi at magna. Cras lobortis lectus quis
-                    ante eleifend dignissim. Nam sed placerat lacus. Nunc ornare
+                    ornare, augue at tincidunt laoreet, metus turpis suscipit et
+                    luctus risus nisi at magna. Cras lobortis lectus quis ante
+                    eleifend dignissim. Nam sed placerat lacus. Nunc ornare
+                    lacus dolor. Donec velit diam, malesuada id arcu nec, auctor
+                    interdum nunc. Sed dictum ut eros sit amet euismod. Proin
+                    ornare, augue at tincidunt laoreet, metus turpis suscipit et
+                    luctus risus nisi at magna. Cras lobortis lectus quis ante
+                    eleifend dignissim. Nam sed placerat lacus. Nunc ornare
                     lacus dolor. Donec velit diam, malesuada id arcu nec, auctor
                     interdum nunc. Sed dictum ut eros sit amet euismod. Proin
                     ornare, augue at tincidunt laoreet, metus turpis suscipit
-                    et luctus risus nisi at magna. Cras lobortis lectus quis
-                    ante eleifend dignissim. Nam sed placerat lacus. Nunc ornare
                     lacus dolor. Donec velit diam, malesuada id arcu nec, auctor
                     interdum nunc. Sed dictum ut eros sit amet euismod. Proin
-                    ornare, augue at tincidunt laoreet, metus turpis suscipit
-                    lacus dolor. Donec velit diam, malesuada id arcu nec, auctor
-                    interdum nunc. Sed dictum ut eros sit amet euismod. Proin
-                    ornare, augue at tincidunt laoreet, metus turpis suscipit
-                    et luctus risus nisi at magna. Cras lobortis lectus quis
-                    ante eleifend dignissim. Nam sed placerat lacus. Nunc ornare
+                    ornare, augue at tincidunt laoreet, metus turpis suscipit et
+                    luctus risus nisi at magna. Cras lobortis lectus quis ante
+                    eleifend dignissim. Nam sed placerat lacus. Nunc ornare
                     lacus dolor. Donec velit diam, malesuada id arcu nec, auctor
                     interdum nunc. Sed dictum ut eros sit amet euismod. Proin
                     ornare, augue at tincidunt laoreet, metus turpis suscipit
@@ -545,47 +553,47 @@ export function About() {
                         >
                           <g>
                             <polygon
-                              class="st0"
+                              className="st0"
                               points="15998,8534.7 15996,8534.7 15996,8536.7 15996,8555.2 15996,8557.2 15998,8557.2 16016.6,8557.2     16018.6,8557.2 16018.6,8555.2 16018.6,8536.7 16018.6,8534.7 16016.6,8534.7   "
                             />
                             <path
-                              class="st0"
+                              className="st0"
                               d="M15938.2,8534.7c-7.2,0-14.2,1.4-20.8,4.2c-6.4,2.7-12.1,6.6-17,11.5s-8.8,10.6-11.5,17    c-2.8,6.6-4.2,13.6-4.2,20.8v78.4v2h2h18.6h2v-2v-78.7c0.4-8.1,3.8-15.7,9.5-21.3c5.8-5.7,13.4-9,21.5-9.3h41.2h2v-2v-18.6v-2h-2    H15938.2z"
                             />
                             <polygon
-                              class="st0"
+                              className="st0"
                               points="16035.1,8608.9 16033.1,8608.9 16033.1,8610.9 16033.1,8629.5 16033.1,8631.5 16035.1,8631.5     16053.7,8631.5 16055.7,8631.5 16055.7,8629.5 16055.7,8610.9 16055.7,8608.9 16053.7,8608.9   "
                             />
                             <polygon
-                              class="st0"
+                              className="st0"
                               points="16035.1,8571.8 16033.1,8571.8 16033.1,8573.8 16033.1,8592.4 16033.1,8594.4 16035.1,8594.4     16053.7,8594.4 16055.7,8594.4 16055.7,8592.4 16055.7,8573.8 16055.7,8571.8 16053.7,8571.8   "
                             />
                             <polygon
-                              class="st0"
+                              className="st0"
                               points="16053.7,8534.7 16035.1,8534.7 16033.1,8534.7 16033.1,8536.7 16033.1,8555.2 16033.1,8557.2     16035.1,8557.2 16053.7,8557.2 16055.7,8557.2 16055.7,8555.2 16055.7,8536.7 16055.7,8534.7   "
                             />
                             <polygon
-                              class="st0"
+                              className="st0"
                               points="16035.1,8646 16033.1,8646 16033.1,8648 16033.1,8666.6 16033.1,8668.6 16035.1,8668.6     16053.7,8668.6 16055.7,8668.6 16055.7,8666.6 16055.7,8648 16055.7,8646 16053.7,8646   "
                             />
                             <polygon
-                              class="st0"
+                              className="st0"
                               points="16035.1,8683.1 16033.1,8683.1 16033.1,8685.1 16033.1,8703.7 16033.1,8705.7 16035.1,8705.7     16053.7,8705.7 16055.7,8705.7 16055.7,8703.7 16055.7,8685.1 16055.7,8683.1 16053.7,8683.1   "
                             />
                             <polygon
-                              class="st0"
+                              className="st0"
                               points="15998,8683.1 15996,8683.1 15996,8685.1 15996,8703.7 15996,8705.7 15998,8705.7 16016.6,8705.7     16018.6,8705.7 16018.6,8703.7 16018.6,8685.1 16018.6,8683.1 16016.6,8683.1   "
                             />
                             <polygon
-                              class="st0"
+                              className="st0"
                               points="15960.9,8683.1 15958.9,8683.1 15958.9,8685.1 15958.9,8703.7 15958.9,8705.7 15960.9,8705.7     15979.5,8705.7 15981.5,8705.7 15981.5,8703.7 15981.5,8685.1 15981.5,8683.1 15979.5,8683.1   "
                             />
                             <polygon
-                              class="st0"
+                              className="st0"
                               points="15923.8,8683.1 15921.8,8683.1 15921.8,8685.1 15921.8,8703.7 15921.8,8705.7 15923.8,8705.7     15942.4,8705.7 15944.4,8705.7 15944.4,8703.7 15944.4,8685.1 15944.4,8683.1 15942.4,8683.1   "
                             />
                             <polygon
-                              class="st0"
+                              className="st0"
                               points="15886.7,8683.1 15884.7,8683.1 15884.7,8685.1 15884.7,8703.7 15884.7,8705.7 15886.7,8705.7     15905.2,8705.7 15907.2,8705.7 15907.2,8703.7 15907.2,8685.1 15907.2,8683.1 15905.2,8683.1   "
                             />
                           </g>

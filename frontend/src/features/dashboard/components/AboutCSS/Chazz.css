@@ -15,7 +15,7 @@
   flex-direction: row;
   align-items: center;
   align-content: center;
-  width: 100%;
+  width: fit-content;
   height: fit-content;
   padding: 14px 18px;
   border: 1px solid rgba(0, 0, 0, 0.2);
@@ -23,29 +23,6 @@
   border-radius: 10px;
   animation: 0.5s ease-in 0s 1 opacityUp;
   z-index: 2;
-}
-
-.name-profile {
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-start;
-  align-content: center;
-  align-items: flex-start;
-  height: 72px;
-  width: 100%;
-  padding: 6px 10px;
-}
-
-.full-name {
-  font-weight: 600;
-  color: rgba(0, 0, 0, 1);
-  font-size: 28px;
-}
-
-.role {
-  font-weight: 400;
-  color: rgba(0, 0, 0, 0.6);
-  font-size: 14px;
 }
 
 .chazz-about-me-body {

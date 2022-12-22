@@ -101,8 +101,55 @@
 
 .profile-pic {
   height: 72px;
+  width: 72px;
   border-radius: 72px;
-  border: 1px solid rgba(0, 0, 0, 0.1);
+  animation: rotateCircle 2s linear 0s infinite reverse;
+}
+
+.circle-border-spin {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  align-content: center;
+  height: 74px;
+  width: 102px;
+  border-radius: 72px;
+  animation: rotateCircle 2s linear 0s infinite forwards;
+  background: linear-gradient(45deg, red, blue) content-box;
+}
+
+.name-profile {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-content: center;
+  align-items: flex-start;
+  height: 72px;
+  width: 100%;
+  padding: 6px 10px;
+  gap: 8px;
+}
+
+.full-name {
+  font-weight: 600;
+  color: rgba(0, 0, 0, 1);
+  font-size: 28px;
+}
+
+.role {
+  font-weight: 500;
+  color: rgba(0, 0, 0, 0.6);
+  font-size: 14px;
+  padding-left: 2px;
+}
+
+@keyframes rotateCircle {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
 }
 
 .main-about-me-element {
@@ -137,7 +184,7 @@
 }
 
 .text-body {
-  height: fit-content
+  height: fit-content;
 }
 
 .link-to #logo {
