@@ -11,7 +11,9 @@
   width: 100%;
   height: 70%;
   margin-left:40px;
-  background-position: center center;
+  background-position: center;
+  animation: 0.9s ease-in 0s 1 opacityDown;
+  z-index: 2;
   /* filter: brightness(90%); */
 }
 

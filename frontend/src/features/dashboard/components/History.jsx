@@ -11,9 +11,10 @@ export function History() {
     <>
       <div className="history-container">
         <div style={{ paddingTop: "10px" }}></div>
+        {/* <div className="history-title">Order history</div> */}
         <div className="history-order-container">
           {orderHistoryList?.map((history) => (
-            <HistoryCard history={history} />
+            < HistoryCard history={history} key={history._id} />
           ))}
         </div>
       </div>
