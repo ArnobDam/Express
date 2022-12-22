@@ -5,6 +5,7 @@ import { EDIT_PRODUCT_MODAL, SHOW_ADD_ITEM_TO_CART_MODAL } from "./ui";
 const RECEIVE_PRODUCTS = "products/RECEIVE_PRODUCTS";
 const RECEIVE_PRODUCT = "products/RECEIVE_PRODUCT";
 const REMOVE_PRODUCT = "products/REMOVE_PRODUCT";
+const CLEAR_CURRENT = "products/CLEAR_CURRENT";
 
 const receiveProducts = (products) => ({
   type: RECEIVE_PRODUCTS,
@@ -19,6 +20,10 @@ const receiveProduct = (product) => ({
 const removeProduct = (productId) => ({
   type: REMOVE_PRODUCT,
   payload: productId,
+});
+
+export const clearCurrent = () => ({
+  type: CLEAR_CURRENT,
 });
 
 export const fetchProductsAsync = () => async (dispatch) => {
@@ -128,6 +133,12 @@ export const productsReducer = (state = initialState, action) => {
       return {
         ...state,
         current: action.payload,
+      };
+    }
+    case CLEAR_CURRENT: {
+      return {
+        ...state,
+        current: null,
       };
     }
     default:

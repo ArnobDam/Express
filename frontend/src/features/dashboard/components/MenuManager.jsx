@@ -5,11 +5,12 @@ import {
   clearCategoriesErrors,
   createCategoryAsync,
   fetchCategoriesAsync,
-  selectCategoriesList,
 } from "../../../store/categories";
 import {
+  clearCurrent,
   clearProductsErrors,
   createProductAsync,
+  selectCurrentProduct,
 } from "../../../store/products";
 
 import { createRef } from "react";
@@ -17,7 +18,9 @@ import {
   closeModal,
   selectIsAddCategoryModalOpen,
   selectIsAddNewProductModalOpen,
+  selectIsEditProductModalOpen,
   showAddNewCategoryModal,
+  showEditProductModal,
 } from "../../../store/ui";
 import { Modal } from "../../shared/components/Modal";
 import { ProductCard } from "./ProductCard";
@@ -30,14 +33,6 @@ const initialProductData = {
   description: "",
   imageUrl: "",
 };
-// const initialProductData = {
-//   name: "",
-//   category: "",
-//   price: "",
-//   description: "",
-//   imageUrl:
-//     "https://preview.redd.it/fseqknyvblex.jpg?auto=webp&s=ea4b90dab14cf0e779fd145e5b2ccf878e076d6f",
-// };
 
 const SANDWICH_ID = "63a47615ad6d4fe86b6daf6f";
 const SALAD_ID = "63a47615ad6d4fe86b6daf70";
@@ -65,7 +60,32 @@ const CATEGORY_IDS = [
 export function MenuManager() {
   const dispatch = useDispatch();
 
+  const productToEdit = useSelector(selectCurrentProduct);
+
   const [productFormData, setProductFormData] = useState(initialProductData);
+  const [updateProductFormData, setUpdateProductFormData] = useState({
+    name: productToEdit?.name,
+    category: productToEdit?.category,
+    price: productToEdit?.price,
+    description: productToEdit?.description,
+    imageUrl: productToEdit?.imageUrl,
+  });
+
+  useEffect(() => {
+    if (productToEdit) {
+      setUpdateProductFormData({
+        name: productToEdit?.name,
+        category: productToEdit?.category,
+        price: productToEdit?.price,
+        description: productToEdit?.description,
+        imageUrl: productToEdit?.imageUrl,
+      });
+    }
+  }, [productToEdit]);
+
+  console.log(productToEdit);
+  console.log(updateProductFormData);
+
   const categoryLoaded = useSelector((state) => state.categories.loaded);
 
   const onDrop = useCallback((acceptedFiles) => {
@@ -81,6 +101,15 @@ export function MenuManager() {
    */
   const handleChange = (event) => {
     setProductFormData((prev) => ({
+      ...prev,
+      [event.target.name]: event.target.value,
+    }));
+  };
+  /**
+   * @param {React.ChangeEvent<HTMLInputElement>} event
+   */
+  const handleUpdateChange = (event) => {
+    setUpdateProductFormData((prev) => ({
       ...prev,
       [event.target.name]: event.target.value,
     }));
@@ -160,8 +189,11 @@ export function MenuManager() {
     dispatch(showAddNewCategoryModal());
   };
 
+  const isEditProductModalOpen = useSelector(selectIsEditProductModalOpen);
+
   const handleCloseModal = () => {
     dispatch(closeModal());
+    dispatch(clearCurrent());
     dispatch(clearProductsErrors());
     dispatch(clearCategoriesErrors());
   };
@@ -247,6 +279,105 @@ export function MenuManager() {
                     onClick={handleCloseModal}
                   >
                     Cancel
+                  </button>
+                </div>
+              </div>
+              {/* TODO: */}
+              <div
+                style={{
+                  color: "var(--error-red)",
+                  fontSize: "12px",
+                  textAlign: "center",
+                  marginTop: "12px",
+                }}
+              >
+                {productErrors && productErrors.message}
+              </div>
+            </form>
+          </div>
+        </Modal>
+      )}
+
+      {/* EDIT MODAL */}
+      {isEditProductModalOpen && productToEdit && (
+        <Modal className="product-modal">
+          <div className="NewProductForm">
+            <form onSubmit={() => {}} encType="multipart/form-data">
+              <h2 className="modal-title">Edit product</h2>
+              <div>
+                <input
+                  className="product-form-input"
+                  type="text"
+                  name="name"
+                  placeholder="Name"
+                  value={updateProductFormData.name}
+                  onChange={handleUpdateChange}
+                />
+              </div>
+              <div>
+                <select
+                  className="select-option"
+                  name="category"
+                  id="category"
+                  value={updateProductFormData.category}
+                  onChange={handleUpdateChange}
+                >
+                  <option value="" key="">
+                    Select category
+                  </option>
+                  {categories.map((category) => (
+                    <option key={category.id} value={category.id}>
+                      {category.title}
+                    </option>
+                  ))}
+                </select>
+              </div>
+              <div>
+                <input
+                  className="product-form-input"
+                  type="text"
+                  name="description"
+                  placeholder="Description"
+                  value={updateProductFormData.description}
+                  onChange={handleUpdateChange}
+                />
+              </div>
+              <div>
+                <input
+                  className="product-form-input"
+                  type="number"
+                  name="price"
+                  placeholder="Price"
+                  value={updateProductFormData.price}
+                  onChange={handleUpdateChange}
+                />
+              </div>
+              <div className="pic-input" {...getRootProps()}>
+                <input {...getInputProps()} />
+                {isDragActive ? (
+                  <div>Drop the files here ...</div>
+                ) : (
+                  <div className="photo-content">
+                    <div className="add-photo"> + </div>
+                    <div>Drag 'n' drop some files here, </div>
+                    <div>or click to select files</div>
+                  </div>
+                )}
+              </div>
+
+              <div className="form-buttons">
+                <div>
+                  <button type="submit" className="save-button">
+                    Save changes
+                  </button>
+                </div>
+                <div>
+                  <button
+                    type="button"
+                    className="cancel-button"
+                    onClick={handleCloseModal}
+                  >
+                    Discard changes
                   </button>
                 </div>
               </div>

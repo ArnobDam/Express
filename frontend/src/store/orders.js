@@ -59,8 +59,12 @@ export const createOrderAsync = () => async (dispatch, getState) => {
       body: JSON.stringify({ products: orderItems }),
     });
     const data = await res.json();
+    console.log({ data });
     dispatch(completeOrder(data));
     dispatch(incrementOrderNumber());
+    if (localStorage.getItem("orderNumber")) {
+      localStorage.removeItem("orderNumber");
+    }
     localStorage.setItem("orderNumber", getState().orders.orderNumber);
   } catch (err) {
     const res = await err.json();
@@ -234,3 +238,5 @@ export const selectTotalWithTax = createSelector(
   selectSalesTax,
   (subTotal, discountAmount, salesTax) => subTotal - discountAmount + salesTax
 );
+
+export const selectOrderHistoryList = (state) => state.orders.history;
