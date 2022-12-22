@@ -1,58 +1,46 @@
 import { createRef, useState } from "react";
 import { shallowEqual, useDispatch, useSelector } from "react-redux";
+import { selectCategoriesListForRow } from "../../../store/categories";
 import { addOrderItem } from "../../../store/orders";
 import { selectCurrentProduct } from "../../../store/products";
 import {
   closeModal,
   selectIsAddNewItemToCartModalOpen,
 } from "../../../store/ui";
+import { formatCategoryTitle } from "../../../utils/formatCategoryTitle";
 import { formatPrice } from "../../../utils/formatPrice";
 import { Modal } from "../../shared/components/Modal";
 import { ProductRow } from "./ProductRow";
 import "./ProductsList.css";
 
-const SANDWICH_ID = "63a47615ad6d4fe86b6daf6f";
-const SALAD_ID = "63a47615ad6d4fe86b6daf70";
-const SOUP_ID = "63a47615ad6d4fe86b6daf71";
-const DRINK_ID = "63a47615ad6d4fe86b6daf72";
-const BAKERY_ID = "63a47615ad6d4fe86b6daf73";
+// const SANDWICH_ID = "63a47615ad6d4fe86b6daf6f";
+// const SALAD_ID = "63a47615ad6d4fe86b6daf70";
+// const SOUP_ID = "63a47615ad6d4fe86b6daf71";
+// const DRINK_ID = "63a47615ad6d4fe86b6daf72";
+// const BAKERY_ID = "63a47615ad6d4fe86b6daf73";
 
-const categories = [
-  { id: SANDWICH_ID, title: "🥪 Sandwiches" },
-  { id: SALAD_ID, title: "🥗 Salads" },
-  { id: SOUP_ID, title: "🥣 Soups" },
-  { id: DRINK_ID, title: "🍹 Drinks" },
-  { id: BAKERY_ID, title: "🍰 Bakery" },
-  // { id: 6, title: "🍟 Sides" },
-];
+// const categories = [
+//   { id: SANDWICH_ID, title: "🥪 Sandwiches" },
+//   { id: SALAD_ID, title: "🥗 Salads" },
+//   { id: SOUP_ID, title: "🥣 Soups" },
+//   { id: DRINK_ID, title: "🍹 Drinks" },
+//   { id: BAKERY_ID, title: "🍰 Bakery" },
+//   // { id: 6, title: "🍟 Sides" },
+// ];
 
-const CATEGORY_IDS = [
-  { id: SANDWICH_ID, title: "Sandwiches" },
-  { id: SALAD_ID, title: "Salads" },
-  { id: SOUP_ID, title: "Soups" },
-  { id: DRINK_ID, title: "Drinks" },
-  { id: BAKERY_ID, title: "Bakery" },
-];
-
-function formatCategoryTitle(category) {
-  if (category.title === "Sandwiches") {
-    return "🥪 Sandwiches";
-  } else if (category.title === "") {
-  }
-}
+// const CATEGORY_IDS = [
+//   { id: SANDWICH_ID, title: "Sandwiches" },
+//   { id: SALAD_ID, title: "Salads" },
+//   { id: SOUP_ID, title: "Soups" },
+//   { id: DRINK_ID, title: "Drinks" },
+//   { id: BAKERY_ID, title: "Bakery" },
+// ];
 
 export function ProductsList() {
   const dispatch = useDispatch();
-  const categoriesList = useSelector((state) =>
-    Object.values(state.categories.entities ?? {})
-      .map((category) => ({
-        id: category._id,
-        title: category.title,
-      }))
-      .slice(0, 5)
-  );
+  const categoriesList = useSelector(selectCategoriesListForRow, shallowEqual);
 
-  const scrollRefs = CATEGORY_IDS.reduce((prev, curr) => {
+  const scrollRefs = categoriesList.reduce((prev, curr) => {
     prev[curr.id] = createRef();
     return prev;
   }, {});
@@ -147,7 +135,7 @@ export function ProductsList() {
             role="button"
             onClick={() => handleScrollIntoView(category.id)}
           >
-            {category.title}
+            {formatCategoryTitle(category)}
           </div>
         ))}
 

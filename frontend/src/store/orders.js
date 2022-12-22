@@ -78,7 +78,9 @@ const initialState = {
   current: {
     products: [],
   },
-  orderNumber: parseInt(localStorage.getItem("orderNumber"), 10) ?? 1,
+  orderNumber: window.localStorage.getItem("orderNumber")
+    ? parseInt(window.localStorage.getItem("orderNumber"), 10)
+    : 1,
   tax: TAX_RATE,
   history: [],
 };
