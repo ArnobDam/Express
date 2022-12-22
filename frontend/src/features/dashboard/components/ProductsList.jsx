@@ -2,17 +2,20 @@ import { createRef, useState } from "react";
 import { shallowEqual, useDispatch, useSelector } from "react-redux";
 import { addOrderItem } from "../../../store/orders";
 import { selectCurrentProduct } from "../../../store/products";
-import { closeModal } from "../../../store/ui";
+import {
+  closeModal,
+  selectIsAddNewItemToCartModalOpen,
+} from "../../../store/ui";
 import { formatPrice } from "../../../utils/formatPrice";
 import { Modal } from "../../shared/components/Modal";
 import { ProductRow } from "./ProductRow";
 import "./ProductsList.css";
 
-const SANDWICH_ID = "63a321d938a679217e604707";
-const SALAD_ID = "63a321d938a679217e604708";
-const SOUP_ID = "63a321d938a679217e604709";
-const DRINK_ID = "63a321d938a679217e60470a";
-const BAKERY_ID = "63a321d938a679217e60470b";
+const SANDWICH_ID = "63a3f5da60d34848d20c458a";
+const SALAD_ID = "63a3f5da60d34848d20c458b";
+const SOUP_ID = "63a3f5da60d34848d20c458c";
+const DRINK_ID = "63a3f5da60d34848d20c458d";
+const BAKERY_ID = "63a3f5da60d34848d20c458e";
 
 const categories = [
   { id: SANDWICH_ID, title: "🥪 Sandwiches" },
@@ -47,7 +50,7 @@ export function ProductsList() {
   };
 
   const isAddItemToCartModalOpen = useSelector(
-    (state) => state.ui.modal === "add_item_to_cart"
+    selectIsAddNewItemToCartModalOpen
   );
   const currentProduct = useSelector(selectCurrentProduct, shallowEqual);
 

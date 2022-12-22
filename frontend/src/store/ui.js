@@ -54,7 +54,7 @@ export const uiReducer = (state = initialState, action) => {
 
 export const selectIsAddNewItemToCartModalOpen = (state) =>
   state.ui.modal === "add_item_to_cart";
-export const selectAddCategoryModal = (state) =>
+export const selectIsAddCategoryModalOpen = (state) =>
   state.ui.modal === "add_new_category";
-export const selectAddNewProductModal = (state) =>
+export const selectIsAddNewProductModalOpen = (state) =>
   state.ui.modal === "add_new_item";

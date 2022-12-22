@@ -8,9 +8,9 @@ const DECREMENT_QUANTITY = "orders/DECREMENT_QUANTITY";
 const REMOVE_ITEM_FROM_CART = "orders/REMOVE_ITEM_FROM_CART";
 const INCREMENT_ORDER_NUMBER = "orders/INCREMEMNT_ORDER_NUMBER";
 
-export const addOrderItem = ({ orderItem, quantity }) => ({
+export const addOrderItem = (orderItem) => ({
   type: ADD_ORDER_ITEM,
-  payload: { orderItem, quantity },
+  payload: orderItem,
 });
 
 export const completeOrder = (order) => ({
@@ -42,7 +42,7 @@ export const createOrderAsync = () => async (dispatch, getState) => {
   if (currentOrder.products.length < 1) {
     return;
   }
-
+  console.log({ currentOrder });
   let orderItems = [];
   currentOrder.products.forEach((item) => {
     for (let i = 0; i < item.quantity; i++) {
@@ -79,9 +79,7 @@ export const ordersReducer = (state = initialState, action) => {
     case ADD_ORDER_ITEM: {
       // Increment if item already exists in cart
       if (
-        state.current.products.find(
-          (item) => item.id === action.payload.orderItem.id
-        )
+        state.current.products.find((item) => item.id === action.payload.id)
       ) {
         return {
           ...state,
@@ -89,7 +87,10 @@ export const ordersReducer = (state = initialState, action) => {
             ...state.current,
             products: state.current.products.map((item) => ({
               ...item,
-              quantity: item.quantity + action.payload.quantity,
+              quantity:
+                item.id === action.payload.id
+                  ? item.quantity + action.payload.quantity
+                  : item.quantity,
             })),
           },
         };
