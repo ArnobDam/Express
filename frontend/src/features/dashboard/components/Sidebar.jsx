@@ -31,12 +31,12 @@ const links = [
     icon: <RiChatHistoryFill className="link-icon" />,
     label: "History",
   },
-  {
-    id: 5,
-    path: "/report",
-    icon: <GoGraph className="link-icon" />,
-    label: "Report",
-  },
+  // {
+  //   id: 5,
+  //   path: "/report",
+  //   icon: <GoGraph className="link-icon" />,
+  //   label: "Report",
+  // },
   {
     id: 6,
     path: "/settings",

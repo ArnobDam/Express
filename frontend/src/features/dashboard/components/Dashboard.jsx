@@ -39,9 +39,9 @@ export function Dashboard() {
           <Route exact path={"/history"}>
             <History />
           </Route>
-          <Route exact path={"/report"}>
+          {/* <Route exact path={"/report"}>
             <Report />
-          </Route>
+          </Route> */}
           <Route exact path={"/about"}>
             <About />
           </Route>

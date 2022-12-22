@@ -164,6 +164,7 @@ export function MenuManager() {
   const isEditProductModalOpen = useSelector(selectIsEditProductModalOpen);
 
   const handleCloseModal = () => {
+    resetProductForm();
     dispatch(closeModal());
     dispatch(clearCurrent());
     dispatch(clearProductsErrors());
