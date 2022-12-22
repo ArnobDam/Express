@@ -58,11 +58,11 @@
   justify-content: space-evenly;
   align-items: flex-end;
   align-content: center;
-  background-color: var(--sub-color);
+  background-color: var(--lightest-grey);
   width: 100%;
   font-size: 16px;
   font-weight: 600;
-  color:var(--bg-primary);
+  color:var(--dark-grey);
   letter-spacing: 2px;
 }
 
