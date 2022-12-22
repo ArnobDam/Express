@@ -6,6 +6,9 @@ import { MenuManager } from "./MenuManager";
 import { ProductsList } from "./ProductsList";
 import { Sidebar } from "./Sidebar";
 import { Cart } from "./Cart";
+import { Report } from "./Report";
+import { About } from "./About";
+import { History } from "./History";
 
 export function Dashboard() {
   const location = useLocation();
@@ -13,7 +16,7 @@ export function Dashboard() {
 
   useEffect(() => {
     if (location.pathname === "/") {
-      history.replace("/order");
+      history.replace("/menu");
     }
   }, [location.pathname, history]);
 
@@ -34,19 +37,13 @@ export function Dashboard() {
             <ProductsList />
           </Route>
           <Route exact path={"/history"}>
-            <div>
-              <h1>ALL ORDERS</h1>
-            </div>
+            <History />
           </Route>
-          <Route exact path={"/report"}>
-            <div>
-              <h1>Report</h1>
-            </div>
-          </Route>
-          <Route exact path={"/order"}>
-            <div>
-              <h1>Recent Orders</h1>
-            </div>
+          {/* <Route exact path={"/report"}>
+            <Report />
+          </Route> */}
+          <Route exact path={"/about"}>
+            <About />
           </Route>
         </Switch>
       </div>

@@ -7,6 +7,10 @@ import { BiSearch } from "react-icons/bi";
 import { SidebarLink } from "./SidebarLink";
 import { PieChart } from "./PieChart";
 import { LogoutButton } from "./LogoutButton";
+import { formatPrice } from "../../../utils/formatPrice";
+import { useSelector } from "react-redux";
+import { selectTotalWithTax } from "../../../store/orders";
+import { useEffect, useState } from "react";
 
 const links = [
   {
@@ -22,28 +26,28 @@ const links = [
     label: "Menu",
   },
   {
-    id: 3,
-    path: "/order",
-    icon: <FaClipboardList className="link-icon" />,
-    label: "Orders",
-  },
-  {
     id: 4,
     path: "/history",
     icon: <RiChatHistoryFill className="link-icon" />,
     label: "History",
   },
-  {
-    id: 5,
-    path: "/report",
-    icon: <GoGraph className="link-icon" />,
-    label: "Report",
-  },
+  // {
+  //   id: 5,
+  //   path: "/report",
+  //   icon: <GoGraph className="link-icon" />,
+  //   label: "Report",
+  // },
   {
     id: 6,
     path: "/settings",
     icon: <AiFillSetting className="link-icon" />,
-    label: "Settings",
+    label: "Product Management",
+  },
+  {
+    id: 3,
+    path: "/about",
+    icon: <FaClipboardList className="link-icon" />,
+    label: "About",
   },
 ];
 
@@ -80,7 +84,38 @@ const samplePieData = [
   },
 ];
 
+// console.log(useSelector(selectTotalWithTax))
+
+
 export function Sidebar() {
+  let totalWithTax = useSelector(selectTotalWithTax);
+  // console.log(Math.floor(totalWithTax).toString().length)
+  const [priceLeftMargin, setPriceLeftMargin] = useState("27%")
+
+  const PieChartPrice = () => {
+    if (totalWithTax === 0) {
+      return "";
+    } else {
+      return formatPrice(totalWithTax);
+    }
+  }
+
+  useEffect(() => {
+    // console.log("test")
+    if (Math.floor(totalWithTax).toString().length === 3) {
+      setPriceLeftMargin("30%");
+    } else if (Math.floor(totalWithTax).toString().length === 4) {
+      setPriceLeftMargin("27%");
+    } else if (Math.floor(totalWithTax).toString().length === 5) {
+      setPriceLeftMargin("24%");
+    } else {
+      setPriceLeftMargin("19%");
+    }
+  }, [PieChartPrice])
+
+
+  
+
   return (
     <div>
       <div className="brand-logo" style={{ width: "120px", height: "100px" }} />
@@ -102,7 +137,8 @@ export function Sidebar() {
             icon={link.icon}
           />
         ))}
-        <div style={{ height: "240px" }}>
+        <div style={{ height: "240px", position: "relative" }}>
+          <div style={{position: "absolute", top: "45%", left: priceLeftMargin, fontSize: 26, opacity: 0.4}}>{PieChartPrice()}</div>
           <PieChart data={samplePieData} />
         </div>
         <LogoutButton />

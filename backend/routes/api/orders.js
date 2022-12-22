@@ -28,7 +28,7 @@ router.get("/:orderId", async (req, res, next) => {
   // res.json({ message: "GET /order" });
   try {
     // const order = await Order.findById(req.params.orderId)
-    // console.log(req.params.orderId);
+    console.log(req.params.orderId);
 
     const order = await Order.findById(req.params.orderId);
 
@@ -60,8 +60,6 @@ router.post("/", validateOrderInput, async (req, res, next) => {
       productsCount[id] = (productsCount[id] || 0) + 1;
     });
 
-    // console.log(productsCount)
-
     await Product.find({
       _id: { $in: productIdArray },
     }).then((products) => {
@@ -71,18 +69,17 @@ router.post("/", validateOrderInput, async (req, res, next) => {
         productObject["name"] = product.name;
         productObject["quantity"] = productsCount[product._id];
         productObject["totalPrice"] = product.price * productObject["quantity"];
+        productObject["itemPrice"] = product.price;
+        productObject["imageUrl"] = product.imageUrl;
 
         productNameArray.push(productObject);
         priceSubTotal += productObject["totalPrice"];
       }
     });
 
-    // console.log(productNameArray);
-
     req.body.discountPercentage
       ? (priceSubTotal -= priceSubTotal * (req.body.discountPercentage / 100))
       : priceSubTotal;
-    // console.log(priceSubTotal)
 
     const newOrder = new Order({
       number: Date.now(),
@@ -123,8 +120,6 @@ router.patch("/:orderId", validateOrderInput, async (req, res, next) => {
     productsCount[id] = (productsCount[id] || 0) + 1;
   });
 
-  // console.log(productsCount)
-
   await Product.find({
     _id: { $in: productIdArray },
   }).then((products) => {
@@ -133,18 +128,17 @@ router.patch("/:orderId", validateOrderInput, async (req, res, next) => {
       productObject["_id"] = product._id;
       productObject["name"] = product.name;
       productObject["quantity"] = productsCount[product._id];
+      productObject["itemPrice"] = product.price;
+      productObject["imageUrl"] = product.imageUrl;
 
       productNameArray.push(productObject);
       priceSubTotal += productObject["totalPrice"];
     }
   });
 
-  // console.log(productNameArray);
-
   req.body.discountPercentage
     ? (priceSubTotal -= priceSubTotal * (req.body.discountPercentage / 100))
     : priceSubTotal;
-  // console.log(priceSubTotal)
 
   Order.findByIdAndUpdate(
     req.params.orderId,
@@ -187,8 +181,6 @@ router.put("/:orderId", validateOrderInput, async (req, res, next) => {
     productsCount[id] = (productsCount[id] || 0) + 1;
   });
 
-  // console.log(productsCount)
-
   await Product.find({
     _id: { $in: productIdArray },
   }).then((products) => {
@@ -197,18 +189,17 @@ router.put("/:orderId", validateOrderInput, async (req, res, next) => {
       productObject["_id"] = product._id;
       productObject["name"] = product.name;
       productObject["quantity"] = productsCount[product._id];
+      productObject["itemPrice"] = product.price;
+      productObject["imageUrl"] = product.imageUrl;
 
       productNameArray.push(productObject);
       priceSubTotal += productObject["totalPrice"];
     }
   });
 
-  // console.log(productNameArray);
-
   req.body.discountPercentage
     ? (priceSubTotal -= priceSubTotal * (req.body.discountPercentage / 100))
     : priceSubTotal;
-  // console.log(priceSubTotal)
 
   Order.findByIdAndUpdate(
     req.params.orderId,

@@ -1,0 +1,119 @@
+.ProductsList {
+  padding: 0px 20px 20px 20px;
+  width: 100%;
+}
+
+.category-container {
+  background-color: var(--lightest-grey);
+  border-radius: 20px;
+  padding: 20px;
+  margin-top: 14px;
+  width: 100%;
+  /* padding: 20px 20px 20px 20px;
+  margin: 20px 20px 20px; */
+}
+
+.category-list {
+  background-color: white;
+  padding: 30px 20px 24px 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  cursor: pointer;
+  position: sticky;
+  top: 0;
+  z-index: 2;
+}
+
+.category-item:hover {
+  background-color: var(--sub-color);
+  color: var(--bg-primary);
+}
+
+.category-item {
+  background-color: var(--lightest-grey);
+  text-align: center;
+  /* padding: 7px 10px 10px 7px; */
+  padding: 8px 12px;
+  border-radius: 25px;
+  color: var(--dark-grey);
+}
+
+.new-category {
+  color: var(--bg-primary);
+  /* height: 30px; */
+  /* padding: 7px 10px 10px 7px; */
+  padding: 8px 12px;
+  border-radius: 25px;
+  border: 1px var(--bg-primary);
+  outline-style: dashed;
+}
+
+.category-title {
+  display: flex;
+  justify-content: space-between;
+}
+
+.explore-more {
+  color: var(--bg-primary);
+  cursor: pointer;
+}
+
+.category-name {
+  letter-spacing: 1px;
+}
+
+.item-container {
+  display: flex;
+  justify-content: space-between;
+  padding-bottom: 40px;
+}
+
+.product-card-item {
+  cursor: pointer;
+  margin-top: 15px;
+  width: 140px;
+  height: 190px;
+  background-color: white;
+  border-radius: 10px;
+  display: flex;
+  justify-content: space-around;
+  padding: 10px 0 10px 0px;
+  flex-direction: column;
+  text-align: center;
+  transition: box-shadow ease-in 180ms;
+}
+
+.item:hover {
+  box-shadow: 0px 0px 14px 1px rgba(17, 17, 26, 0.18);
+}
+
+.food-image {
+  border-radius: 50%;
+  height: 90px;
+  width: 90px;
+  margin: 0px 25px 0px 25px;
+}
+
+.menu-name {
+  font-size: 13px;
+}
+
+.item-price {
+  font-size: 13px;
+  color: var(--bg-primary);
+}
+
+.edit-and-delete {
+  display: flex;
+  justify-content: space-around;
+}
+
+.product-card-edit {
+  color: var(--dark-grey);
+}
+
+.product-card-delete {
+  /* color:var(--dark-grey); */
+  color: rgb(203, 49, 49);
+}

@@ -1,9 +1,11 @@
 import { jwtFetch } from "./jwt";
 import { createSelector } from "reselect";
-import { SHOW_ADD_ITEM_TO_CART_MODAL } from "./ui";
+import { EDIT_PRODUCT_MODAL, SHOW_ADD_ITEM_TO_CART_MODAL } from "./ui";
 
 const RECEIVE_PRODUCTS = "products/RECEIVE_PRODUCTS";
 const RECEIVE_PRODUCT = "products/RECEIVE_PRODUCT";
+const REMOVE_PRODUCT = "products/REMOVE_PRODUCT";
+const CLEAR_CURRENT = "products/CLEAR_CURRENT";
 
 const receiveProducts = (products) => ({
   type: RECEIVE_PRODUCTS,
@@ -15,18 +17,38 @@ const receiveProduct = (product) => ({
   payload: product,
 });
 
+const removeProduct = (productId) => ({
+  type: REMOVE_PRODUCT,
+  payload: productId,
+});
+
+export const clearCurrent = () => ({
+  type: CLEAR_CURRENT,
+});
+
 export const fetchProductsAsync = () => async (dispatch) => {
   try {
     const res = await jwtFetch("/api/products");
     const data = await res.json();
-    const products = data.reduce((prev, curr) => {
+    const productsWithDefaultImages = data.map((product) => {
+      if (product.imageUrl) {
+        return product;
+      }
+      return {
+        ...product,
+        imageUrl:
+          "https://www.coalitionrc.com/wp-content/uploads/2017/01/placeholder.jpg",
+      };
+    });
+    const products = productsWithDefaultImages.reduce((prev, curr) => {
       prev[curr._id] = curr;
       return prev;
     }, {});
+
     return dispatch(receiveProducts(products));
   } catch (err) {
     const res = await err.json();
-    if (res.statusCode === 400) {
+    if (res.statusCode >= 400) {
       return dispatch(receiveErrors(res.errors));
     }
   }
@@ -36,13 +58,49 @@ export const createProductAsync = (newProduct) => async (dispatch) => {
   try {
     const res = await jwtFetch("/api/products", {
       method: "POST",
-      body: JSON.stringify(newProduct),
+      body: newProduct,
+    });
+    const data = await res.json();
+    const product = {
+      ...data,
+      imageUrl: data.imageUrl
+        ? data.imageUrl
+        : "https://www.coalitionrc.com/wp-content/uploads/2017/01/placeholder.jpg",
+    };
+    return dispatch(receiveProduct(product));
+  } catch (err) {
+    const res = await err.json();
+    if (res.statusCode >= 400) {
+      return dispatch(receiveErrors(res.errors));
+    }
+  }
+};
+
+export const updateProductAsync = (updatedProduct) => async (dispatch) => {
+  try {
+    const res = await jwtFetch(`/api/products/${updatedProduct._id}`, {
+      method: "PATCH",
+      body: JSON.stringify(updatedProduct),
     });
     const data = await res.json();
     return dispatch(receiveProduct(data));
   } catch (err) {
     const res = await err.json();
-    if (res.statusCode === 400) {
+    if (res.statusCode >= 400) {
+      return dispatch(receiveErrors(res.errors));
+    }
+  }
+};
+
+export const removeProductAsync = (productId) => async (dispatch) => {
+  try {
+    await jwtFetch(`/api/products/${productId}`, {
+      method: "DELETE",
+    });
+    return dispatch(removeProduct(productId));
+  } catch (err) {
+    const res = await err.json();
+    if (res.statusCode >= 400) {
       return dispatch(receiveErrors(res.errors));
     }
   }
@@ -59,7 +117,6 @@ const initialState = {
 export const productsReducer = (state = initialState, action) => {
   switch (action.type) {
     case RECEIVE_PRODUCTS: {
-      // TODO:
       return {
         ...state,
         loading: false,
@@ -80,7 +137,24 @@ export const productsReducer = (state = initialState, action) => {
     case SHOW_ADD_ITEM_TO_CART_MODAL: {
       return {
         ...state,
-        current: action.payload.product,
+        current: action.payload,
+      };
+    }
+    case REMOVE_PRODUCT: {
+      const newEntities = { ...state, entities: { ...state.entities } };
+      delete newEntities.entities[action.payload];
+      return newEntities;
+    }
+    case EDIT_PRODUCT_MODAL: {
+      return {
+        ...state,
+        current: action.payload,
+      };
+    }
+    case CLEAR_CURRENT: {
+      return {
+        ...state,
+        current: null,
       };
     }
     default:
@@ -94,7 +168,9 @@ const receiveErrors = (errors) => ({
   type: RECEIVE_PRODUCTS_ERRORS,
   payload: errors,
 });
-
+export const clearProductsErrors = () => ({
+  type: CLEAR_PRODUCTS_ERRORS,
+});
 const nullErrors = null;
 
 export const productsErrorsReducer = (state = nullErrors, action) => {
@@ -129,3 +205,5 @@ export const selectProductById = createSelector(
   (_state, productId) => productId,
   (products, productId) => products[productId]
 );
+
+export const selectCurrentProduct = (state) => state.products.current;

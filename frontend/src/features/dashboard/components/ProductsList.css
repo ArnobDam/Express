@@ -1,0 +1,85 @@
+.products-modal {
+  width: 300px;
+  height: 335px;
+  border-radius: 20px;
+}
+
+.product-modal-name {
+  font-size: 18px;
+  text-align: center;
+  margin-top: 15px;
+}
+
+.product-modal-image {
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  margin: 20px 0 0 0;
+}
+
+.product-modal-detail {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  text-align: center;
+}
+
+.product-modal-qty {
+  display: flex;
+  margin: 10px 0 0 0;
+}
+
+.product-modal-price {
+  font-size: 17px;
+  color: var(--bg-primary);
+  margin: 10px 0 0 0;
+}
+
+.modal-buttons {
+  display: flex;
+  margin: 20px 0 0 0;
+  justify-content: center;
+}
+
+.modal-cxl-button {
+  background-color:white;
+  border-radius: 20px;
+  border: 2px solid var(--bg-primary);
+  color: var(--bg-primary);
+  letter-spacing: 1px;
+  width: 80px;
+  height: 30px;
+  margin: 0 15px 0 15px;
+}
+
+.modal-add-button {
+  background-color:var(--bg-primary);
+  border: none;
+  border-radius: 20px;
+  color: white;
+  letter-spacing: 1px;
+  width: 80px;
+  height: 30px;
+  margin: 0 25px 0 25px;
+}
+
+.modal-qty-button{
+  background-color: transparent;
+  border: none;
+  color:var(--dark-grey);
+  font-size: 15px;
+}
+
+
+.modal-qty{
+  margin: 0 8px 0 8px;
+}
+.product-modal-qty{
+  background-color: var(--lightest-grey);
+  margin:15px 0 0 90px;
+  border-radius: 20px;
+  width:90px;
+  height: 25px;
+  color:var(--dark-grey);
+  padding:4px 0 0 14px;
+}

@@ -107,6 +107,10 @@
   height: 285px;
 }
 
+.receipt-container > div {
+  cursor: pointer;
+}
+
 .delete-button {
   color: rgb(203, 49, 49);
   margin-top: 14px;
@@ -144,6 +148,7 @@
   width: 200px;
   border-radius: 10px;
   color: white;
+  letter-spacing: 1px;
 }
 
 .payment-debit,
@@ -190,4 +195,10 @@
 .amount {
   color: var(--dark-grey);
   letter-spacing: 1px;
+}
+
+.active-payment {
+  background-color: var(--sub-color);
+  color: var(--bg-primary);
+  border-color: var(--bg-primary);
 }

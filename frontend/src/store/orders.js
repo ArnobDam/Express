@@ -1,12 +1,15 @@
 import { createSelector } from "reselect";
 import { jwtFetch } from "./jwt";
-import { selectProductEntities } from "./products";
+
+const TAX_RATE = 8.875;
+const DISCOUNT_RATE = 0.1;
 
 const ADD_ORDER_ITEM = "orders/ADD_ORDER_ITEM";
 const COMPLETE_ORDER = "orders/COMPLETE_ORDER";
 const INCREMENT_QUANTITY = "orders/INCREMENT_QUANTITY";
 const DECREMENT_QUANTITY = "orders/DECREMENT_QUANTITY";
 const REMOVE_ITEM_FROM_CART = "orders/REMOVE_ITEM_FROM_CART";
+const INCREMENT_ORDER_NUMBER = "orders/INCREMEMNT_ORDER_NUMBER";
 
 export const addOrderItem = (orderItem) => ({
   type: ADD_ORDER_ITEM,
@@ -33,12 +36,15 @@ export const removeItemFromCart = (itemId) => ({
   payload: itemId,
 });
 
+export const incrementOrderNumber = () => ({
+  type: INCREMENT_ORDER_NUMBER,
+});
+
 export const createOrderAsync = () => async (dispatch, getState) => {
   const currentOrder = getState().orders.current;
   if (currentOrder.products.length < 1) {
     return;
   }
-
   let orderItems = [];
   currentOrder.products.forEach((item) => {
     for (let i = 0; i < item.quantity; i++) {
@@ -53,7 +59,13 @@ export const createOrderAsync = () => async (dispatch, getState) => {
       body: JSON.stringify({ products: orderItems }),
     });
     const data = await res.json();
+    // console.log({ data });
     dispatch(completeOrder(data));
+    dispatch(incrementOrderNumber());
+    if (localStorage.getItem("orderNumber")) {
+      localStorage.removeItem("orderNumber");
+    }
+    localStorage.setItem("orderNumber", getState().orders.orderNumber);
   } catch (err) {
     const res = await err.json();
     if (res.statusCode === 400) {
@@ -66,6 +78,10 @@ const initialState = {
   current: {
     products: [],
   },
+  orderNumber: window.localStorage.getItem("orderNumber")
+    ? parseInt(window.localStorage.getItem("orderNumber"), 10)
+    : 1,
+  tax: TAX_RATE,
   history: [],
 };
 
@@ -80,10 +96,17 @@ export const ordersReducer = (state = initialState, action) => {
           ...state,
           current: {
             ...state.current,
-            products: state.current.products.map((item) => ({
-              ...item,
-              quantity: item.quantity + 1,
-            })),
+            products: state.current.products.map((item) => {
+              if (item.id === action.payload.id) {
+                return {
+                  ...item,
+                  quantity: item.quantity + action.payload.quantity,
+                  totalPrice:
+                    item.price * (action.payload.quantity + item.quantity),
+                };
+              }
+              return item;
+            }),
           },
         };
       }
@@ -107,6 +130,7 @@ export const ordersReducer = (state = initialState, action) => {
               ? {
                   ...item,
                   quantity: item.quantity + 1,
+                  totalPrice: item.totalPrice + item.price,
                 }
               : item
           ),
@@ -120,10 +144,14 @@ export const ordersReducer = (state = initialState, action) => {
           ...state.current,
           products: state.current.products
             .map((item) => {
-              if (item.quantity <= 1) {
+              if (item.quantity <= 1 && item.id === action.payload) {
                 return null;
               } else if (item.id === action.payload) {
-                return { ...item, quantity: item.quantity - 1 };
+                return {
+                  ...item,
+                  quantity: item.quantity - 1,
+                  totalPrice: item.totalPrice - item.price,
+                };
               } else {
                 return item;
               }
@@ -150,6 +178,12 @@ export const ordersReducer = (state = initialState, action) => {
           products: [],
         },
         history: [action.payload, ...state.history],
+      };
+    }
+    case INCREMENT_ORDER_NUMBER: {
+      return {
+        ...state,
+        orderNumber: state.orderNumber + 1,
       };
     }
     default:
@@ -181,7 +215,44 @@ export const ordersErrorsReducer = (state = nullErrors, action) => {
 export const selectCurrentCartItems = (state) => state.orders.current.products;
 export const selectCurrentCartItemsExpanded = createSelector(
   selectCurrentCartItems,
-  selectProductEntities,
+  (state) => state.products?.entities,
   (cartItems, products) =>
     cartItems.map((item) => ({ ...item, ...products[item.id] }))
 );
+export const selectCurrentCartItemsExpandedWithCategoryTitle = createSelector(
+  [
+    selectCurrentCartItems,
+    (state) => state.products?.entities,
+    (state) => state.categories?.entities,
+  ],
+  (cartItems, products, categories) => {
+    return cartItems.map((item) => ({
+      ...item,
+      ...products[item.id],
+      categoryName: categories[item.category].title,
+    }));
+  }
+);
+export const selectCurrentOrderNumber = (state) => state.orders.orderNumber;
+export const selectSubTotal = (state) =>
+  state.orders.current.products.reduce(
+    (prev, curr) => prev + curr.totalPrice,
+    0
+  );
+export const selectSalesTax = createSelector(
+  selectSubTotal,
+  (subTotal) => (subTotal / 100) * TAX_RATE
+);
+export const selectDiscountAmount = createSelector(
+  selectSubTotal,
+  (subTotal) => subTotal * DISCOUNT_RATE
+);
+
+export const selectTotalWithTax = createSelector(
+  selectSubTotal,
+  selectDiscountAmount,
+  selectSalesTax,
+  (subTotal, discountAmount, salesTax) => subTotal - discountAmount + salesTax
+);
+
+export const selectOrderHistoryList = (state) => state.orders.history;

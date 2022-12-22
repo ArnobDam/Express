@@ -1,65 +1,72 @@
 import React, { useEffect, useState, useCallback } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { shallowEqual, useDispatch, useSelector } from "react-redux";
 import { useDropzone } from "react-dropzone";
 import {
+  clearCategoriesErrors,
   createCategoryAsync,
   fetchCategoriesAsync,
-  selectCategoriesList,
+  selectCategoriesListForRow,
 } from "../../../store/categories";
 import {
+  clearCurrent,
+  clearProductsErrors,
   createProductAsync,
-  selectProductsList,
+  selectCurrentProduct,
 } from "../../../store/products";
 
 import { createRef } from "react";
-import { addOrderItem, createOrderAsync } from "../../../store/orders";
 import {
   closeModal,
-  showAddItemToCartModal,
+  selectIsAddCategoryModalOpen,
+  selectIsAddNewProductModalOpen,
+  selectIsEditProductModalOpen,
   showAddNewCategoryModal,
-  showAddNewItemModal,
 } from "../../../store/ui";
-import { formatPrice } from "../../../utils/formatPrice";
 import { Modal } from "../../shared/components/Modal";
-import { ProductRow } from "./ProductRow";
+import { ProductCard } from "./ProductCard";
 import "./MenuManager.css";
+import { EditForm } from "./EditForm";
+import { formatCategoryTitle } from "../../../utils/formatCategoryTitle";
 
 const initialProductData = {
   name: "",
   category: "",
   price: "",
   description: "",
-  imageUrl:
-    "https://preview.redd.it/fseqknyvblex.jpg?auto=webp&s=ea4b90dab14cf0e779fd145e5b2ccf878e076d6f",
+  imageUrl: "",
 };
 
-const SANDWICH_ID = "63a321d938a679217e604707";
-const SALAD_ID = "63a321d938a679217e604708";
-const SOUP_ID = "63a321d938a679217e604709";
-const DRINK_ID = "63a321d938a679217e60470a";
-const BAKERY_ID = "63a321d938a679217e60470b";
+// const SANDWICH_ID = "63a47615ad6d4fe86b6daf6f";
+// const SALAD_ID = "63a47615ad6d4fe86b6daf70";
+// const SOUP_ID = "63a47615ad6d4fe86b6daf71";
+// const DRINK_ID = "63a47615ad6d4fe86b6daf72";
+// const BAKERY_ID = "63a47615ad6d4fe86b6daf73";
 
-const categories = [
-  { id: SANDWICH_ID, title: "🥪 Sandwiches" },
-  { id: SALAD_ID, title: "🥗 Salads" },
-  { id: SOUP_ID, title: "🥣 Soups" },
-  { id: DRINK_ID, title: "🍹 Drinks" },
-  { id: BAKERY_ID, title: "🍰 Bakery" },
-  // { id: 6, title: "🍟 Sides" },
-];
+// const categories = [
+//   { id: SANDWICH_ID, title: "🥪 Sandwiches" },
+//   { id: SALAD_ID, title: "🥗 Salads" },
+//   { id: SOUP_ID, title: "🥣 Soups" },
+//   { id: DRINK_ID, title: "🍹 Drinks" },
+//   { id: BAKERY_ID, title: "🍰 Bakery" },
+//   // { id: 6, title: "🍟 Sides" },
+// ];
 
-const CATEGORY_IDS = [
-  { id: SANDWICH_ID, title: "Sandwiches" },
-  { id: SALAD_ID, title: "Salads" },
-  { id: SOUP_ID, title: "Soups" },
-  { id: DRINK_ID, title: "Drinks" },
-  { id: BAKERY_ID, title: "Bakery" },
-];
+// const CATEGORY_IDS = [
+//   { id: SANDWICH_ID, title: "Sandwiches" },
+//   { id: SALAD_ID, title: "Salads" },
+//   { id: SOUP_ID, title: "Soups" },
+//   { id: DRINK_ID, title: "Drinks" },
+//   { id: BAKERY_ID, title: "Bakery" },
+// ];
 
 export function MenuManager() {
   const dispatch = useDispatch();
+  const categoriesList = useSelector(selectCategoriesListForRow, shallowEqual);
+
+  const productToEdit = useSelector(selectCurrentProduct);
 
   const [productFormData, setProductFormData] = useState(initialProductData);
+
   const categoryLoaded = useSelector((state) => state.categories.loaded);
 
   const onDrop = useCallback((acceptedFiles) => {
@@ -67,6 +74,8 @@ export function MenuManager() {
   }, []);
 
   const { getRootProps, getInputProps, isDragActive } = useDropzone({ onDrop });
+  const productErrors = useSelector((state) => state.errors.products);
+  const categoryErrors = useSelector((state) => state.errors.categories);
 
   /**
    * @param {React.ChangeEvent<HTMLInputElement>} event
@@ -87,18 +96,28 @@ export function MenuManager() {
    */
   const handleProductSubmit = (event) => {
     event.preventDefault();
+    dispatch(clearProductsErrors());
     const newProduct = {
       ...productFormData,
     };
-    // console.log(newProduct);
-    dispatch(createProductAsync(newProduct)).then(() => {
-      // TODO:
-      alert("Success, product created");
+
+    const formData = new FormData();
+    formData.set("name", newProduct.name);
+    formData.set("description", newProduct.description);
+    formData.set("price", newProduct.price);
+    formData.set("category", newProduct.category);
+    formData.set("price", newProduct.price * 100);
+    newProduct.imageUrl &&
+      formData.set("image", newProduct.imageUrl, newProduct.imageUrl.name);
+
+    dispatch(createProductAsync(formData));
+    if (!productErrors) {
       resetProductForm();
-    });
+      handleCloseModal();
+    }
   };
 
-  const categories = useSelector(selectCategoriesList);
+  // const categories = useSelector(selectCategoriesList);
 
   useEffect(() => {
     if (!categoryLoaded) {
@@ -113,18 +132,16 @@ export function MenuManager() {
    */
   const handleCategorySubmit = (event) => {
     event.preventDefault();
+    dispatch(clearCategoriesErrors());
     const newCategory = { title: categoryTitle };
-    dispatch(createCategoryAsync(newCategory)).then((res) => {
-      //TODO:
-      alert("Success, category created");
+    dispatch(createCategoryAsync(newCategory));
+    if (!categoryErrors) {
       setCategoryTitle("");
-    });
+      handleCloseModal();
+    }
   };
 
-  // const allProducts = useSelector(selectProductsList);
-  // console.log(allProducts);
-
-  const scrollRefs = CATEGORY_IDS.reduce((prev, curr) => {
+  const scrollRefs = categoriesList.reduce((prev, curr) => {
     prev[curr.id] = createRef();
     return prev;
   }, {});
@@ -136,46 +153,22 @@ export function MenuManager() {
     });
   };
 
-  const isNewItemModalOpen = useSelector(
-    (state) => state.ui.modal === "add_new_item"
-  );
-  const isAddItemToCartModalOpen = useSelector(
-    (state) => state.ui.modal === "add_item_to_cart"
-  );
-  const isAddNewCategoryModalOpen = useSelector(
-    (state) => state.ui.modal === "add_new_category"
-  );
-  const currentProductInModal = useSelector((state) => state.products.current);
+  const isNewItemModalOpen = useSelector(selectIsAddNewProductModalOpen);
 
-  const [quantity, setQuantity] = useState(1);
-  const handleDecrement = () => {
-    if (quantity === 1) return;
-    setQuantity((prev) => prev - 1);
-  };
-  const handleIncrement = () => {
-    setQuantity((prev) => prev + 1);
-  };
-
-  const handleCloseModal = () => {
-    dispatch(closeModal());
-  };
-
-  const handleShowModal = () => {
-    dispatch(showAddNewItemModal());
-  };
-
-  const handleAddProductToCart = (product) => {
-    const newItem = {
-      id: product._id,
-      quantity,
-      totalPrice: quantity * product.price,
-    };
-    dispatch(addOrderItem(newItem));
-    handleCloseModal();
-  };
+  const isAddNewCategoryModalOpen = useSelector(selectIsAddCategoryModalOpen);
 
   const handleShowAddCategoryModal = () => {
     dispatch(showAddNewCategoryModal());
+  };
+
+  const isEditProductModalOpen = useSelector(selectIsEditProductModalOpen);
+
+  const handleCloseModal = () => {
+    resetProductForm();
+    dispatch(closeModal());
+    dispatch(clearCurrent());
+    dispatch(clearProductsErrors());
+    dispatch(clearCategoriesErrors());
   };
 
   return (
@@ -206,9 +199,9 @@ export function MenuManager() {
                   <option value="" key="">
                     Select category
                   </option>
-                  {categories.map((category) => (
-                    <option key={category._id} value={category._id}>
-                      {category.title}
+                  {categoriesList.map((category) => (
+                    <option key={category.id} value={category.id}>
+                      {formatCategoryTitle(category)}
                     </option>
                   ))}
                 </select>
@@ -239,20 +232,49 @@ export function MenuManager() {
                   <div>Drop the files here ...</div>
                 ) : (
                   <div className="photo-content">
-                    <div> + </div>
+                    <div className="add-photo"> + </div>
                     <div>Drag 'n' drop some files here, </div>
                     <div>or click to select files</div>
                   </div>
                 )}
               </div>
 
-              <div>
-                <button type="submit" className="save-button">
-                  Save
-                </button>
+              <div className="form-buttons">
+                <div>
+                  <button type="submit" className="save-button">
+                    Save
+                  </button>
+                </div>
+                <div>
+                  <button
+                    type="button"
+                    className="cancel-button"
+                    onClick={handleCloseModal}
+                  >
+                    Cancel
+                  </button>
+                </div>
+              </div>
+              {/* TODO: */}
+              <div
+                style={{
+                  color: "var(--error-red)",
+                  fontSize: "12px",
+                  textAlign: "center",
+                  marginTop: "12px",
+                }}
+              >
+                {productErrors && productErrors.message}
               </div>
             </form>
           </div>
+        </Modal>
+      )}
+
+      {/* EDIT MODAL */}
+      {isEditProductModalOpen && productToEdit && (
+        <Modal className="product-modal">
+          <EditForm categories={categoriesList} productToEdit={productToEdit} />
         </Modal>
       )}
 
@@ -271,27 +293,51 @@ export function MenuManager() {
                   onChange={(e) => setCategoryTitle(e.target.value)}
                 />
               </div>
-              <div>
-                <button className="save-button" type="submit">
-                  Save
-                </button>
+              <div className="category-buttons">
+                <div>
+                  <button className="save-button" type="submit">
+                    Save
+                  </button>
+                </div>
+                <div>
+                  <div>
+                    <button
+                      className="cancel-button"
+                      type="button"
+                      onClick={handleCloseModal}
+                    >
+                      Cancel
+                    </button>
+                  </div>
+                </div>
               </div>
             </form>
+            {/* TODO: */}
+            <div
+              style={{
+                color: "var(--error-red)",
+                fontSize: "12px",
+                textAlign: "center",
+                marginTop: "8px",
+              }}
+            >
+              {categoryErrors && categoryErrors.title}
+            </div>
           </div>
         </Modal>
       )}
 
       <div className="category-list">
-        {/* {categories.map((category) => (
+        {categoriesList.map((category) => (
           <div
             className="category-item"
             key={category.id}
             role="button"
             onClick={() => handleScrollIntoView(category.id)}
           >
-            {category.title}
+            {formatCategoryTitle(category)}
           </div>
-        ))} */}
+        ))}
 
         <div
           role="button"
@@ -300,17 +346,11 @@ export function MenuManager() {
         >
           Category +
         </div>
-
-        {/* <Link to={"/menu"}>
-          <div role="button" className="new-category">
-            Category +
-          </div>
-        </Link> */}
       </div>
       <div className="ProductsList">
         <div className="category-container">
-          {CATEGORY_IDS.map((category) => (
-            <ProductRow
+          {categoriesList.map((category) => (
+            <ProductCard
               key={category.id}
               create={true}
               ref={scrollRefs[category.id]}

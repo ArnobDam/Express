@@ -50,6 +50,8 @@ export const ProductRow = forwardRef(
                   className="food-image"
                   src={product.imageUrl}
                   alt={product.name}
+                  height="100%"
+                  style={{ objectFit: "cover" }}
                 />
                 <div className="menu-name">{product.name}</div>
                 <div className="item-price">{formatPrice(product.price)}</div>
