@@ -3,9 +3,10 @@ import { useDispatch, useSelector } from "react-redux";
 import { selectProductsByCategory } from "../../../store/products";
 import { showAddNewItemModal, showAddItemToCartModal } from "../../../store/ui";
 import { formatPrice } from "../../../utils/formatPrice";
+import "./ProductCard.css"
+import { RiDeleteBin5Fill, RiEdit2Fill } from "react-icons/ri";
 
-
-export const ProductRow = forwardRef(
+export const ProductCard = forwardRef(
   ({ title, categoryId, create = false }, ref) => {
     const products = useSelector((state) =>
       selectProductsByCategory(state, categoryId)
@@ -41,7 +42,7 @@ export const ProductRow = forwardRef(
             )}
             {products.slice(0, create ? 3 : 4).map((product) => (
               <div
-                className="item"
+                className="product-card-item"
                 key={product._id}
                 onClick={() =>
                   create ? () => {} : handleShowAddProductModal(product)
@@ -54,6 +55,10 @@ export const ProductRow = forwardRef(
                 />
                 <div className="menu-name">{product.name}</div>
                 <div className="item-price">{formatPrice(product.price)}</div>
+                <div className="edit-and-delete">
+                  <div className="product-card-edit"><RiEdit2Fill/></div>
+                <div className="product-card-delete"><RiDeleteBin5Fill/></div>
+                </div>
               </div>
             ))}
           </div>
