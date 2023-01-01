@@ -6,7 +6,7 @@
 
 ![Screenshot](./frontend/public/img/Express%20Menu%20Screenshot.png)
 
-## Technologies
+## Technologies & Libraries
 
 - MERN Stack:
   - MongoDB - NoSQL database management program which uses JSON-like documents
@@ -14,6 +14,7 @@
   - React - Open source frontend library
   - Node.js - Open source backend JavaScript runtime environment
 - Nivo - Data visualization library built on top of D3 & React
+- Panera Bread menu items including product names & images
 
 ## Code Snippet - PATCH method Express.js route for updating a product (with error handling)
 
