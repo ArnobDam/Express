@@ -13,29 +13,6 @@ import { Modal } from "../../shared/components/Modal";
 import { ProductRow } from "./ProductRow";
 import "./ProductsList.css";
 
-// const SANDWICH_ID = "63a47615ad6d4fe86b6daf6f";
-// const SALAD_ID = "63a47615ad6d4fe86b6daf70";
-// const SOUP_ID = "63a47615ad6d4fe86b6daf71";
-// const DRINK_ID = "63a47615ad6d4fe86b6daf72";
-// const BAKERY_ID = "63a47615ad6d4fe86b6daf73";
-
-// const categories = [
-//   { id: SANDWICH_ID, title: "🥪 Sandwiches" },
-//   { id: SALAD_ID, title: "🥗 Salads" },
-//   { id: SOUP_ID, title: "🥣 Soups" },
-//   { id: DRINK_ID, title: "🍹 Drinks" },
-//   { id: BAKERY_ID, title: "🍰 Bakery" },
-//   // { id: 6, title: "🍟 Sides" },
-// ];
-
-// const CATEGORY_IDS = [
-//   { id: SANDWICH_ID, title: "Sandwiches" },
-//   { id: SALAD_ID, title: "Salads" },
-//   { id: SOUP_ID, title: "Soups" },
-//   { id: DRINK_ID, title: "Drinks" },
-//   { id: BAKERY_ID, title: "Bakery" },
-// ];
-
 export function ProductsList() {
   const dispatch = useDispatch();
   const categoriesList = useSelector(selectCategoriesListForRow, shallowEqual);

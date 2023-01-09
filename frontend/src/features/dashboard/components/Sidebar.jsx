@@ -13,12 +13,12 @@ import { selectTotalWithTax } from "../../../store/orders";
 import { useEffect, useState } from "react";
 
 const links = [
-  {
-    id: 1,
-    path: "/dashboard",
-    icon: <AiFillHome className="link-icon" />,
-    label: "Home",
-  },
+  // {
+  //   id: 1,
+  //   path: "/dashboard",
+  //   icon: <AiFillHome className="link-icon" />,
+  //   label: "Home",
+  // },
   {
     id: 2,
     path: "/menu",
@@ -86,11 +86,10 @@ const samplePieData = [
 
 // console.log(useSelector(selectTotalWithTax))
 
-
 export function Sidebar() {
   let totalWithTax = useSelector(selectTotalWithTax);
   // console.log(Math.floor(totalWithTax).toString().length)
-  const [priceLeftMargin, setPriceLeftMargin] = useState("27%")
+  const [priceLeftMargin, setPriceLeftMargin] = useState("27%");
 
   const PieChartPrice = () => {
     if (totalWithTax === 0) {
@@ -98,7 +97,7 @@ export function Sidebar() {
     } else {
       return formatPrice(totalWithTax);
     }
-  }
+  };
 
   useEffect(() => {
     // console.log("test")
@@ -111,10 +110,7 @@ export function Sidebar() {
     } else {
       setPriceLeftMargin("19%");
     }
-  }, [PieChartPrice])
-
-
-  
+  }, [PieChartPrice]);
 
   return (
     <div>
@@ -138,7 +134,17 @@ export function Sidebar() {
           />
         ))}
         <div style={{ height: "240px", position: "relative" }}>
-          <div style={{position: "absolute", top: "45%", left: priceLeftMargin, fontSize: 26, opacity: 0.4}}>{PieChartPrice()}</div>
+          <div
+            style={{
+              position: "absolute",
+              top: "45%",
+              left: priceLeftMargin,
+              fontSize: 26,
+              opacity: 0.4,
+            }}
+          >
+            {PieChartPrice()}
+          </div>
           <PieChart data={samplePieData} />
         </div>
         <LogoutButton />

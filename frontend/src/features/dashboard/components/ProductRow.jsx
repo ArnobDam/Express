@@ -25,7 +25,7 @@ export const ProductRow = forwardRef(
         <div className="item-by-name">
           <div className="category-title">
             <span className="category-name">{title}</span>
-            <span className="explore-more">Explore more</span>
+            {/* <span className="explore-more">Explore more</span> */}
           </div>
           <div className="item-container">
             {create && (

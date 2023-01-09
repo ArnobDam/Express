@@ -64,9 +64,6 @@ export function EditForm({ productToEdit, categories }) {
     dispatch(
       updateProductAsync({ ...productToEdit, ...updateProductFormData })
     );
-    if (!productErrors) {
-      handleCloseModal();
-    }
   };
 
   return (

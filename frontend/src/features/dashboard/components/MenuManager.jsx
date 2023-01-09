@@ -12,6 +12,7 @@ import {
   clearProductsErrors,
   createProductAsync,
   selectCurrentProduct,
+  updateProductAsync,
 } from "../../../store/products";
 
 import { createRef } from "react";
@@ -25,8 +26,8 @@ import {
 import { Modal } from "../../shared/components/Modal";
 import { ProductCard } from "./ProductCard";
 import "./MenuManager.css";
-import { EditForm } from "./EditForm";
 import { formatCategoryTitle } from "../../../utils/formatCategoryTitle";
+import { ModalForm } from "./ModalForm";
 
 const initialProductData = {
   name: "",
@@ -36,36 +37,24 @@ const initialProductData = {
   imageUrl: "",
 };
 
-// const SANDWICH_ID = "63a47615ad6d4fe86b6daf6f";
-// const SALAD_ID = "63a47615ad6d4fe86b6daf70";
-// const SOUP_ID = "63a47615ad6d4fe86b6daf71";
-// const DRINK_ID = "63a47615ad6d4fe86b6daf72";
-// const BAKERY_ID = "63a47615ad6d4fe86b6daf73";
-
-// const categories = [
-//   { id: SANDWICH_ID, title: "🥪 Sandwiches" },
-//   { id: SALAD_ID, title: "🥗 Salads" },
-//   { id: SOUP_ID, title: "🥣 Soups" },
-//   { id: DRINK_ID, title: "🍹 Drinks" },
-//   { id: BAKERY_ID, title: "🍰 Bakery" },
-//   // { id: 6, title: "🍟 Sides" },
-// ];
-
-// const CATEGORY_IDS = [
-//   { id: SANDWICH_ID, title: "Sandwiches" },
-//   { id: SALAD_ID, title: "Salads" },
-//   { id: SOUP_ID, title: "Soups" },
-//   { id: DRINK_ID, title: "Drinks" },
-//   { id: BAKERY_ID, title: "Bakery" },
-// ];
-
 export function MenuManager() {
   const dispatch = useDispatch();
   const categoriesList = useSelector(selectCategoriesListForRow, shallowEqual);
 
   const productToEdit = useSelector(selectCurrentProduct);
-
   const [productFormData, setProductFormData] = useState(initialProductData);
+
+  useEffect(() => {
+    if (productToEdit !== null) {
+      setProductFormData({
+        name: productToEdit?.name,
+        category: productToEdit?.category,
+        price: (productToEdit?.price / 100).toFixed(2),
+        description: productToEdit?.description,
+        imageUrl: productToEdit?.imageUrl,
+      });
+    }
+  }, [productToEdit]);
 
   const categoryLoaded = useSelector((state) => state.categories.loaded);
 
@@ -73,14 +62,21 @@ export function MenuManager() {
     setProductFormData((prev) => ({ ...prev, imageUrl: acceptedFiles[0] }));
   }, []);
 
-  const { getRootProps, getInputProps, isDragActive } = useDropzone({ onDrop });
   const productErrors = useSelector((state) => state.errors.products);
   const categoryErrors = useSelector((state) => state.errors.categories);
+
+  const isModalClosed = useSelector((state) => state.ui.modal === null);
 
   /**
    * @param {React.ChangeEvent<HTMLInputElement>} event
    */
   const handleChange = (event) => {
+    if (event.target.name === "price") {
+      setProductFormData((prev) => ({
+        ...prev,
+        price: parseFloat(event.target.value).toFixed(2),
+      }));
+    }
     setProductFormData((prev) => ({
       ...prev,
       [event.target.name]: event.target.value,
@@ -101,23 +97,45 @@ export function MenuManager() {
       ...productFormData,
     };
 
+    if (Number.isNaN(parseFloat(newProduct.price))) {
+      return;
+    }
+
     const formData = new FormData();
     formData.set("name", newProduct.name);
     formData.set("description", newProduct.description);
     formData.set("price", newProduct.price);
     formData.set("category", newProduct.category);
-    formData.set("price", newProduct.price * 100);
+    formData.set("price", parseFloat(newProduct.price * 100));
     newProduct.imageUrl &&
       formData.set("image", newProduct.imageUrl, newProduct.imageUrl.name);
 
-    dispatch(createProductAsync(formData));
-    if (!productErrors) {
-      resetProductForm();
+    dispatch(createProductAsync(formData)).then((res) => {
+      if (res.statusCode >= 400) {
+        return;
+      }
       handleCloseModal();
-    }
+    });
   };
 
-  // const categories = useSelector(selectCategoriesList);
+  /**
+   * @param {React.FormEvent<HTMLFormElement>} event
+   */
+  const handleProductUpdate = (event) => {
+    event.preventDefault();
+    dispatch(
+      updateProductAsync({
+        ...productToEdit,
+        ...productFormData,
+        price: productFormData.price * 100,
+      })
+    ).then((res) => {
+      if (res.statusCode >= 400) {
+        return;
+      }
+      handleCloseModal();
+    });
+  };
 
   useEffect(() => {
     if (!categoryLoaded) {
@@ -126,6 +144,18 @@ export function MenuManager() {
   }, [dispatch, categoryLoaded]);
 
   const [categoryTitle, setCategoryTitle] = useState("");
+
+  const handleCloseModal = () => {
+    dispatch(clearProductsErrors());
+    dispatch(clearCategoriesErrors());
+    dispatch(closeModal());
+  };
+
+  useEffect(() => {
+    if (isModalClosed) {
+      resetProductForm();
+    }
+  }, [isModalClosed]);
 
   /**
    * @param {React.FormEvent<HTMLFormElement>} event
@@ -153,7 +183,7 @@ export function MenuManager() {
     });
   };
 
-  const isNewItemModalOpen = useSelector(selectIsAddNewProductModalOpen);
+  const isAddNewProductModalOpen = useSelector(selectIsAddNewProductModalOpen);
 
   const isAddNewCategoryModalOpen = useSelector(selectIsAddCategoryModalOpen);
 
@@ -163,119 +193,37 @@ export function MenuManager() {
 
   const isEditProductModalOpen = useSelector(selectIsEditProductModalOpen);
 
-  const handleCloseModal = () => {
-    resetProductForm();
-    dispatch(closeModal());
-    dispatch(clearCurrent());
-    dispatch(clearProductsErrors());
-    dispatch(clearCategoriesErrors());
-  };
-
   return (
     <div className="Menu" style={{ position: "relative" }}>
-      {isNewItemModalOpen && (
-        <Modal className="product-modal">
-          <div className="NewProductForm">
-            <form onSubmit={handleProductSubmit} encType="multipart/form-data">
-              <h2 className="modal-title">Add new product</h2>
-              <div>
-                <input
-                  className="product-form-input"
-                  type="text"
-                  name="name"
-                  placeholder="Name"
-                  value={productFormData.name}
-                  onChange={handleChange}
-                />
-              </div>
-              <div>
-                <select
-                  className="select-option"
-                  name="category"
-                  id="category"
-                  value={productFormData.category}
-                  onChange={handleChange}
-                >
-                  <option value="" key="">
-                    Select category
-                  </option>
-                  {categoriesList.map((category) => (
-                    <option key={category.id} value={category.id}>
-                      {formatCategoryTitle(category)}
-                    </option>
-                  ))}
-                </select>
-              </div>
-              <div>
-                <input
-                  className="product-form-input"
-                  type="text"
-                  name="description"
-                  placeholder="Description"
-                  value={productFormData.description}
-                  onChange={handleChange}
-                />
-              </div>
-              <div>
-                <input
-                  className="product-form-input"
-                  type="number"
-                  name="price"
-                  placeholder="Price"
-                  value={productFormData.price}
-                  onChange={handleChange}
-                />
-              </div>
-              <div className="pic-input" {...getRootProps()}>
-                <input {...getInputProps()} />
-                {isDragActive ? (
-                  <div>Drop the files here ...</div>
-                ) : (
-                  <div className="photo-content">
-                    <div className="add-photo"> + </div>
-                    <div>Drag 'n' drop some files here, </div>
-                    <div>or click to select files</div>
-                  </div>
-                )}
-              </div>
-
-              <div className="form-buttons">
-                <div>
-                  <button type="submit" className="save-button">
-                    Save
-                  </button>
-                </div>
-                <div>
-                  <button
-                    type="button"
-                    className="cancel-button"
-                    onClick={handleCloseModal}
-                  >
-                    Cancel
-                  </button>
-                </div>
-              </div>
-              {/* TODO: */}
-              <div
-                style={{
-                  color: "var(--error-red)",
-                  fontSize: "12px",
-                  textAlign: "center",
-                  marginTop: "12px",
-                }}
-              >
-                {productErrors && productErrors.message}
-              </div>
-            </form>
-          </div>
-        </Modal>
+      {isAddNewProductModalOpen && (
+        <ModalForm
+          formId="add-new-product"
+          modalClassName="product-modal"
+          formBodyClassName="NewProductForm"
+          title="Add new product"
+          errors={productErrors}
+          onChange={handleChange}
+          onDrop={onDrop}
+          onClose={handleCloseModal}
+          formData={productFormData}
+          onSubmit={handleProductSubmit}
+        />
       )}
 
       {/* EDIT MODAL */}
       {isEditProductModalOpen && productToEdit && (
-        <Modal className="product-modal">
-          <EditForm categories={categoriesList} productToEdit={productToEdit} />
-        </Modal>
+        <ModalForm
+          formId="edit-product"
+          modalClassName="product-modal"
+          formBodyClassName="EditProductForm"
+          title="Edit product"
+          errors={productErrors}
+          onChange={handleChange}
+          onClose={handleCloseModal}
+          onDrop={onDrop}
+          formData={productFormData}
+          onSubmit={handleProductUpdate}
+        />
       )}
 
       {isAddNewCategoryModalOpen && (

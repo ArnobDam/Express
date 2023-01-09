@@ -1,6 +1,7 @@
 import { forwardRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
+  clearCurrent,
   removeProductAsync,
   selectProductsByCategory,
 } from "../../../store/products";
@@ -32,6 +33,7 @@ export const ProductCard = forwardRef(
     };
 
     const handleOpenAddNewModal = () => {
+      dispatch(clearCurrent());
       dispatch(showAddNewItemModal());
     };
 
@@ -49,7 +51,7 @@ export const ProductCard = forwardRef(
           <div className="item-by-name">
             <div className="category-title">
               <span className="category-name">{title}</span>
-              <span className="explore-more">Explore more</span>
+              {/* <span className="explore-more">Explore more</span> */}
             </div>
             <div className="item-container">
               {create && (

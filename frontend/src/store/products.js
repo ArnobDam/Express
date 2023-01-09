@@ -1,6 +1,10 @@
 import { jwtFetch } from "./jwt";
 import { createSelector } from "reselect";
-import { EDIT_PRODUCT_MODAL, SHOW_ADD_ITEM_TO_CART_MODAL } from "./ui";
+import {
+  EDIT_PRODUCT_MODAL,
+  SHOW_ADD_ITEM_TO_CART_MODAL,
+  SHOW_ADD_NEW_ITEM_MODAL,
+} from "./ui";
 
 const RECEIVE_PRODUCTS = "products/RECEIVE_PRODUCTS";
 const RECEIVE_PRODUCT = "products/RECEIVE_PRODUCT";
@@ -67,11 +71,13 @@ export const createProductAsync = (newProduct) => async (dispatch) => {
         ? data.imageUrl
         : "https://www.coalitionrc.com/wp-content/uploads/2017/01/placeholder.jpg",
     };
-    return dispatch(receiveProduct(product));
+    dispatch(receiveProduct(product));
+    return res;
   } catch (err) {
     const res = await err.json();
     if (res.statusCode >= 400) {
-      return dispatch(receiveErrors(res.errors));
+      dispatch(receiveErrors(res.errors));
+      return res;
     }
   }
 };
@@ -83,11 +89,13 @@ export const updateProductAsync = (updatedProduct) => async (dispatch) => {
       body: JSON.stringify(updatedProduct),
     });
     const data = await res.json();
-    return dispatch(receiveProduct(data));
+    dispatch(receiveProduct(data));
+    return res;
   } catch (err) {
     const res = await err.json();
     if (res.statusCode >= 400) {
-      return dispatch(receiveErrors(res.errors));
+      dispatch(receiveErrors(res.errors));
+      return res;
     }
   }
 };

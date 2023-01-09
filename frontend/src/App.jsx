@@ -17,7 +17,6 @@ export function App() {
     dispatch(getCurrentUser()).then(() => setLoaded(true));
   }, [dispatch]);
 
-  //TODO: remove later
   useEffect(() => {
     dispatch(fetchProductsAsync());
     dispatch(fetchCategoriesAsync());

@@ -8,8 +8,8 @@ import { SlLock } from "react-icons/sl";
 import { HiOutlineUser } from "react-icons/hi";
 
 const initialFormState = {
-  email: "admin@express.com",
-  password: "ExpressPOS",
+  email: "",
+  password: "",
 };
 
 export function LoginForm() {
@@ -44,6 +44,16 @@ export function LoginForm() {
       password: loginFormData.password,
     };
     dispatch(login(credentials));
+  };
+
+  const handleDemoLogin = () => {
+    const credentials = {
+      email: loginFormData.email,
+      password: loginFormData.password,
+    };
+    if (credentials.email && credentials.password) {
+      dispatch(login(credentials));
+    }
   };
 
   return (
@@ -92,6 +102,25 @@ export function LoginForm() {
             disabled={!loginFormData.email || !loginFormData.password}
           >
             Log in
+          </button>
+          <button
+            className="btn"
+            type="submit"
+            style={{
+              marginLeft: "12px",
+              backgroundColor: "transparent",
+              border: "2px solid var(--bg-primary)",
+              color: "var(--bg-primary)",
+            }}
+            onClick={() => {
+              setLoginFormData({
+                email: "admin@express.com",
+                password: "ExpressPOS",
+              });
+              handleDemoLogin();
+            }}
+          >
+            Demo User
           </button>
         </div>
       </form>

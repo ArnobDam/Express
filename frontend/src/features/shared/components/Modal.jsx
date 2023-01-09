@@ -8,7 +8,9 @@ export function Modal({ children, className = "" }) {
   const dispatch = useDispatch();
 
   const ref = useRef(null);
-  useOnClickOutside(ref, () => dispatch(closeModal()));
+  useOnClickOutside(ref, () => {
+    dispatch(closeModal());
+  });
 
   return (
     <div className={`modal-overlay`}>
