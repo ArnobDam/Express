@@ -84,13 +84,11 @@ const samplePieData = [
   },
 ];
 
-// console.log(useSelector(selectTotalWithTax))
-
 export function Sidebar() {
   let totalWithTax = useSelector(selectTotalWithTax);
-  // console.log(Math.floor(totalWithTax).toString().length)
-  const [priceLeftMargin, setPriceLeftMargin] = useState("27%");
 
+  const [priceLeftMargin, setPriceLeftMargin] = useState("27%");
+  const currentUser = useSelector((state) => state.session.user);
   const PieChartPrice = () => {
     if (totalWithTax === 0) {
       return "";
@@ -100,7 +98,6 @@ export function Sidebar() {
   };
 
   useEffect(() => {
-    // console.log("test")
     if (Math.floor(totalWithTax).toString().length === 3) {
       setPriceLeftMargin("30%");
     } else if (Math.floor(totalWithTax).toString().length === 4) {
@@ -147,6 +144,18 @@ export function Sidebar() {
           </div>
           <PieChart data={samplePieData} />
         </div>
+        <p
+          style={{
+            paddingLeft: "12px",
+            color: "var(--dark-grey)",
+            fontSize: 14,
+          }}
+        >
+          Logged in as:{" "}
+          <span style={{ fontWeight: 600, color: "var(--bg-primary)" }}>
+            {currentUser.username}
+          </span>
+        </p>
         <LogoutButton />
       </div>
     </div>
