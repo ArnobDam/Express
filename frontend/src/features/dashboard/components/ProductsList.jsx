@@ -56,6 +56,17 @@ export function ProductsList() {
       totalPrice: quantity * product.price,
       category: product.category,
     };
+
+    if (window.localStorage.getItem("currentOrder")) {
+      const currentOrder = JSON.parse(
+        window.localStorage.getItem("currentOrder")
+      );
+      currentOrder.push(newItem);
+      window.localStorage.setItem("currentOrder", JSON.stringify(currentOrder));
+    } else {
+      window.localStorage.setItem("currentOrder", JSON.stringify([newItem]));
+    }
+
     dispatch(addOrderItem(newItem));
     handleCloseModal();
   };

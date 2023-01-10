@@ -17,16 +17,45 @@ export const CartItem = forwardRef(({ cartItem }, ref) => {
   }, [ref]);
 
   const dispatch = useDispatch();
- 
+
   const handleIncrement = (itemId) => {
+    const currentOrder = JSON.parse(
+      window.localStorage.getItem("currentOrder")
+    );
+    if (currentOrder.length) {
+      const updatedOrder = currentOrder.map((item) =>
+        item.id === itemId ? { ...item, quantity: item.quantity + 1 } : item
+      );
+
+      window.localStorage.setItem("currentOrder", JSON.stringify(updatedOrder));
+    }
     dispatch(incrementQuantity(itemId));
   };
 
   const handleDecrement = (itemId) => {
+    const currentOrder = JSON.parse(
+      window.localStorage.getItem("currentOrder")
+    );
+    if (currentOrder.length) {
+      const updatedOrder = currentOrder
+        .map((item) =>
+          item.id === itemId ? { ...item, quantity: item.quantity - 1 } : item
+        )
+        .filter((item) => item.quantity > 0);
+
+      window.localStorage.setItem("currentOrder", JSON.stringify(updatedOrder));
+    }
     dispatch(decrementQuantity(itemId));
   };
 
   const handleRemoveFromCart = (itemId) => {
+    const currentOrder = JSON.parse(
+      window.localStorage.getItem("currentOrder")
+    );
+    if (currentOrder.length) {
+      const updatedOrder = currentOrder.filter((item) => item.id !== itemId);
+      window.localStorage.setItem("currentOrder", JSON.stringify(updatedOrder));
+    }
     dispatch(removeItemFromCart(itemId));
   };
 

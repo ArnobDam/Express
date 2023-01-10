@@ -62,10 +62,11 @@ export const createOrderAsync = () => async (dispatch, getState) => {
     // console.log({ data });
     dispatch(completeOrder(data));
     dispatch(incrementOrderNumber());
-    if (localStorage.getItem("orderNumber")) {
-      localStorage.removeItem("orderNumber");
+    if (window.localStorage.getItem("orderNumber")) {
+      window.localStorage.removeItem("orderNumber");
     }
-    localStorage.setItem("orderNumber", getState().orders.orderNumber);
+    window.localStorage.setItem("orderNumber", getState().orders.orderNumber);
+    window.localStorage.removeItem("currentOrder");
   } catch (err) {
     const res = await err.json();
     if (res.statusCode === 400) {
@@ -76,7 +77,9 @@ export const createOrderAsync = () => async (dispatch, getState) => {
 
 const initialState = {
   current: {
-    products: [],
+    products: !window.localStorage.getItem("currentOrder")
+      ? []
+      : JSON.parse(window.localStorage.getItem("currentOrder")),
   },
   orderNumber: window.localStorage.getItem("orderNumber")
     ? parseInt(window.localStorage.getItem("orderNumber"), 10)
@@ -217,7 +220,7 @@ export const selectCurrentCartItemsExpanded = createSelector(
   selectCurrentCartItems,
   (state) => state.products?.entities,
   (cartItems, products) =>
-    cartItems.map((item) => ({ ...item, ...products[item.id] }))
+    cartItems.map((item) => ({ ...item, ...products?.[item.id] }))
 );
 export const selectCurrentCartItemsExpandedWithCategoryTitle = createSelector(
   [
@@ -228,8 +231,8 @@ export const selectCurrentCartItemsExpandedWithCategoryTitle = createSelector(
   (cartItems, products, categories) => {
     return cartItems.map((item) => ({
       ...item,
-      ...products[item.id],
-      categoryName: categories[item.category].title,
+      ...products?.[item.id],
+      categoryName: categories?.[item.category]?.title,
     }));
   }
 );
