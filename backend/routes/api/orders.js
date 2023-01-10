@@ -13,7 +13,7 @@ const ObjectId = require("mongoose").Types.ObjectId;
 router.get("/", async (req, res, next) => {
   // res.json({ message: "GET /order" });
   try {
-    const order = await Order.find();
+    const order = await Order.find().limit(10).sort({ createdAt: -1 });
     // .populate("name", "price", "description")
     // .sort({ createdAt: 1 });
 

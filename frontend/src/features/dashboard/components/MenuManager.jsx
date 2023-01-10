@@ -1,6 +1,6 @@
 import React, { useEffect, useState, useCallback } from "react";
 import { shallowEqual, useDispatch, useSelector } from "react-redux";
-import { useDropzone } from "react-dropzone";
+
 import {
   clearCategoriesErrors,
   createCategoryAsync,
@@ -8,7 +8,6 @@ import {
   selectCategoriesListForRow,
 } from "../../../store/categories";
 import {
-  clearCurrent,
   clearProductsErrors,
   createProductAsync,
   selectCurrentProduct,
