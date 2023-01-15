@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import { BsCheckCircleFill } from "react-icons/bs";
-import sand from "./sandwich.png";
 import { formatPrice } from "../../../utils/formatPrice";
 import { formatDistanceToNow } from "date-fns";
+import { HistoryProductItem } from "./HistoryProductItem";
 
 export function HistoryCard({ history }) {
   const [showDetails, setShowDetails] = useState(false);
@@ -33,7 +33,6 @@ export function HistoryCard({ history }) {
             })}
           </div>
           <div className="history-payment-detail">
-           
             <div className="history-price">
               {formatPrice(history.totalPrice)}
             </div>
@@ -42,28 +41,13 @@ export function HistoryCard({ history }) {
         </div>
       </div>
       {showDetails &&
-        history.products.map((product) => (
-          <React.Fragment key={product._id}>
-            <div className="history-order-breakdown">
-              <div>
-                <img className="history-img" src={product.imageUrl} alt={product.name} />
-              </div>
-              <div className="each-order-detail">
-                <div>{product.name}</div>
-                <div className="detail-price">
-                  <div className="detail-qty-section">
-                    <div className="detail-each-price">
-                      <div>{formatPrice(product.itemPrice)}</div>
-                      <div className="detail-qty">x {product.quantity}</div>
-                    </div>
-                  </div>
-                  <div className="detail-total">
-                    {formatPrice(product.totalPrice)}
-                  </div>
-                </div>
-              </div>
-            </div>
-          </React.Fragment>
+        history.products.map((product, index) => (
+          <HistoryProductItem
+            key={`${product._id}-${index}`}
+            productId={product._id}
+            totalPrice={product.totalPrice}
+            quantity={product.quantity}
+          />
         ))}
     </div>
   );
