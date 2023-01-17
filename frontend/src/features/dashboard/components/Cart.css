@@ -8,9 +8,11 @@
 
 .order-lists-container {
   background-color: var(--lightest-grey);
-  margin: 40px 0 0 0;
+  /* margin: 40px 0 0 0; */
+  /* height: 640px; */
+  margin-top: 24px;
   border-radius: 20px;
-  height: 640px;
+  height: 603px;
 }
 
 .order-number {
@@ -35,14 +37,16 @@
 } */
 
 .order-item-card {
-  display: flex;
   /* justify-content: space-between; */
-  margin: 10px 10px 0 10px;
   /* padding-top: 20px; */
+  /* margin: 10px 10px 0 10px; */
+  display: flex;
   background-color: white;
   border-radius: 20px;
   font-size: 12px;
-  height: 88px;
+  height: 92px;
+  padding-bottom: 6px;
+  margin-bottom: 6px;
 }
 .order-detail-right {
   display: flex;
@@ -96,8 +100,9 @@
   overflow-y: auto;
   display: flex;
   flex-direction: column;
-  /* height: 320px; */
-  max-height: 320px;
+  max-height: 260px;
+  padding-top: 4px;
+  padding-bottom: 4px;
 }
 
 .receipt-container {

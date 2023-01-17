@@ -3,14 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { selectProductsByCategory } from "../../../store/products";
 import { showAddNewItemModal, showAddItemToCartModal } from "../../../store/ui";
 import { formatPrice } from "../../../utils/formatPrice";
-import {
-  CarouselProvider,
-  Slider,
-  Slide,
-  ButtonBack,
-  ButtonNext,
-} from "pure-react-carousel";
-import { RxCaretRight, RxCaretLeft } from "react-icons/rx";
+import { Slide } from "pure-react-carousel";
 import { Carousel } from "./Carousel";
 
 export const ProductRow = forwardRef(
@@ -47,7 +40,7 @@ export const ProductRow = forwardRef(
                 <div>Add new dish</div>
               </div>
             )}
-            <Carousel itemLength={products.length}>
+            <Carousel itemLength={products.length} top={"40%"}>
               {products.map((product, index) => (
                 <Slide key={product._id} index={index}>
                   <div

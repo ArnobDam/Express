@@ -6,19 +6,27 @@ import { MenuManager } from "./MenuManager";
 import { ProductsList } from "./ProductsList";
 import { Sidebar } from "./Sidebar";
 import { Cart } from "./Cart";
-import { Report } from "./Report";
 import { About } from "./About";
 import { History } from "./History";
+import { useDispatch } from "react-redux";
+import { fetchProductsAsync } from "../../../store/products";
+import { fetchCategoriesAsync } from "../../../store/categories";
 
 export function Dashboard() {
   const location = useLocation();
   const history = useHistory();
+  const dispatch = useDispatch();
 
   useEffect(() => {
     if (location.pathname === "/") {
       history.replace("/menu");
     }
   }, [location.pathname, history]);
+
+  useEffect(() => {
+    dispatch(fetchProductsAsync());
+    dispatch(fetchCategoriesAsync());
+  }, [dispatch]);
 
   return (
     <div className="Dashboard">
@@ -39,9 +47,6 @@ export function Dashboard() {
           <Route exact path={"/history"}>
             <History />
           </Route>
-          {/* <Route exact path={"/report"}>
-            <Report />
-          </Route> */}
           <Route exact path={"/about"}>
             <About />
           </Route>

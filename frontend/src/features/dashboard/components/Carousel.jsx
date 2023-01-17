@@ -7,7 +7,7 @@ import {
 } from "pure-react-carousel";
 import { RxCaretLeft, RxCaretRight } from "react-icons/rx";
 
-export function Carousel({ children, itemLength, ...rest }) {
+export function Carousel({ children, itemLength, top = null, ...rest }) {
   return (
     <CarouselProvider
       naturalSlideHeight={800}
@@ -19,10 +19,16 @@ export function Carousel({ children, itemLength, ...rest }) {
       className="relative"
       {...rest}
     >
-      <ButtonBack className="carousel-control-btn back">
+      <ButtonBack
+        className="carousel-control-btn back"
+        style={{ top: top ?? "46%" }}
+      >
         <RxCaretLeft />
       </ButtonBack>
-      <ButtonNext className="carousel-control-btn next">
+      <ButtonNext
+        className="carousel-control-btn next"
+        style={{ top: top ?? "46%" }}
+      >
         <RxCaretRight />
       </ButtonNext>
       <Slider>{children}</Slider>
