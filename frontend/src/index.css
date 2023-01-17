@@ -102,9 +102,13 @@ body,
 #root {
   height: 100%;
   /* background-color: rgb(61, 61, 61); */
-  background: rgb(254,239,224);
-background: linear-gradient(90deg, rgba(254,239,224,1) 0%, rgba(243,225,206,1) 21%, rgba(204,203,198,1) 100%);
-
+  background: rgb(254, 239, 224);
+  background: linear-gradient(
+    90deg,
+    rgba(254, 239, 224, 1) 0%,
+    rgba(243, 225, 206, 1) 21%,
+    rgba(204, 203, 198, 1) 100%
+  );
 
   font-family: "Lato", sans-serif;
 }
@@ -172,6 +176,23 @@ q:after {
 table {
   border-collapse: collapse;
   border-spacing: 0;
+}
+
+.carousel__slide-focus-ring {
+  outline: none !important;
+  border: none !important;
+}
+.carousel__slide-focus-ring:focus {
+  outline: none !important;
+  border: none !important;
+}
+.carousel__slide-focus-ring:focus-visible {
+  outline: none !important;
+  border: none !important;
+}
+.carousel__slide-focus-ring:focus-within {
+  outline: none !important;
+  border: none !important;
 }
 
 :root {

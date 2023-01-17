@@ -3,6 +3,14 @@ import { useDispatch, useSelector } from "react-redux";
 import { selectProductsByCategory } from "../../../store/products";
 import { showAddNewItemModal, showAddItemToCartModal } from "../../../store/ui";
 import { formatPrice } from "../../../utils/formatPrice";
+import {
+  CarouselProvider,
+  Slider,
+  Slide,
+  ButtonBack,
+  ButtonNext,
+} from "pure-react-carousel";
+import { RxCaretRight, RxCaretLeft } from "react-icons/rx";
 
 export const ProductRow = forwardRef(
   ({ title, categoryId, create = false }, ref) => {
@@ -38,25 +46,46 @@ export const ProductRow = forwardRef(
                 <div>Add new dish</div>
               </div>
             )}
-            {products.slice(0, create ? 3 : 4).map((product) => (
-              <div
-                className="item"
-                key={product._id}
-                onClick={() =>
-                  create ? () => {} : handleShowAddProductModal(product)
-                }
-              >
-                <img
-                  className="food-image"
-                  src={product.imageUrl}
-                  alt={product.name}
-                  height="100%"
-                  style={{ objectFit: "cover" }}
-                />
-                <div className="menu-name">{product.name}</div>
-                <div className="item-price">{formatPrice(product.price)}</div>
-              </div>
-            ))}
+            <CarouselProvider
+              naturalSlideHeight={600}
+              naturalSlideWidth={500}
+              totalSlides={products.length}
+              visibleSlides={4}
+              step={4}
+              dragEnabled={false}
+              className="relative"
+            >
+              <ButtonBack className="carousel-control-btn back">
+                <RxCaretLeft />
+              </ButtonBack>
+              <ButtonNext className="carousel-control-btn next">
+                <RxCaretRight />
+              </ButtonNext>
+              <Slider>
+                {products.map((product, index) => (
+                  <Slide key={product._id} index={index}>
+                    <div
+                      className="item"
+                      onClick={() =>
+                        create ? () => {} : handleShowAddProductModal(product)
+                      }
+                    >
+                      <img
+                        className="food-image"
+                        src={product.imageUrl}
+                        alt={product.name}
+                        height="100%"
+                        style={{ objectFit: "cover" }}
+                      />
+                      <div className="menu-name">{product.name}</div>
+                      <div className="item-price">
+                        {formatPrice(product.price)}
+                      </div>
+                    </div>
+                  </Slide>
+                ))}
+              </Slider>
+            </CarouselProvider>
           </div>
         </div>
       </div>
