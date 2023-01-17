@@ -52,6 +52,7 @@
 .category-title {
   display: flex;
   justify-content: space-between;
+  align-items: center;
 }
 
 .explore-more {
@@ -59,11 +60,30 @@
   cursor: pointer;
 }
 
+.add-new-btn {
+  cursor: pointer;
+  color: white;
+  background-color: var(--bg-primary);
+  padding: 6px 12px;
+  font-size: 13px;
+  letter-spacing: 0.7px;
+  border-radius: 6px;
+  transition: filter ease-in 120ms;
+}
+
+.add-new-btn:hover {
+  filter: brightness(94%);
+}
+
+.add-new-btn:active {
+  background-color: rgb(231, 133, 35);
+}
+
 .category-name {
   letter-spacing: 1px;
 }
 
-.item-container {
+.item-container-meanager {
   /* display: flex;
   justify-content: space-between; */
   padding-bottom: 40px;

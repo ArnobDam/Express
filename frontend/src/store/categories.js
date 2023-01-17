@@ -110,4 +110,11 @@ export const selectCategoriesListForRow = (state) =>
       id: category._id,
       title: category.title,
     }))
+    .sort(sortAlphaDescending)
     .slice(0, 5);
+
+function sortAlphaDescending(a, b) {
+  if (a.title > b.title) return -1;
+  if (a.title < b.title) return 1;
+  return 0;
+}

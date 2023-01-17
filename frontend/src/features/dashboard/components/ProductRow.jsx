@@ -11,6 +11,7 @@ import {
   ButtonNext,
 } from "pure-react-carousel";
 import { RxCaretRight, RxCaretLeft } from "react-icons/rx";
+import { Carousel } from "./Carousel";
 
 export const ProductRow = forwardRef(
   ({ title, categoryId, create = false }, ref) => {
@@ -46,7 +47,31 @@ export const ProductRow = forwardRef(
                 <div>Add new dish</div>
               </div>
             )}
-            <CarouselProvider
+            <Carousel itemLength={products.length}>
+              {products.map((product, index) => (
+                <Slide key={product._id} index={index}>
+                  <div
+                    className="item"
+                    onClick={() =>
+                      create ? () => {} : handleShowAddProductModal(product)
+                    }
+                  >
+                    <img
+                      className="food-image"
+                      src={product.imageUrl}
+                      alt={product.name}
+                      height="100%"
+                      style={{ objectFit: "cover" }}
+                    />
+                    <div className="menu-name">{product.name}</div>
+                    <div className="item-price">
+                      {formatPrice(product.price)}
+                    </div>
+                  </div>
+                </Slide>
+              ))}
+            </Carousel>
+            {/* <CarouselProvider
               naturalSlideHeight={600}
               naturalSlideWidth={500}
               totalSlides={products.length}
@@ -85,7 +110,7 @@ export const ProductRow = forwardRef(
                   </Slide>
                 ))}
               </Slider>
-            </CarouselProvider>
+            </CarouselProvider> */}
           </div>
         </div>
       </div>

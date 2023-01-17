@@ -232,29 +232,3 @@
   font-size: 13px;
   color: var(--bg-primary);
 }
-
-.carousel-control-btn {
-  position: absolute;
-  margin: auto;
-  z-index: 12;
-  top: 46%;
-  background: none;
-  border: none;
-  font-size: 2rem;
-  color: rgb(90, 90, 90);
-}
-
-.carousel-control-btn:disabled {
-  color: rgb(224, 224, 224);
-}
-
-.back {
-  left: -22px;
-}
-.next {
-  right: -10px;
-}
-
-.relative {
-  position: relative;
-}
