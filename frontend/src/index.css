@@ -115,10 +115,11 @@ body,
 
 a {
   text-decoration: none;
+  color: black;
 }
 
 a:visited {
-  color: initial;
+  color: black;
 }
 
 li {
