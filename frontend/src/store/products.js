@@ -40,8 +40,7 @@ export const fetchProductsAsync = () => async (dispatch) => {
       }
       return {
         ...product,
-        imageUrl:
-          "https://www.coalitionrc.com/wp-content/uploads/2017/01/placeholder.jpg",
+        imageUrl: "/img/placeholder.jpg",
       };
     });
     const products = productsWithDefaultImages.reduce((prev, curr) => {
@@ -67,9 +66,7 @@ export const createProductAsync = (newProduct) => async (dispatch) => {
     const data = await res.json();
     const product = {
       ...data,
-      imageUrl: data.imageUrl
-        ? data.imageUrl
-        : "https://www.coalitionrc.com/wp-content/uploads/2017/01/placeholder.jpg",
+      imageUrl: data.imageUrl ? data.imageUrl : "/img/placeholder.jpg",
     };
     dispatch(receiveProduct(product));
     return res;

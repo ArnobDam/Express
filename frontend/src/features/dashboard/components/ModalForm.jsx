@@ -1,9 +1,7 @@
-import { useEffect } from "react";
 import { useDropzone } from "react-dropzone";
 import { shallowEqual, useSelector } from "react-redux";
 import { selectCategoriesListForRow } from "../../../store/categories";
 import { formatCategoryTitle } from "../../../utils/formatCategoryTitle";
-import { formatPrice } from "../../../utils/formatPrice";
 import { Modal } from "../../shared/components/Modal";
 
 function ModalFormHeader({ title }) {
@@ -42,7 +40,10 @@ function ModalFormFooter({ errors, formId, onClose }) {
 function ModalFormBody({ onSubmit, formId, formData, onChange, onDrop }) {
   const categoriesList = useSelector(selectCategoriesListForRow, shallowEqual);
 
-  const { getRootProps, getInputProps, isDragActive } = useDropzone({ onDrop });
+  const { getRootProps, getInputProps, isDragActive } = useDropzone({
+    onDrop,
+    accept: { "image/*": [] },
+  });
 
   return (
     <form onSubmit={onSubmit} encType="multipart/form-data" id={formId}>
