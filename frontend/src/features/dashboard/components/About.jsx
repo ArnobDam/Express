@@ -11,9 +11,10 @@ export function About() {
   return (
     <div className="center-main-about-me">
       <div className="about-title">
-      {/* <div className="about-line"></div> */}
-        {profileSelector === 0 && 
-        <div className="about-express">About Express</div>}
+        {/* <div className="about-line"></div> */}
+        {profileSelector === 0 && (
+          <div className="about-express">About Express</div>
+        )}
         {profileSelector !== 0 && (
           <div className="back-to-about-main">
             <div
@@ -30,7 +31,11 @@ export function About() {
         <div className="about-team">
           {profileSelector === 0 && (
             <div className="motto-team-about">
-              Express is a POS System built upon efficiency, ease of access and sleek visuals. We created Express in order to upgrade existing restaurant owners’ technologies. Besides seamless checkout technology, user’s are also able to view data visualizations of their business’ sales.
+              Express is a POS System built upon efficiency, ease of access and
+              sleek visuals. We created Express in order to upgrade existing
+              restaurant owners’ technologies. Besides seamless checkout
+              technology, user’s are also able to view data visualizations of
+              their business’ sales.
             </div>
           )}
           {profileSelector === 1 && (
@@ -51,24 +56,11 @@ export function About() {
               <div className="arnob-about-me-body">
                 <span className="text-body">
                   <p className="main-text-body">
-                    Hey! Welcome to our application, ExpressPOS. Lorem ipsum
-                    dolor sit amet, consectetur adipiscing elit. Cras at leo
-                    felis. Sed dictum luctus urna, quis vulputate erat pulvinar
-                    nec. Duis in mattis purus. Pellentesque nisl urna,
-                    consectetur nec suscipit at, volutpat quis magna. Nam
-                    bibendum gravida lectus, a imperdiet enim elementum at.
-                    Praesent consequat odio in felis aliquet efficitur. Morbi
-                    luctus, mi eu ultricies vestibulum, urna nibh aliquet dui,
-                    et luctus risus nisi at magna. Cras lobortis lectus quis
-                    ante eleifend dignissim. Nam sed placerat lacus. Nunc ornare
-                    lacus dolor. Donec velit diam, malesuada id arcu nec, auctor
-                    interdum nunc. Sed dictum ut eros sit amet euismod. Proin
-                    ornare, augue at tincidunt laoreet, metus turpis suscipit
-                    ligula, viverra tincidunt turpis sapien ac quam. Etiam
-                    scelerisque metus nec nibh ultrices fermentum. Nam tincidunt
-                    odio ut ante dignissim, eu scelerisque dolor tincidunt.
-                    Phasellus gravida, nulla varius consectetur congue, tortor
-                    leo pulvinar dui, mattis posuere nunc quam eget mauris.
+                    Hey! Welcome to our application, Express, our custom
+                    Point-of-Sale system. As project lead, I contributed to both
+                    the front- and back-end of our system (which utilizes the
+                    MERN Stack). I further led our team meetings and set the
+                    team's daily objectives. I hope you enjoy using Express!
                   </p>
                 </span>
               </div>
