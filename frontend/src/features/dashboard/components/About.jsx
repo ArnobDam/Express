@@ -310,9 +310,11 @@ export function About() {
               <div className="kunju-about-me-body">
                 <span className="text-body">
                   <p className="main-text-body">
-                    Headed front-end development of the UI / UX of our POS
-                    System via React, and heavily contributed to styling the
-                    front-end via HTML / CSS
+                    Hi everyone, welcome to Express! My name is Kunju Kim and I
+                    headed the front-end development of the UI / UX of our POS
+                    System via React, and heavily contributed styling the
+                    front-end via HTML / CSS. I hope you enjoy your experience
+                    using Express and feel free to reach out with any questions!
                   </p>
                 </span>
               </div>
