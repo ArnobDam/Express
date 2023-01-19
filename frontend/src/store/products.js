@@ -3,7 +3,7 @@ import { createSelector } from "reselect";
 import {
   EDIT_PRODUCT_MODAL,
   SHOW_ADD_ITEM_TO_CART_MODAL,
-  SHOW_ADD_NEW_ITEM_MODAL,
+  // SHOW_ADD_NEW_ITEM_MODAL,
 } from "./ui";
 
 const RECEIVE_PRODUCTS = "products/RECEIVE_PRODUCTS";
