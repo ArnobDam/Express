@@ -6,9 +6,11 @@
 .category-container {
   background-color: var(--lightest-grey);
   border-radius: 20px;
-  padding: 20px;
-  margin-top: 14px;
+  padding: 20px 20px 20px 20px;
+  margin-top: 30px;
+  padding-left: 30px;
   width: 100%;
+  
   /* padding: 20px 20px 20px 20px;
   margin: 20px 20px 20px; */
 }
@@ -69,6 +71,7 @@
   letter-spacing: 0.7px;
   border-radius: 6px;
   transition: filter ease-in 120ms;
+  margin-right: 10px;
 }
 
 .add-new-btn:hover {
@@ -81,6 +84,7 @@
 
 .category-name {
   letter-spacing: 1px;
+  margin-left: 10px;
 }
 
 .item-container-meanager {

@@ -18,7 +18,7 @@
 
 .history-title {
   font-size: 22px;
-  padding: 3.3rem 0 2rem 0;
+  padding: 23px 0 2rem 0;
 }
 
 .history-order {
@@ -100,8 +100,8 @@
   display: flex;
   flex-direction: column;
   min-height: 100px;
-  padding: 20px 0 0 0;
-  margin: 20px 20px 0 20px;
+  padding: 0 0 0 0;
+  margin: 0 20px 0 20px;
   border-radius: 20px;
   display: flex;
   justify-content: space-between;
