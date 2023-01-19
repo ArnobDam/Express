@@ -7,8 +7,8 @@ const validateProductInput = [
     .withMessage("Product name is required")
     .isString()
     .withMessage("Product name must be a string")
-    .isLength({ min: 2, max: 20 })
-    .withMessage("Name must be between 2 and 20 characters")
+    .isLength({ min: 2, max: 30 })
+    .withMessage("Name must be between 2 and 30 characters")
     .matches(/[a-zA-Z]/)
     .withMessage("Product name contains invalid values"),
   check("price")

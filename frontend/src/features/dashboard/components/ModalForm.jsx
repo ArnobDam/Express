@@ -38,6 +38,7 @@ function ModalFormFooter({ errors, formId, onClose }) {
 }
 
 function ModalFormBody({ onSubmit, formId, formData, onChange, onDrop }) {
+  console.log(formData);
   const categoriesList = useSelector(selectCategoriesListForRow, shallowEqual);
 
   const { getRootProps, getInputProps, isDragActive } = useDropzone({
@@ -53,7 +54,7 @@ function ModalFormBody({ onSubmit, formId, formData, onChange, onDrop }) {
           type="text"
           name="name"
           placeholder="Name"
-          value={formData.name}
+          value={formData.name ?? ""}
           onChange={onChange}
         />
       </div>
@@ -62,7 +63,7 @@ function ModalFormBody({ onSubmit, formId, formData, onChange, onDrop }) {
           className="select-option"
           name="category"
           id="category"
-          value={formData.category}
+          value={formData.category ?? ""}
           onChange={onChange}
         >
           <option value="" key="">
@@ -81,7 +82,7 @@ function ModalFormBody({ onSubmit, formId, formData, onChange, onDrop }) {
           type="text"
           name="description"
           placeholder="Description"
-          value={formData.description}
+          value={formData.description ?? ""}
           onChange={onChange}
         />
       </div>
@@ -91,7 +92,7 @@ function ModalFormBody({ onSubmit, formId, formData, onChange, onDrop }) {
           type="text"
           name="price"
           placeholder="Price"
-          value={formData.price}
+          value={formData.price ?? ""}
           onChange={onChange}
         />
       </div>
@@ -99,7 +100,7 @@ function ModalFormBody({ onSubmit, formId, formData, onChange, onDrop }) {
         className="pic-input"
         {...getRootProps({ style: { cursor: "pointer" } })}
       >
-        <input {...getInputProps()} />
+        <input {...getInputProps({ name: "imageUrl" })} />
         {isDragActive ? (
           <div>Drop the files here ...</div>
         ) : (

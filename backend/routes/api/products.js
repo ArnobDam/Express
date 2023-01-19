@@ -2,7 +2,6 @@ const express = require("express");
 const router = express.Router();
 const busboy = require("connect-busboy");
 const path = require("path");
-const bcrypt = require("bcryptjs");
 const fs = require("fs-extra");
 
 const mongoose = require("mongoose");
@@ -86,6 +85,7 @@ router.patch("/:productId", validateProductInput, async (req, res, next) => {
       name: req.body.name,
       price: req.body.price,
       description: req.body.description,
+      category: req.body.category,
       imageUrl: req.body.imageUrl,
     },
     { new: true }
@@ -109,6 +109,7 @@ router.put("/:productId", validateProductInput, async (req, res, next) => {
       name: req.body.name,
       price: req.body.price,
       description: req.body.description,
+      category: req.body.category,
       imageUrl: req.body.imageUrl,
     },
     { new: true }
