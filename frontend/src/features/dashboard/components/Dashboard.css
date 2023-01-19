@@ -201,7 +201,8 @@
 .item {
   cursor: pointer;
   margin-top: 15px;
-  width: 140px;
+  /* width: 140px; */
+  margin-right: 8px;
   height: 170px;
   background-color: white;
   border-radius: 10px;

@@ -36,7 +36,11 @@ export function HistoryCard({ history }) {
             <div className="history-price">
               {formatPrice(history.totalPrice)}
             </div>
-            <div className="history-payment-method">Credit Card</div>
+            <div className="history-payment-method">
+              {history?.notes === "credit" || !history?.notes
+                ? "Credit Card"
+                : history?.notes}
+            </div>
           </div>
         </div>
       </div>

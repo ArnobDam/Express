@@ -10,6 +10,7 @@ const INCREMENT_QUANTITY = "orders/INCREMENT_QUANTITY";
 const DECREMENT_QUANTITY = "orders/DECREMENT_QUANTITY";
 const REMOVE_ITEM_FROM_CART = "orders/REMOVE_ITEM_FROM_CART";
 const INCREMENT_ORDER_NUMBER = "orders/INCREMEMNT_ORDER_NUMBER";
+const UPDATE_PAYMENT_TYPE = "orders/UPDATE_PAYMENT_TYPE";
 
 export const addOrderItem = (orderItem) => ({
   type: ADD_ORDER_ITEM,
@@ -40,26 +41,32 @@ export const incrementOrderNumber = () => ({
   type: INCREMENT_ORDER_NUMBER,
 });
 
+export const updatePaymentType = (paymentType) => ({
+  type: UPDATE_PAYMENT_TYPE,
+  payload: paymentType,
+});
+
 export const createOrderAsync = () => async (dispatch, getState) => {
-  const currentOrder = getState().orders.current;
-  if (currentOrder.products.length < 1) {
+  const currentOrder = getState().orders;
+  if (currentOrder.current.products.length < 1) {
     return;
   }
   let orderItems = [];
-  currentOrder.products.forEach((item) => {
+  currentOrder.current.products.forEach((item) => {
     for (let i = 0; i < item.quantity; i++) {
       orderItems.push({ _id: item.id });
     }
   });
-
   try {
     const res = await jwtFetch("/api/orders", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ products: orderItems }),
+      body: JSON.stringify({
+        products: orderItems,
+        notes: currentOrder.notes,
+      }),
     });
     const data = await res.json();
-    // console.log({ data });
     dispatch(completeOrder(data));
     dispatch(incrementOrderNumber());
     if (window.localStorage.getItem("orderNumber")) {
@@ -86,6 +93,7 @@ const initialState = {
     : 1,
   tax: TAX_RATE,
   history: [],
+  notes: "credit",
 };
 
 export const ordersReducer = (state = initialState, action) => {
@@ -189,6 +197,12 @@ export const ordersReducer = (state = initialState, action) => {
         orderNumber: state.orderNumber + 1,
       };
     }
+    case UPDATE_PAYMENT_TYPE: {
+      return {
+        ...state,
+        notes: action.payload,
+      };
+    }
     default:
       return state;
   }
@@ -259,3 +273,4 @@ export const selectTotalWithTax = createSelector(
 );
 
 export const selectOrderHistoryList = (state) => state.orders.history;
+export const selectOrderPaymentType = (state) => state.orders.notes;

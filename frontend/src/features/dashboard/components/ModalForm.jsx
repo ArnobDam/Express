@@ -38,7 +38,6 @@ function ModalFormFooter({ errors, formId, onClose }) {
 }
 
 function ModalFormBody({ onSubmit, formId, formData, onChange, onDrop }) {
-  console.log(formData);
   const categoriesList = useSelector(selectCategoriesListForRow, shallowEqual);
 
   const { getRootProps, getInputProps, isDragActive } = useDropzone({
@@ -53,6 +52,7 @@ function ModalFormBody({ onSubmit, formId, formData, onChange, onDrop }) {
           className="product-form-input"
           type="text"
           name="name"
+          required
           placeholder="Name"
           value={formData.name ?? ""}
           onChange={onChange}
@@ -63,6 +63,7 @@ function ModalFormBody({ onSubmit, formId, formData, onChange, onDrop }) {
           className="select-option"
           name="category"
           id="category"
+          required
           value={formData.category ?? ""}
           onChange={onChange}
         >
@@ -93,6 +94,7 @@ function ModalFormBody({ onSubmit, formId, formData, onChange, onDrop }) {
           name="price"
           placeholder="Price"
           value={formData.price ?? ""}
+          required
           onChange={onChange}
         />
       </div>

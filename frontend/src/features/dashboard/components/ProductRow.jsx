@@ -64,46 +64,6 @@ export const ProductRow = forwardRef(
                 </Slide>
               ))}
             </Carousel>
-            {/* <CarouselProvider
-              naturalSlideHeight={600}
-              naturalSlideWidth={500}
-              totalSlides={products.length}
-              visibleSlides={4}
-              step={4}
-              dragEnabled={false}
-              className="relative"
-            >
-              <ButtonBack className="carousel-control-btn back">
-                <RxCaretLeft />
-              </ButtonBack>
-              <ButtonNext className="carousel-control-btn next">
-                <RxCaretRight />
-              </ButtonNext>
-              <Slider>
-                {products.map((product, index) => (
-                  <Slide key={product._id} index={index}>
-                    <div
-                      className="item"
-                      onClick={() =>
-                        create ? () => {} : handleShowAddProductModal(product)
-                      }
-                    >
-                      <img
-                        className="food-image"
-                        src={product.imageUrl}
-                        alt={product.name}
-                        height="100%"
-                        style={{ objectFit: "cover" }}
-                      />
-                      <div className="menu-name">{product.name}</div>
-                      <div className="item-price">
-                        {formatPrice(product.price)}
-                      </div>
-                    </div>
-                  </Slide>
-                ))}
-              </Slider>
-            </CarouselProvider> */}
           </div>
         </div>
       </div>

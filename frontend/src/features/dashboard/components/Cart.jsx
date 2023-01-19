@@ -9,15 +9,16 @@ import {
   selectCurrentCartItemsExpanded,
   selectCurrentOrderNumber,
   selectDiscountAmount,
+  selectOrderPaymentType,
   selectSalesTax,
   selectSubTotal,
   selectTotalWithTax,
+  updatePaymentType,
 } from "../../../store/orders";
 import { CartItem } from "./CartItem";
 import { createRef } from "react";
 import { format } from "date-fns";
 import { formatPrice } from "../../../utils/formatPrice";
-import { useState } from "react";
 
 const TODAY = format(Date.now(), "LLL d yyyy");
 const formatOrderNumber = (orderNumber) => {
@@ -35,13 +36,12 @@ export function Cart() {
   const salesTax = useSelector(selectSalesTax);
   const discountedAmount = useSelector(selectDiscountAmount);
   const totalWithTax = useSelector(selectTotalWithTax);
+  const paymentType = useSelector(selectOrderPaymentType);
 
   const scrollRefs = currentCartItems.reduce((prev, curr) => {
     prev[curr.id] = createRef();
     return prev;
   }, {});
-
-  const [paymentType, setPaymentType] = useState(null);
 
   return (
     <>
@@ -75,7 +75,7 @@ export function Cart() {
                   paymentType === "credit" ? "active-payment" : ""
                 }`}
                 role="button"
-                onClick={() => setPaymentType("credit")}
+                onClick={() => dispatch(updatePaymentType("credit"))}
               >
                 <div>
                   <BsFillCreditCard2BackFill />
@@ -87,7 +87,7 @@ export function Cart() {
                   paymentType === "cash" ? "active-payment" : ""
                 }`}
                 role="button"
-                onClick={() => setPaymentType("cash")}
+                onClick={() => dispatch(updatePaymentType("cash"))}
               >
                 <div>
                   <RiMoneyDollarCircleFill />
@@ -99,7 +99,7 @@ export function Cart() {
                   paymentType === "code" ? "active-payment" : ""
                 }`}
                 role="button"
-                onClick={() => setPaymentType("code")}
+                onClick={() => dispatch(updatePaymentType("code"))}
               >
                 <div>
                   <MdQrCode />
@@ -133,7 +133,7 @@ export function Cart() {
                 className="order-button"
                 onClick={() => {
                   dispatch(createOrderAsync());
-                  setPaymentType(null);
+                  dispatch(updatePaymentType("credit"));
                 }}
                 disabled={currentCartItems.length === 0}
               >

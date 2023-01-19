@@ -92,7 +92,6 @@
 .product-card-item {
   cursor: pointer;
   margin-top: 15px;
-  width: 140px;
   height: 190px;
   background-color: white;
   border-radius: 10px;
@@ -102,6 +101,8 @@
   flex-direction: column;
   text-align: center;
   transition: box-shadow ease-in 180ms;
+  margin-right: 8px;
+  /* width: 140px; */
 }
 
 .item:hover {
@@ -117,6 +118,7 @@
 
 .menu-name {
   font-size: 13px;
+  padding: 0 4px;
 }
 
 .item-price {
