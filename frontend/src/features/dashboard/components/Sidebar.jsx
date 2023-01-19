@@ -112,7 +112,7 @@ export function Sidebar() {
   return (
     <div>
       <div className="brand-logo" style={{ width: "120px", height: "100px" }} />
-      <div className="searchbar-container">
+      <div className="searchbar-container" style={{ visibility: "hidden" }}>
         <input
           className="searchbar"
           type="search"
