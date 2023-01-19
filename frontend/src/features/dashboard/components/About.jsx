@@ -184,24 +184,9 @@ export function About() {
               <div className="chazz-about-me-body">
                 <span className="text-body">
                   <p className="main-text-body">
-                    Hey! Welcome to our application, ExpressPOS. Lorem ipsum
-                    dolor sit amet, consectetur adipiscing elit. Cras at leo
-                    felis. Sed dictum luctus urna, quis vulputate erat pulvinar
-                    nec. Duis in mattis purus. Pellentesque nisl urna,
-                    consectetur nec suscipit at, volutpat quis magna. Nam
-                    bibendum gravida lectus, a imperdiet enim elementum at.
-                    Praesent consequat odio in felis aliquet efficitur. Morbi
-                    luctus, mi eu ultricies vestibulum, urna nibh aliquet dui,
-                    et luctus risus nisi at magna. Cras lobortis lectus quis
-                    ante eleifend dignissim. Nam sed placerat lacus. Nunc ornare
-                    lacus dolor. Donec velit diam, malesuada id arcu nec, auctor
-                    interdum nunc. Sed dictum ut eros sit amet euismod. Proin
-                    ornare, augue at tincidunt laoreet, metus turpis suscipit
-                    ligula, viverra tincidunt turpis sapien ac quam. Etiam
-                    scelerisque metus nec nibh ultrices fermentum. Nam tincidunt
-                    odio ut ante dignissim, eu scelerisque dolor tincidunt.
-                    Phasellus gravida, nulla varius consectetur congue, tortor
-                    leo pulvinar dui, mattis posuere nunc quam eget mauris.
+                    Heavily involved in the full-stack development of our
+                    system, using his expertise in all parts of the MERN Stack.
+                    Truly a team player.
                   </p>
                 </span>
               </div>
@@ -325,24 +310,9 @@ export function About() {
               <div className="kunju-about-me-body">
                 <span className="text-body">
                   <p className="main-text-body">
-                    Hey! Welcome to our application, ExpressPOS. Lorem ipsum
-                    dolor sit amet, consectetur adipiscing elit. Cras at leo
-                    felis. Sed dictum luctus urna, quis vulputate erat pulvinar
-                    nec. Duis in mattis purus. Pellentesque nisl urna,
-                    consectetur nec suscipit at, volutpat quis magna. Nam
-                    bibendum gravida lectus, a imperdiet enim elementum at.
-                    Praesent consequat odio in felis aliquet efficitur. Morbi
-                    luctus, mi eu ultricies vestibulum, urna nibh aliquet dui,
-                    et luctus risus nisi at magna. Cras lobortis lectus quis
-                    ante eleifend dignissim. Nam sed placerat lacus. Nunc ornare
-                    lacus dolor. Donec velit diam, malesuada id arcu nec, auctor
-                    interdum nunc. Sed dictum ut eros sit amet euismod. Proin
-                    ornare, augue at tincidunt laoreet, metus turpis suscipit
-                    ligula, viverra tincidunt turpis sapien ac quam. Etiam
-                    scelerisque metus nec nibh ultrices fermentum. Nam tincidunt
-                    odio ut ante dignissim, eu scelerisque dolor tincidunt.
-                    Phasellus gravida, nulla varius consectetur congue, tortor
-                    leo pulvinar dui, mattis posuere nunc quam eget mauris.
+                    Headed front-end development of the UI / UX of our POS
+                    System via React, and heavily contributed to styling the
+                    front-end via HTML / CSS
                   </p>
                 </span>
               </div>
@@ -472,37 +442,9 @@ export function About() {
               <div className="daniel-about-me-body">
                 <span className="text-body">
                   <p className="main-text-body">
-                    Hey! Welcome to our application, ExpressPOS. Lorem ipsum
-                    dolor sit amet, consectetur adipiscing elit. Cras at leo
-                    felis. Sed dictum luctus urna, quis vulputate erat pulvinar
-                    nec. Duis in mattis purus. Pellentesque nisl urna,
-                    consectetur nec suscipit at, volutpat quis magna. Nam
-                    bibendum gravida lectus, a imperdiet enim elementum at.
-                    Praesent consequat odio in felis aliquet efficitur. Morbi
-                    luctus, mi eu ultricies vestibulum, urna nibh aliquet dui,
-                    et luctus risus nisi at magna. Cras lobortis lectus quis
-                    ante eleifend dignissim. Nam sed placerat lacus. Nunc ornare
-                    lacus dolor. Donec velit diam, malesuada id arcu nec, auctor
-                    interdum nunc. Sed dictum ut eros sit amet euismod. Proin
-                    ornare, augue at tincidunt laoreet, metus turpis suscipit et
-                    luctus risus nisi at magna. Cras lobortis lectus quis ante
-                    eleifend dignissim. Nam sed placerat lacus. Nunc ornare
-                    lacus dolor. Donec velit diam, malesuada id arcu nec, auctor
-                    interdum nunc. Sed dictum ut eros sit amet euismod. Proin
-                    ornare, augue at tincidunt laoreet, metus turpis suscipit et
-                    luctus risus nisi at magna. Cras lobortis lectus quis ante
-                    eleifend dignissim. Nam sed placerat lacus. Nunc ornare
-                    lacus dolor. Donec velit diam, malesuada id arcu nec, auctor
-                    interdum nunc. Sed dictum ut eros sit amet euismod. Proin
-                    ornare, augue at tincidunt laoreet, metus turpis suscipit
-                    lacus dolor. Donec velit diam, malesuada id arcu nec, auctor
-                    interdum nunc. Sed dictum ut eros sit amet euismod. Proin
-                    ornare, augue at tincidunt laoreet, metus turpis suscipit et
-                    luctus risus nisi at magna. Cras lobortis lectus quis ante
-                    eleifend dignissim. Nam sed placerat lacus. Nunc ornare
-                    lacus dolor. Donec velit diam, malesuada id arcu nec, auctor
-                    interdum nunc. Sed dictum ut eros sit amet euismod. Proin
-                    ornare, augue at tincidunt laoreet, metus turpis suscipit
+                    Headed back-end development of our system via expertise in
+                    MongoDB and Express, and served as the team's Git Master as
+                    well.
                   </p>
                 </span>
               </div>
