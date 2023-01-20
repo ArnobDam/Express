@@ -31,6 +31,7 @@ export function About() {
         <div className="about-team">
           <div className="about-team-flex">
           {profileSelector === 0 && (
+            <>
             <div className="motto-team-about">
               Express is a POS System built upon efficiency, ease of access and
               sleek visuals. We created Express in order to upgrade existing
@@ -38,9 +39,7 @@ export function About() {
               technology, user’s are also able to view data visualizations of
               their business’ sales.
             </div>
-            
-          )}
-          <div className="aboutFlex">
+            <div className="aboutFlex">
           <div className="circle-border">
                   <img
                     alt="arnob"
@@ -70,6 +69,9 @@ export function About() {
                   />
                 </div>
                 </div>
+            </>
+          )}
+          
                 </div>
 
           {profileSelector === 1 && (
