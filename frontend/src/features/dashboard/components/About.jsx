@@ -372,7 +372,7 @@ export function About() {
                     </a>
                     <a
                       id="logo"
-                      href="https://www.linkedin.com/in/kun-ju-kim-473374b4/"
+                      href="https://www.linkedin.com/in/kunjukim/"
                     >
                       <svg
                         xmlns="http://www.w3.org/2000/svg"
@@ -448,7 +448,7 @@ export function About() {
                     </a>
                     <a
                       id="logo"
-                      href="https://kkj2010.github.io/Javascript-Project/"
+                      href="https://kkj2010.github.io/Mugunghwa/"
                     >
                       <svg
                         xmlns="http://www.w3.org/2000/svg"
