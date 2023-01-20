@@ -29,6 +29,7 @@ export function About() {
       </div>
       <div className="main-about">
         <div className="about-team">
+          <div className="about-team-flex">
           {profileSelector === 0 && (
             <div className="motto-team-about">
               Express is a POS System built upon efficiency, ease of access and
@@ -37,7 +38,40 @@ export function About() {
               technology, user’s are also able to view data visualizations of
               their business’ sales.
             </div>
+            
           )}
+          <div className="aboutFlex">
+          <div className="circle-border">
+                  <img
+                    alt="arnob"
+                    className="profile-pic1"
+                    src="https://media.licdn.com/dms/image/C4D03AQEvbYVuaaEkEg/profile-displayphoto-shrink_800_800/0/1607486966851?e=1677110400&v=beta&t=epkurBoMNSnA13BOztde8kLmi1zwQX31XZQLLYPasyE"
+                  />
+                </div>
+                <div className="circle-border">
+                  <img
+                    alt="chazz"
+                    className="profile-pic1"
+                    src="https://www.kindpng.com/picc/m/136-1369892_avatar-people-person-business-user-man-character-avatar.png"
+                  />
+                </div>
+                <div className="circle-border">
+                  <img
+                    alt="kunju"
+                    className="profile-pic1"
+                    src="https://secure.gravatar.com/avatar/a867c078843d21095e8b49a46af573d1?secure=true&size=300"
+                  />
+                </div>
+                <div className="circle-border">
+                  <img
+                    alt="daniel"
+                    className="profile-pic1"
+                    src="https://secure.gravatar.com/avatar/00b58fe109a8a8d4756e6cd8d4cc09a4?secure=true&size=300"
+                  />
+                </div>
+                </div>
+                </div>
+
           {profileSelector === 1 && (
             <div className="main-about-me-element">
               <div className="arnob-about-me">
@@ -63,7 +97,10 @@ export function About() {
                     team's daily objectives. I hope you enjoy using Express!
                   </p>
                 </span>
+                
               </div>
+
+
               <div className="arnob-about-me-body-links">
                 <span className="text-body">
                   <div className="link-to">
@@ -310,10 +347,10 @@ export function About() {
               <div className="kunju-about-me-body">
                 <span className="text-body">
                   <p className="main-text-body">
-                    Hi everyone, welcome to Express! My name is Kunju Kim and I
+                    Hi everyone, welcome to Express! <br></br>My name is Kunju Kim and I
                     headed the front-end development of the UI / UX of our POS
                     System via React, and heavily contributed styling the
-                    front-end via HTML / CSS. I hope you enjoy your experience
+                    front-end via HTML / CSS. <br></br>I hope you enjoy your experience
                     using Express and feel free to reach out with any questions!
                   </p>
                 </span>

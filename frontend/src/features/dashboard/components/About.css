@@ -19,6 +19,36 @@
   border-right: 1px solid rgba(0, 0, 0, 0.1);
 }
 
+.about-team-flex{
+  display: flex;
+  flex-direction: column;
+  
+}
+.aboutFlex{
+  margin-top:300px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.circle-border {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  align-content: center;
+  height: 74px;
+  width: 102px;
+  border-radius: 72px;
+  /* animation: rotateCircle 2s linear 0s infinite forwards;
+  background: linear-gradient(45deg, var(--bg-primary), var(--lightest-grey))
+    content-box; */
+}
+.profile-pic1 {
+  height: 150px;
+  width: 150px;
+  border-radius: 72px;
+  /* animation: rotateCircle 2s linear 0s infinite reverse; */
+}
+
 .about-express {
   color: var(--bg-primary);
   font-size: 30px;
